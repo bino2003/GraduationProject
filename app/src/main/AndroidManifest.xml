@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GraduationProject"
+        tools:targetApi="31">
+        <activity
+            android:name=".Reset_password"
+            android:exported="false" />
+        <activity
+            android:name=".ViewInformationProtectiveFamilyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateInformationProductiveFamilyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewProduct"
+            android:exported="false" />
+        <activity
+            android:name=".AddProducts"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateProducts"
+            android:exported="false" />
+        <activity
+            android:name=".ProductiveFamilyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsProductiveFamily"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryProductiveFamily"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCyikKMMUIWJG2GSCwFisGzvEtIQUeRQW8" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
