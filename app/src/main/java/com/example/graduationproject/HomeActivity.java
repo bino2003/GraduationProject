@@ -7,30 +7,72 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.graduationproject.databinding.ActivityHomeBinding;
+import com.example.graduationproject.model.ProductiveFamily;
+import com.example.graduationproject.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
-    FirebaseFirestore firestore;
+    users user;
+    FirebaseAuth auth=FirebaseAuth.getInstance();
+    FirebaseFirestore firestore=FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user=auth.getCurrentUser();
+
+                auth.signOut();
+                user.reload();
+
+                Toast.makeText(HomeActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
+            finish();
+
+
+            }
+        });
+
 
 
         binding.profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ProductiveFamilyProfile.class));
+             String id=   auth.getUid();
+                firestore.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        user= task.getResult().toObject(users.class);
+                        String cat=user.getCategorize();
+                        if (cat.equals("Productive family")){
+                            startActivity(new Intent(getApplicationContext(),ProductiveFamilyProfile.class));
+
+                        }else{
+                            startActivity(new Intent(getApplicationContext(),UsersProfile.class));
+
+                        }
+
+                    }
+                });
+
+
             }
         });
         firestore = FirebaseFirestore.getInstance();
@@ -51,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                                     intent.putExtra("ctegoryname",name);
                                     startActivity(intent);
 
+
                                 }
                             });
                             binding.rv.setAdapter(adapter);
@@ -61,4 +104,6 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

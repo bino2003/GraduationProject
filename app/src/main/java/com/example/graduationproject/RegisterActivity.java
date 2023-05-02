@@ -34,13 +34,48 @@ ActivityRegisterBinding binding;
     FirebaseAuth firebaseAuth;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
+    int  catid;
+    String    cat;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.gotosignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         sharedPreferences=getSharedPreferences("sp",MODE_PRIVATE);
         editor= sharedPreferences.edit();
+        String sharedphone=sharedPreferences.getString("phoneaftermap","");
+        String sharedpassword=sharedPreferences.getString("passwordaftermap","");
+        String sharedrepassword=sharedPreferences.getString("repasswordaftermap","");
+        String sharedname=sharedPreferences.getString("nameaftermap","");
+        String sharedemail=sharedPreferences.getString("emailaftermap","");
+        String sharedcat=sharedPreferences.getString("cataftermap","");
+        if (sharedcat!=null){
+            binding.radioGroup.check(catid);
+        }
+        if (sharedemail!=null){
+            binding.etEmail.setText(sharedemail);
+        }
+        if (sharedname!=null){
+            binding.etname.setText(sharedname);
+        }
+        if (sharedpassword!=null){
+            binding.etPassword.setText(sharedpassword);
+        }
+        if (sharedrepassword!=null){
+            binding.etRePassword.setText(sharedrepassword);
+        }
+        if (sharedphone!=null){
+            binding.etPhone.setText(sharedphone);
+        }
         getIntent().getStringExtra("latlong");
         binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -58,7 +93,65 @@ ActivityRegisterBinding binding;
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(RegisterActivity.this,MapsActivity.class);
+               String passwordmaps= binding.etPassword.getText().toString();
+               String repasswordmaps=binding.etRePassword.getText().toString();
+               String phonemaps=binding.etPhone.getText().toString();
+               String emailmaps=binding.etEmail.getText().toString();
+               String namemaps=binding.etname.getText().toString();
+                binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        if (i==R.id.radioButton){
+                            cat="Productive family";
+                            catid=i;
+                        }else if (i==R.id.radioButton_users){
+                            cat="Users";
+                            catid=i;
+                        }
+                    }
+                });
+                if (namemaps!=null){
+                    editor.putString("nameaftermap",namemaps);
+
+                   editor.apply();
+
+
+                }
+                if (phonemaps!=null){
+
+                    editor.putString("phoneaftermap",phonemaps);
+                    editor.apply();
+
+
+                }
+                if (cat!=null){
+
+                    editor.putString("cataftermap",cat);
+                    editor.apply();
+
+                }
+                if (repasswordmaps!=null){
+
+
+                    editor.putString("repasswordaftermap",repasswordmaps);
+                    editor.apply();
+
+                }
+                if (emailmaps!=null){
+
+                    editor.putString("emailaftermap",emailmaps);
+                    editor.apply();
+
+                }
+                if (passwordmaps!=null){
+
+                    editor.putString("passwordaftermap",passwordmaps);
+                    editor.apply();
+                }
+
+
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -72,8 +165,9 @@ ActivityRegisterBinding binding;
                 password=binding.etPassword.getText().toString();
                 phone=binding.etPhone.getText().toString();
                 rePassword=binding.etRePassword.getText().toString();
+                email=binding.etEmail.getText().toString();
                 location= getIntent().getStringExtra("latlong");
-                if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null){
+                if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null||email==null){
 
                     Toast.makeText(RegisterActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
                 }
@@ -109,6 +203,7 @@ ActivityRegisterBinding binding;
                     Log.d("Register",task.getResult().getUser().toString());
                     setUsers();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
                 }else {
                     Log.d("Register",task.getException().getMessage());
 
@@ -125,9 +220,9 @@ ActivityRegisterBinding binding;
 
             users users=new users();
             users.setName(name);
-            users.setPassword(password);
+
             users.setPhone(phone);
-            users.setRePassword(rePassword);
+
             if (categorize!=null){
                 users.setCategorize(categorize);
             }

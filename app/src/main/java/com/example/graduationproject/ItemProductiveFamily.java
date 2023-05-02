@@ -152,6 +152,7 @@ firebaseAuth=FirebaseAuth.getInstance();
                      intent.putExtra("price", product.getPrice());
                      startActivity(intent);
 
+
                  }
              });
                      binding.rv.setAdapter(productAdapter);

@@ -28,15 +28,17 @@ FirebaseFirestore firebaseFirestore;
         String description=    intent.getStringExtra("description");
         String name=    intent.getStringExtra("name");
         String image =intent.getStringExtra("image");
+        Glide.with(getApplicationContext()).load(image).circleCrop().into(binding.uplodeimgview);
+
         binding.tvCategoryview.setText(category);
         binding.tvDescriptionview.setText(description);
         binding.tvPriceview.setText(price);
         binding.tvNameview.setText(name);
-        Glide.with(getApplicationContext()).load(image).circleCrop().into(binding.uplodeimgview);
         binding.exitview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewProduct.this,ProductiveFamilyProfile.class));
+                finish();
             }
         });
 

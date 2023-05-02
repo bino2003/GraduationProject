@@ -24,6 +24,7 @@ ActivityCategoryProductiveFamilyBinding binding;
 FirebaseFirestore firebaseFirestore;
 
     ArrayList<ProductiveFamily>     productiveFamilyArrayList=new ArrayList<>();
+    ArrayList<ProductiveFamily> productiveFamilyArrayListCat=new ArrayList<>();
 
 
     @Override
@@ -32,9 +33,9 @@ FirebaseFirestore firebaseFirestore;
         binding=ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseFirestore=FirebaseFirestore.getInstance();
+        String cat=getIntent().getStringExtra("ctegoryname");
 
-
-        //ArrayList<ProductiveFamily> productiveFamilyArrayListCat=new ArrayList<>();
+binding.tvCategoryName.setText(cat);
 
 getproductivefamily();
 
@@ -45,7 +46,14 @@ getproductivefamily();
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
            if (task.isSuccessful()){
             productiveFamilyArrayList= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+for (int i=0;i<productiveFamilyArrayList.size();i++){
+    String cat=getIntent().getStringExtra("ctegoryname");
 
+    if (productiveFamilyArrayList.get(i).getCategory().equals(cat)){
+        ProductiveFamily productiveFamily=productiveFamilyArrayList.get(i);
+        productiveFamilyArrayListCat.add(productiveFamily);
+    }
+}
 
                Toast.makeText(CategoryProductiveFamily.this, productiveFamilyArrayList+"", Toast.LENGTH_SHORT).show();
                CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new ListenerOnClickItem() {
@@ -53,8 +61,9 @@ getproductivefamily();
                    public void OnClickItem(String name) {
                        Intent intent = new Intent(getApplicationContext(), DetailsProductiveFamily.class);
                        startActivity(intent);
+
                    }
-               }, productiveFamilyArrayList);
+               }, productiveFamilyArrayListCat);
                binding.rv.setAdapter(categoryProductFamilyAdapter);
 
                binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));

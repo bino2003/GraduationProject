@@ -16,6 +16,13 @@
         app:tabIndicatorColor="@color/blue"
         app:tabSelectedTextColor="@color/blue"
         tools:ignore="SpeakableTextPresentCheck" />
+    <ImageView
+        android:id="@+id/exit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/ViewPager"

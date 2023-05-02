@@ -29,6 +29,7 @@ ActivityUpdateProductsBinding binding;
 
 FirebaseAuth firebaseAuth;
     private Uri imageuri;
+    String imageupdate;
     final private FirebaseFirestore firebaseFirestore =FirebaseFirestore.getInstance();
     final  private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
     @Override
@@ -42,19 +43,14 @@ FirebaseAuth firebaseAuth;
         String olddescription=intent.getStringExtra("descriptionupdate");
         String oldprice=intent.getStringExtra("priceupdate");
         String id = intent.getStringExtra("id");
-        String imageupdate=intent.getStringExtra("imageupdate");
+         imageupdate=intent.getStringExtra("imageupdate");
         Glide.with(getApplicationContext()).load(imageupdate).circleCrop().into(binding.uplodeimgupdate);
 
         binding.etCategryupdate.setText(oldcategory);
         binding.etDescriptionupdate.setText(olddescription);
         binding.etNameupdate.setText(oldname);
         binding.etPriceupdate.setText(oldprice);
-        binding.exitupdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(UpdateProducts.this,ProductiveFamilyProfile.class));
-            }
-        });
+
 binding.updatebtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -114,7 +110,13 @@ binding.updatebtn.setOnClickListener(new View.OnClickListener() {
         product.setCategory(newcategory);
         product.setDescription(newdescription);
         product.setPrice(newprice);
-        product.setImage(String.valueOf(imageuri));
+        if (imageuri!=null){
+            product.setImage(String.valueOf(imageuri));
+        }else {
+            product.setImage(imageupdate);
+
+        }
+
         product.setUser(firebaseAuth.getUid());
         firebaseFirestore.collection("Products").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -123,6 +125,8 @@ binding.updatebtn.setOnClickListener(new View.OnClickListener() {
 
 
                     Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(UpdateProducts.this,ProductiveFamilyProfile.class));
+                    finish();
                 }else {
                     Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();
 

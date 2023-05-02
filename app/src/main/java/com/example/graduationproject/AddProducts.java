@@ -38,12 +38,7 @@ public class AddProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityAddProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AddProducts.this,ProductiveFamilyProfile.class));
-            }
-        });
+
         binding.addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +52,7 @@ public class AddProducts extends AppCompatActivity {
 
                 }else {
                    addproduct();
+
                 }
 
             }
@@ -110,6 +106,8 @@ firebaseAuth=FirebaseAuth.getInstance();
 
 
                     Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(AddProducts.this,ProductiveFamilyProfile.class));
+                    finish();
                 }else {
                     Toast.makeText(AddProducts.this, "Product addition failed  ", Toast.LENGTH_SHORT).show();
 

@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GraduationProject"
         tools:targetApi="31">
         <activity
+            android:name=".UsersProfile"
+            android:exported="false" />
+        <activity
             android:name=".Reset_password"
             android:exported="false" />
         <activity

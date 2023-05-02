@@ -157,7 +157,9 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         binding.btnViewData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),ViewInformationProtectiveFamilyActivity.class));
+                Intent intent=new Intent(getActivity(),ViewInformationProtectiveFamilyActivity.class);
+                startActivity(intent);
+
             }
         });
 

@@ -74,7 +74,7 @@ mMap.addMarker(markerOptions);
         intent.putExtra("latlong",String.valueOf(latLng));
         startActivity(intent);
 
-
+finish();
     }
 });
 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
