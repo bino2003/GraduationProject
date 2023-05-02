@@ -100,9 +100,9 @@ public class HomeActivity extends AppCompatActivity {
                             binding.rv.setAdapter(adapter);
                             binding.rv.setLayoutManager(new GridLayoutManager(getBaseContext(),2));
                         }
-//                        else {
-//                            task.getException().printStackTrace();
-//                        }
+                        else {
+                            task.getException().printStackTrace();
+                        }
                     }
                 });
     }
