@@ -1,6 +1,5 @@
 package com.example.graduationproject;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -19,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
 
@@ -98,9 +99,10 @@ public class HomeActivity extends AppCompatActivity {
                             });
                             binding.rv.setAdapter(adapter);
                             binding.rv.setLayoutManager(new GridLayoutManager(getBaseContext(),2));
-                        } else {
-                            task.getException().printStackTrace();
                         }
+//                        else {
+//                            task.getException().printStackTrace();
+//                        }
                     }
                 });
     }
