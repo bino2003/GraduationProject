@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.graduationproject.ProductiveFamily.InformationProdectiveFamilyFragment;
 import com.example.graduationproject.databinding.ActivityProductiveFamilyProfileBinding;
@@ -22,7 +24,14 @@ ActivityProductiveFamilyProfileBinding binding;
         super.onCreate(savedInstanceState);
         binding=ActivityProductiveFamilyProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+binding.exit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+});
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
 

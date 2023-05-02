@@ -66,13 +66,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_priceupdate" />
-    <ImageView
-        android:id="@+id/exitupdate"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+
     <ImageView
         android:id="@+id/uplodeimgupdate"
         android:layout_width="150dp"

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/s"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
@@ -27,10 +28,10 @@
         android:layout_margin="5dp"
         android:background="@drawable/text"
         android:hint="your location"
-        app:startIconDrawable="@drawable/ic_baseline_add_location_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/ic_baseline_add_location_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_Location"
@@ -54,10 +55,10 @@
         android:background="@drawable/text"
 
         android:hint="enter_your_email"
-        app:startIconDrawable="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_phone">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_phone"
+        app:startIconDrawable="@drawable/ic_baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
@@ -79,10 +80,10 @@
         android:layout_margin="5dp"
         android:background="@drawable/text"
         android:hint="enter_your_name"
-        app:startIconDrawable="@drawable/ic_baseline_perm_identity_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_location">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_location"
+        app:startIconDrawable="@drawable/ic_baseline_perm_identity_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etname"
@@ -158,10 +159,10 @@
         android:background="@drawable/text"
         android:hint="enter_your_phone"
 
-        app:startIconDrawable="@drawable/ic_baseline_phone_iphone_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_repassword">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_repassword"
+        app:startIconDrawable="@drawable/ic_baseline_phone_iphone_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_Phone"
@@ -212,6 +213,24 @@
             android:layout_height="wrap_content"
             android:text="مستخدم" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/Alreadyhave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Already have an account?"
+        app:layout_constraintStart_toStartOf="@+id/btn_Signup"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Signup" />
+
+    <TextView
+        android:id="@+id/gotosignin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Sign in"
+        app:layout_constraintStart_toEndOf="@+id/Alreadyhave"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Signup" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

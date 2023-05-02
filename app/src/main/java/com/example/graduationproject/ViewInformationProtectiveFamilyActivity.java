@@ -64,6 +64,7 @@ public class ViewInformationProtectiveFamilyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getBaseContext(),UpdateInformationProductiveFamilyActivity.class));
+                finish();
             }
         });
 

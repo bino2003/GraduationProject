@@ -30,12 +30,14 @@ binding.forgite.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         startActivity(new Intent(getApplicationContext(),Reset_password.class));
+        finish();
     }
 });
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
 
         if (user!=null){
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
 
         }
         binding.signup.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +80,7 @@ if (password.isEmpty()&&email.isEmpty()){
                 if (task.isSuccessful()){
                     Log.d("Login",task.getResult().getUser().toString());
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
                 }else {
                     Log.d("Login",task.getException().getMessage());
 

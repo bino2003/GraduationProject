@@ -80,7 +80,7 @@ ImageView delete;
 
     public ProductAdapterVH(@NonNull ItemproductBinding binding) {
         super(binding.getRoot());
-        imageViewProduct =binding.imageView;
+        imageViewProduct =binding.imageViewproduct;
         productname=binding.tvProductName;
         productprice=binding.tvProductPrice;
         edite=binding.edite;
