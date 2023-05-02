@@ -43,8 +43,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 Toast.makeText(HomeActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            //innnnn
+                //rrr
             startActivity(intent);
-            finish();
+//            finish();
 
 
             }
