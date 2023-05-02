@@ -1,5 +1,6 @@
 package com.example.graduationproject;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -43,9 +44,11 @@ public class HomeActivity extends AppCompatActivity {
                 user.reload();
 
                 Toast.makeText(HomeActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+//            //innnnn
+//                //rrr
+//            startActivity(intent);
+//            finish();
 
 
             }
