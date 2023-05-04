@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.example.graduationproject.databinding.ActivityViewProductBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ViewProduct extends AppCompatActivity {
@@ -23,17 +26,38 @@ FirebaseFirestore firebaseFirestore;
 
 
       Intent intent= getIntent();
-    String price=    intent.getStringExtra("price");
-        String category=    intent.getStringExtra("category");
-        String description=    intent.getStringExtra("description");
-        String name=    intent.getStringExtra("name");
-        String image =intent.getStringExtra("image");
-        Glide.with(getApplicationContext()).load(image).circleCrop().into(binding.uplodeimgview);
 
-        binding.tvCategoryview.setText(category);
-        binding.tvDescriptionview.setText(description);
-        binding.tvPriceview.setText(price);
-        binding.tvNameview.setText(name);
+        String id=intent.getStringExtra("idview");
+        firebaseFirestore.collection("Products").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        if (document.getString("image")!=null){
+                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgview);
+
+
+                        }
+                        binding.tvCategoryview.setText(document.getString("category"));
+                        binding.tvDescriptionview.setText(document.getString("description"));
+                        binding.tvNameview.setText(document.getString("name"));
+                        binding.tvPriceview.setText(document.getString("price"));
+
+//
+                    }
+                }
+
+            }
+
+        });
+
+//        Glide.with(getApplicationContext()).load(image).circleCrop().into(binding.uplodeimgview);
+//
+//        binding.tvCategoryview.setText(category);
+//        binding.tvDescriptionview.setText(description);
+//        binding.tvPriceview.setText(price);
+//        binding.tvNameview.setText(name);
         binding.exitview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

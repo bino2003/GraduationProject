@@ -150,6 +150,7 @@ firebaseAuth=FirebaseAuth.getInstance();
                      intent.putExtra("description", product.getDescription());
                      intent.putExtra("image", product.getImage());
                      intent.putExtra("price", product.getPrice());
+                     intent.putExtra("idview", product.getId());
                      startActivity(intent);
 
 
