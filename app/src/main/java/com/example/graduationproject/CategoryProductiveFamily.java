@@ -1,5 +1,6 @@
 package com.example.graduationproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,7 @@ FirebaseFirestore firebaseFirestore;
 
     ArrayList<ProductiveFamily>     productiveFamilyArrayList=new ArrayList<>();
     ArrayList<ProductiveFamily> productiveFamilyArrayListCat=new ArrayList<>();
-
+    String cat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ FirebaseFirestore firebaseFirestore;
         binding=ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseFirestore=FirebaseFirestore.getInstance();
-        String cat=getIntent().getStringExtra("ctegoryname");
+        cat=getIntent().getStringExtra("ctegoryname");
+
 
 binding.tvCategoryName.setText(cat);
 
@@ -41,40 +43,35 @@ getproductivefamily();
 
     }
     void getproductivefamily(){
-        firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Productive family").whereEqualTo("category",cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-           if (task.isSuccessful()){
-            productiveFamilyArrayList= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
-for (int i=0;i<productiveFamilyArrayList.size();i++){
-    String cat=getIntent().getStringExtra("ctegoryname");
+                if (task.isSuccessful()) {
+                    productiveFamilyArrayList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                    Toast.makeText(CategoryProductiveFamily.this, productiveFamilyArrayList+"", Toast.LENGTH_SHORT).show();
+                    CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new ListenerOnClickItem() {
+                        @Override
+                        public void OnClickItem(String name) {
+                            Intent intent = new Intent(getApplicationContext(), DetailsProductiveFamily.class);
+                            startActivity(intent);
 
-    if (productiveFamilyArrayList.get(i).getCategory().equals(cat)){
-        ProductiveFamily productiveFamily=productiveFamilyArrayList.get(i);
-        productiveFamilyArrayListCat.add(productiveFamily);
-    }
-}
+                        }
+                    }, productiveFamilyArrayList);
+                    binding.rv.setAdapter(categoryProductFamilyAdapter);
 
-               Toast.makeText(CategoryProductiveFamily.this, productiveFamilyArrayList+"", Toast.LENGTH_SHORT).show();
-               CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new ListenerOnClickItem() {
-                   @Override
-                   public void OnClickItem(String name) {
-                       Intent intent = new Intent(getApplicationContext(), DetailsProductiveFamily.class);
-                       startActivity(intent);
-
-                   }
-               }, productiveFamilyArrayListCat);
-               binding.rv.setAdapter(categoryProductFamilyAdapter);
-
-               binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-categoryProductFamilyAdapter.notifyDataSetChanged();
-
-           }
-          else if (task.isCanceled()){
-               Toast.makeText(CategoryProductiveFamily.this, "faild", Toast.LENGTH_SHORT).show();
-           }
-
+                    binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
+                    categoryProductFamilyAdapter.notifyDataSetChanged();
+                }     else if (task.isCanceled()){
+                    Toast.makeText(CategoryProductiveFamily.this, "faild", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
+
+
+
+
+
     }
 }

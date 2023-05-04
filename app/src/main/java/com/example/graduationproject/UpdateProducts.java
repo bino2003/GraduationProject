@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.example.graduationproject.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,18 +40,38 @@ FirebaseAuth firebaseAuth;
         binding=ActivityUpdateProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Intent intent=getIntent();
-        String oldname=intent.getStringExtra("nameupdate");
-        String oldcategory=intent.getStringExtra("categoryupdate");
-        String olddescription=intent.getStringExtra("descriptionupdate");
-        String oldprice=intent.getStringExtra("priceupdate");
-        String id = intent.getStringExtra("id");
-         imageupdate=intent.getStringExtra("imageupdate");
-        Glide.with(getApplicationContext()).load(imageupdate).circleCrop().into(binding.uplodeimgupdate);
 
-        binding.etCategryupdate.setText(oldcategory);
-        binding.etDescriptionupdate.setText(olddescription);
-        binding.etNameupdate.setText(oldname);
-        binding.etPriceupdate.setText(oldprice);
+        String id = intent.getStringExtra("id");
+        firebaseFirestore.collection("Products").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+if (document.getString("image")!=null){
+    Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
+    imageupdate=document.getString("image");
+
+}
+                        binding.etCategryupdate.setText(document.getString("category"));
+        binding.etDescriptionupdate.setText(document.getString("description"));
+        binding.etNameupdate.setText(document.getString("name"));
+        binding.etPriceupdate.setText(document.getString("price"));
+
+//
+                    }
+                }
+
+            }
+
+        });
+
+//        Glide.with(getApplicationContext()).load(imageupdate).circleCrop().into(binding.uplodeimgupdate);
+//
+//        binding.etCategryupdate.setText(oldcategory);
+//        binding.etDescriptionupdate.setText(olddescription);
+//        binding.etNameupdate.setText(oldname);
+//        binding.etPriceupdate.setText(oldprice);
 
 binding.updatebtn.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -125,7 +147,7 @@ binding.updatebtn.setOnClickListener(new View.OnClickListener() {
 
 
                     Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(UpdateProducts.this,ProductiveFamilyProfile.class));
+                    startActivity(new Intent(getApplicationContext(),ProductiveFamilyProfile.class));
                     finish();
                 }else {
                     Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();
