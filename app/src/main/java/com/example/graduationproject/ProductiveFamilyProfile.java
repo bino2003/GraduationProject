@@ -18,32 +18,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class ProductiveFamilyProfile extends AppCompatActivity {
-ActivityProductiveFamilyProfileBinding binding;
+    ActivityProductiveFamilyProfileBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityProductiveFamilyProfileBinding.inflate(getLayoutInflater());
+        binding = ActivityProductiveFamilyProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-binding.exit.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
-        startActivity(intent);
-        finish();
-    }
-});
-        ArrayList<String> tabs =new ArrayList<>();
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        ArrayList<String> tabs = new ArrayList<>();
         tabs.add("Products");
 
         tabs.add("make Profile");
 
-        ArrayList<Fragment> item_productArrayList=new ArrayList<>();
+        ArrayList<Fragment> item_productArrayList = new ArrayList<>();
         item_productArrayList.add(ItemProductiveFamily.newInstance("Products"));
         item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance());
 
 
-        Log.d("productlist",item_productArrayList.toString());
-        ItemProductAdapter itemProductAdapter=new ItemProductAdapter(this,item_productArrayList);
+        Log.d("productlist", item_productArrayList.toString());
+        ItemProductAdapter itemProductAdapter = new ItemProductAdapter(this, item_productArrayList);
         binding.ViewPager.setAdapter(itemProductAdapter);
         new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
