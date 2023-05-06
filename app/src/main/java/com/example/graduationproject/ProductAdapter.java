@@ -83,7 +83,7 @@ ImageView delete;
         imageViewProduct =binding.imageViewproduct;
         productname=binding.tvProductName;
         productprice=binding.tvProductPrice;
-        edite=binding.edite;
+//        edite=binding.;
         delete=binding.delete;
 
 

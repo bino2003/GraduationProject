@@ -79,8 +79,8 @@ if (productiveFamilyArrayList.get(pos).getEvaluation()!=null&&productiveFamilyAr
         super(view);
         name=view.findViewById(R.id.tv_name);
         imageView=view.findViewById(R.id.imageproductivecat);
-        details =view.findViewById(R.id.tv_details);
+//        details =view.findViewById(R.id.tv_details);
         location=view.findViewById(R.id.tv_location);
-        ratingBar=view.findViewById(R.id.ratingBar);
+//        ratingBar=view.findViewById(R.id.ratingBar);
     }
 }

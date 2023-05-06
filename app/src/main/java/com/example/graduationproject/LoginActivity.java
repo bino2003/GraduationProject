@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.graduationproject.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.net.HostAndPort;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,8 +52,8 @@ startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password=binding.etPassword.getText().toString();
-                String email=binding.etPassword.getText().toString();
+                String password=binding.password.getText().toString();
+                String email=binding.editText.getText().toString();
 
 if (password.isEmpty()&&email.isEmpty()){
     Toast.makeText(LoginActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
@@ -71,8 +72,8 @@ if (password.isEmpty()&&email.isEmpty()){
     private void login(){
 
 
-        String password=binding.etPassword.getText().toString();
-        String email=binding.etEmail.getText().toString();
+        String password=binding.password.getText().toString();
+        String email=binding.editText.getText().toString();
 
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override

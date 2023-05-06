@@ -42,14 +42,14 @@ ActivityRegisterBinding binding;
         super.onCreate(savedInstanceState);
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.gotosignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        binding.gotosignin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
         sharedPreferences=getSharedPreferences("sp",MODE_PRIVATE);
         editor= sharedPreferences.edit();
         String sharedphone=sharedPreferences.getString("phoneaftermap","");
@@ -62,19 +62,19 @@ ActivityRegisterBinding binding;
             binding.radioGroup.check(catid);
         }
         if (sharedemail!=null){
-            binding.etEmail.setText(sharedemail);
+            binding.EmailAddress.setText(sharedemail);
         }
         if (sharedname!=null){
-            binding.etname.setText(sharedname);
+            binding.fullname.setText(sharedname);
         }
         if (sharedpassword!=null){
-            binding.etPassword.setText(sharedpassword);
+            binding.Password.setText(sharedpassword);
         }
         if (sharedrepassword!=null){
-            binding.etRePassword.setText(sharedrepassword);
+            binding.ConfirmPassword.setText(sharedrepassword);
         }
         if (sharedphone!=null){
-            binding.etPhone.setText(sharedphone);
+            binding.PhoneNumber.setText(sharedphone);
         }
         getIntent().getStringExtra("latlong");
         binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -89,15 +89,15 @@ ActivityRegisterBinding binding;
         });
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
-        binding.etLocation.setOnClickListener(new View.OnClickListener() {
+        binding.location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(RegisterActivity.this,MapsActivity.class);
-               String passwordmaps= binding.etPassword.getText().toString();
-               String repasswordmaps=binding.etRePassword.getText().toString();
-               String phonemaps=binding.etPhone.getText().toString();
-               String emailmaps=binding.etEmail.getText().toString();
-               String namemaps=binding.etname.getText().toString();
+               String passwordmaps= binding.Password.getText().toString();
+               String repasswordmaps=binding.ConfirmPassword.getText().toString();
+               String phonemaps=binding.PhoneNumber.getText().toString();
+               String emailmaps=binding.EmailAddress.getText().toString();
+               String namemaps=binding.fullname.getText().toString();
                 binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -161,11 +161,11 @@ ActivityRegisterBinding binding;
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name=binding.etname.getText().toString();
-                password=binding.etPassword.getText().toString();
-                phone=binding.etPhone.getText().toString();
-                rePassword=binding.etRePassword.getText().toString();
-                email=binding.etEmail.getText().toString();
+                name=binding.fullname.getText().toString();
+                password=binding.Password.getText().toString();
+                phone=binding.PhoneNumber.getText().toString();
+                rePassword=binding.ConfirmPassword.getText().toString();
+                email=binding.EmailAddress.getText().toString();
                 location= getIntent().getStringExtra("latlong");
                 if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null||email==null){
 
@@ -178,8 +178,8 @@ ActivityRegisterBinding binding;
 
                 else {
                     register();
-                    editor.putString("name",binding.etname.getText().toString());
-                    editor.putInt("phone", Integer.parseInt(binding.etPhone.getText().toString()));
+                    editor.putString("name",binding.fullname.getText().toString());
+                    editor.putInt("phone", Integer.parseInt(binding.PhoneNumber.getText().toString()));
 //                   editor.putString("latlong", binding.maps.getla().toString());
                     editor.apply();
 
@@ -195,7 +195,7 @@ ActivityRegisterBinding binding;
     private void register(){
 
 
-        firebaseAuth.createUserWithEmailAndPassword(binding.etEmail.getText().toString(),binding.etPassword.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(binding.EmailAddress.getText().toString(),binding.Password.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

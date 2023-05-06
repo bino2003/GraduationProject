@@ -65,11 +65,12 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseAuth = FirebaseAuth.getInstance();
 
             sharedPreferences = getActivity().getSharedPreferences("sp", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -91,7 +92,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             imageuri = data.getData();
-                            binding.image.setImageURI(imageuri);
+//                            binding.image.setImageURI(imageuri);
 
                         } else {
                             Toast.makeText(getActivity(), "No Image Selected", Toast.LENGTH_SHORT).show();
@@ -99,69 +100,69 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     }
                 }
         );
-        binding.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPicker = new Intent();
-                photoPicker.setAction(Intent.ACTION_GET_CONTENT);
-                photoPicker.setType("image/*");
-                activityResultLauncher.launch(photoPicker);
-            }
-        });
+//        binding.image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent photoPicker = new Intent();
+//                photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+//                photoPicker.setType("image/*");
+//                activityResultLauncher.launch(photoPicker);
+//            }
+//        });
 
 
-        binding.save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                image = String.valueOf(binding.image.getDrawable());
-
-                description = binding.etDescription.getText().toString();
-                category = binding.category.getText().toString();
-                ProductiveFamily productiveFamily = new ProductiveFamily();
-                productiveFamily.setCategory(category);
-                productiveFamily.setImage(String.valueOf(imageuri));
-                Log.d("images gallary", "onClick: "+imageuri);
-                String name = sharedPreferences.getString("name", null);
-                int phone = sharedPreferences.getInt("phone", 0);
-//        String latlong = sharedPreferences.getString("latlong", null);
-                productiveFamily.setPhone(phone);
-                productiveFamily.setName(name);
-                productiveFamily.setDetails(description);
-//        productiveFamily.setLatlong(latlong);
-//        Log.d("category_name", category);
-                firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful() && binding.category.getText() != null && binding.etDescription.getText() != null) {
-                            Log.d("data ", productiveFamily.toString());
-
-                            Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
-                            //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-
-                        } else {
-                            Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                });
-                if (binding.category.getText().toString()!=null && binding.etDescription.getText().toString()!=null ) {
-//                    Log.d("data ", productiveFamily.toString());
-                    Toast.makeText(getActivity(), " not success ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-                }
-
-
-
-            }
-        });
-        binding.btnViewData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),ViewInformationProtectiveFamilyActivity.class);
-                startActivity(intent);
-
-            }
-        });
+//        binding.save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                image = String.valueOf(binding.image.getDrawable());
+//
+//                description = binding.etDescription.getText().toString();
+//                category = binding.category.getText().toString();
+//                ProductiveFamily productiveFamily = new ProductiveFamily();
+//                productiveFamily.setCategory(category);
+//                productiveFamily.setImage(String.valueOf(imageuri));
+//                Log.d("images gallary", "onClick: "+imageuri);
+//                String name = sharedPreferences.getString("name", null);
+//                int phone = sharedPreferences.getInt("phone", 0);
+////        String latlong = sharedPreferences.getString("latlong", null);
+//                productiveFamily.setPhone(phone);
+//                productiveFamily.setName(name);
+//                productiveFamily.setDetails(description);
+////        productiveFamily.setLatlong(latlong);
+////        Log.d("category_name", category);
+//                firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful() && binding.category.getText() != null && binding.etDescription.getText() != null) {
+//                            Log.d("data ", productiveFamily.toString());
+//
+//                            Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+//                            //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+//
+//                        } else {
+//                            Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                });
+//                if (binding.category.getText().toString()!=null && binding.etDescription.getText().toString()!=null ) {
+////                    Log.d("data ", productiveFamily.toString());
+//                    Toast.makeText(getActivity(), " not success ", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+//                }
+//
+//
+//
+//            }
+//        });
+//        binding.btnViewData.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(getActivity(),ViewInformationProtectiveFamilyActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
 
         return binding.getRoot();
