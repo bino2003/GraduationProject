@@ -1,6 +1,7 @@
 package com.example.graduationproject;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,8 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyVie
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         int pos = position;
         holder.category_name.setText(categories_name.get(pos));
-        Glide.with(context).load(categories_image.get(pos)).circleCrop().into(holder.imageView);
-        // holder.imageView.setImageURI(Uri.parse(categories_image.get(pos).toString()));;
+        Glide.with(context).load(categories_image.get(pos)).into(holder.imageView);
+         holder.imageView.setImageURI(Uri.parse(categories_image.get(pos).toString()));;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,8 +73,8 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyVie
         public MyViewHolder(@NonNull ItemcategoryBinding binding) {
             super(binding.getRoot());
 
-            category_name = binding.textView;
-            imageView = binding.image;
+            category_name = binding.category1;
+            imageView = binding.image1;
 
 
 

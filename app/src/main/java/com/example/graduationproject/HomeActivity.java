@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
     users user;
-    String name;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     FirebaseFirestore firestore=FirebaseFirestore.getInstance();
     @Override

@@ -4,59 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color4">
 
-    <ImageView
-        android:id="@+id/imageViewproduct"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    >
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="173dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/itemprodect"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mcdonalds" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_product_name"
-        android:layout_width="260dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewproduct"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_delete_outline_24" />
 
-    <TextView
-        android:id="@+id/tv_product_price"
-        android:layout_width="260dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="44dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewproduct"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+        <ImageView
+            android:id="@+id/imageViewproduct"
+            android:layout_width="97dp"
+            android:layout_height="78dp"
 
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/imageViewproduct"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/delete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heart" />
 
-    <ImageView
-        android:id="@+id/edite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="88dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="44dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textColor="#0C0A0A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewproduct" />
 
+        <TextView
+            android:id="@+id/tv_product_price"
+            android:layout_width="88dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textColor="#0C0A0A"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

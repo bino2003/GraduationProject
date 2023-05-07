@@ -4,76 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProducts">
+    >
 
     <ImageView
         android:id="@+id/uplodeimg"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mcdonalds" />
+        app:srcCompat="@drawable/heart" />
 
     <EditText
         android:id="@+id/et_nameadd"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:hint="enter name product"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/text"
+        android:hint="product name"
         android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uplodeimg" />
+        app:layout_constraintTop_toBottomOf="@+id/uplodeimg"></EditText>
+
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/plate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_nameadd" />
 
     <EditText
         android:id="@+id/et_descriptionadd"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="enter description products"
-        android:inputType="textPersonName"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/text"
+        android:hint="Product Description"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_nameadd" />
+        app:layout_constraintTop_toBottomOf="@+id/et_nameadd"></EditText>
+
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/seeking"
+        app:layout_constraintEnd_toEndOf="@+id/et_descriptionadd"
+        app:layout_constraintTop_toTopOf="@+id/et_descriptionadd" />
 
     <EditText
         android:id="@+id/et_categryadd"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:hint="enter category product"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/text"
+        android:hint="Categories"
+        android:inputType="phone"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd"></EditText>
+
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/categorys"
+        app:layout_constraintEnd_toEndOf="@+id/et_categryadd"
         app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd" />
 
     <EditText
         android:id="@+id/et_priceadd"
-        android:layout_width="0dp"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="76dp"
-        android:ems="10"
-        android:hint="enter price product"
-        android:inputType="textPersonName"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/text"
+        android:hint="Product price"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_categryadd" />
+        app:layout_constraintTop_toBottomOf="@+id/et_categryadd"></EditText>
+
+    <ImageView
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
+        android:src="@drawable/dollar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_priceadd" />
 
     <Button
         android:id="@+id/addbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Add"
+        android:layout_width="343dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#0E8388"
+        android:clickable="false"
+        android:text="ADD"
+        android:textAllCaps="false"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_priceadd" />
+        app:layout_constraintTop_toBottomOf="@+id/et_priceadd"></Button>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
