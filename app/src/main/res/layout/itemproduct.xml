@@ -11,9 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="173dp"
         android:layout_height="170dp"
-        android:layout_marginStart="28dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/itemprodect"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,12 +27,21 @@
             app:srcCompat="@drawable/ic_baseline_delete_outline_24" />
 
         <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageView
             android:id="@+id/imageViewproduct"
             android:layout_width="97dp"
             android:layout_height="78dp"
 
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/heart" />
 
@@ -41,24 +50,24 @@
             android:layout_width="88dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="44dp"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="16sp"
             android:textColor="#0C0A0A"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewproduct" />
 
         <TextView
             android:id="@+id/tv_product_price"
             android:layout_width="88dp"
             android:layout_height="30dp"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="16sp"
             android:textColor="#0C0A0A"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>

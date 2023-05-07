@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.graduationproject.R;
-import com.example.graduationproject.ViewInformationProtectiveFamilyActivity;
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;

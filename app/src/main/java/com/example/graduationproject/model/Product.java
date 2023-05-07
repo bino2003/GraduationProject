@@ -8,6 +8,26 @@ public class Product {
     String image;
     String user;
 String id;
+String favid;
+
+    public String getFavid() {
+        return favid;
+    }
+
+    public void setFavid(String favid) {
+        this.favid = favid;
+    }
+
+    public Product(String name, String description, String price, String category, String image, String user, String id, String favid) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.image = image;
+        this.user = user;
+        this.id = id;
+        this.favid = favid;
+    }
 
     public String getId() {
         return id;
@@ -53,6 +73,7 @@ String id;
     public Product() {
     }
 
+
     @Override
     public String toString() {
         return "Product{" +
@@ -61,6 +82,9 @@ String id;
                 ", price='" + price + '\'' +
                 ", category='" + category + '\'' +
                 ", image='" + image + '\'' +
+                ", user='" + user + '\'' +
+                ", id='" + id + '\'' +
+                ", favid='" + favid + '\'' +
                 '}';
     }
 

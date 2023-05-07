@@ -18,31 +18,34 @@
         android:theme="@style/Theme.GraduationProject"
         tools:targetApi="31">
         <activity
+            android:name=".DetailsProductiveFamilyActivity.ViewDetailsProducts"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsProductiveFamilyActivity.DetailsProductiveFamily"
+            android:exported="false" />
+        <activity
             android:name=".UsersProfile"
             android:exported="false" />
         <activity
             android:name=".Reset_password"
             android:exported="false" />
         <activity
-            android:name=".ViewInformationProtectiveFamilyActivity"
+            android:name=".ProductiveFamilyProfileActivity.ViewInformationProtectiveFamilyActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateInformationProductiveFamilyActivity"
+            android:name=".ProductiveFamilyProfileActivity.UpdateInformationProductiveFamilyActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewProduct"
+            android:name=".ProductiveFamilyProfileActivity.ViewProduct"
             android:exported="false" />
         <activity
-            android:name=".AddProducts"
+            android:name=".ProductiveFamilyProfileActivity.AddProducts"
             android:exported="false" />
         <activity
-            android:name=".UpdateProducts"
+            android:name=".ProductiveFamilyProfileActivity.UpdateProducts"
             android:exported="false" />
         <activity
-            android:name=".ProductiveFamilyProfile"
-            android:exported="false" />
-        <activity
-            android:name=".DetailsProductiveFamily"
+            android:name=".ProductiveFamilyProfileActivity.ProductiveFamilyProfile"
             android:exported="false" />
         <activity
             android:name=".CategoryProductiveFamily"

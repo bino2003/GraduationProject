@@ -1,12 +1,25 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.graduationproject.HomeActivity;
+import com.example.graduationproject.ProductiveFamily.InformationProdectiveFamilyFragment;
+import com.example.graduationproject.R;
+import com.example.graduationproject.databinding.FragmentCategoryBinding;
+import com.example.graduationproject.databinding.FragmentProfile2Binding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +27,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+    ArrayList<String> tabs =new ArrayList<>();
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +73,27 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+       FragmentProfile2Binding binding=FragmentProfile2Binding.inflate(inflater,container,false);
+
+        ArrayList<String> tabs =new ArrayList<>();
+        tabs.add("Products");
+
+        tabs.add("make Profile");
+
+        ArrayList<Fragment> item_productArrayList=new ArrayList<>();
+        item_productArrayList.add(ItemProductiveFamily.newInstance("Products"));
+        item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance());
+
+
+        Log.d("productlist",item_productArrayList.toString());
+        ItemProductAdapter itemProductAdapter=new ItemProductAdapter(getActivity(),item_productArrayList);
+        binding.ViewPager.setAdapter(itemProductAdapter);
+        new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(tabs.get(position));
+            }
+        }).attach();
+        return binding.getRoot();
     }
 }

@@ -4,129 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".AddProducts">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Edit Profile"
-        android:textColor="#282C37"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/uplodeimg"
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="enter new  name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uplodeimgupdate" />
+
+    <EditText
+        android:id="@+id/et_descriptionupdate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="enter new  description "
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+    <EditText
+        android:id="@+id/et_categryupdate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="enter new  category product"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate" />
+
+    <EditText
+        android:id="@+id/et_phoneupdate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="76dp"
+        android:ems="10"
+        android:hint="enter new phone product"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_categryupdate" />
+
+    <Button
+        android:id="@+id/updatebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneupdate" />
 
     <ImageView
         android:id="@+id/uplodeimgupdate"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/img" />
-
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/editetext"
-        android:hint="product name"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uplodeimgupdate"></EditText>
-
-    <EditText
-        android:id="@+id/et_descriptionadd"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/editetext"
-        android:hint="Product Description"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name"></EditText>
-
-    <EditText
-        android:id="@+id/et_categryupdate"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/editetext"
-        android:hint="Category:"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name"></EditText>
-
-
-
-    <EditText
-        android:id="@+id/et_descriptionupdate"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/editetext"
-        android:hint="Desception:"
-        android:inputType="phone"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd"></EditText>
-
-    <EditText
-        android:id="@+id/et_phoneupdate"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/editetext"
-        android:hint="Phone Number"
-        android:inputType="textEmailAddress"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate"></EditText>
-
-
-    <Button
-        android:id="@+id/updatebtn"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="#0E8388"
-        android:clickable="false"
-        android:text="Edit Profile"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phoneupdate"></Button>
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mcdonalds" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

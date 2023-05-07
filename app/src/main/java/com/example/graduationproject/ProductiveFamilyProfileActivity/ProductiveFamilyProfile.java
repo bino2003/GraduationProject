@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.graduationproject.HomeActivity;
 import com.example.graduationproject.ProductiveFamily.InformationProdectiveFamilyFragment;
 import com.example.graduationproject.databinding.ActivityProductiveFamilyProfileBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ ActivityProductiveFamilyProfileBinding binding;
 binding.exit.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+        Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
         finish();
     }

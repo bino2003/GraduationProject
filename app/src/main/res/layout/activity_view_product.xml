@@ -4,61 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewProduct">
+    >
+
     <ImageView
-        android:id="@+id/uplodeimgview"
+        android:id="@+id/uplodeimg_viewproduct"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mcdonalds" />
+        app:srcCompat="@drawable/heart" />
+
+    <TextView
+        android:id="@+id/et_name_viewproduct"
+        android:layout_width="343dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/text"
+        android:hint="product name"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uplodeimg_viewproduct"></TextView>
+
     <ImageView
-        android:id="@+id/exitview"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        android:id="@+id/imageviewname_viewproduct"
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="20dp"
+        android:src="@drawable/plate"
+        app:layout_constraintStart_toStartOf="@+id/et_name_viewproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_name_viewproduct" />
 
     <TextView
-        android:id="@+id/tv_nameview"
-        android:layout_width="match_parent"
+        android:id="@+id/et_description_viewproduct"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:text="TextView"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/text"
+        android:hint="Product Description"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uplodeimgview" />
+        app:layout_constraintTop_toBottomOf="@+id/et_name_viewproduct"></TextView>
+
+    <ImageView
+        android:id="@+id/imageviewdescription_viewproduct"
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/seeking"
+        app:layout_constraintStart_toStartOf="@+id/et_description_viewproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_description_viewproduct" />
 
     <TextView
-        android:id="@+id/tv_descriptionview"
-        android:layout_width="match_parent"
+        android:id="@+id/et_categry_viewproduct"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/text"
+        android:hint="Categories"
+        android:inputType="phone"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nameview" />
+        app:layout_constraintTop_toBottomOf="@+id/et_description_viewproduct"></TextView>
+
+    <ImageView
+        android:id="@+id/imageviewcategory_viewproduct"
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/categorys"
+        app:layout_constraintStart_toStartOf="@+id/et_categry_viewproduct"
+        app:layout_constraintTop_toBottomOf="@+id/et_description_viewproduct" />
 
     <TextView
-        android:id="@+id/tv_priceview"
-        android:layout_width="match_parent"
+        android:id="@+id/et_price_viewproduct"
+        android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:text="TextView"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/text"
+        android:hint="Product price"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_descriptionview" />
+        app:layout_constraintTop_toBottomOf="@+id/et_categry_viewproduct"></TextView>
 
-    <TextView
-        android:id="@+id/tv_categoryview"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_priceview" />
+    <ImageView
+        android:id="@+id/imageviewprice_viewproduct"
+        android:layout_width="21dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/dollar"
+        app:layout_constraintStart_toStartOf="@+id/et_price_viewproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_price_viewproduct" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

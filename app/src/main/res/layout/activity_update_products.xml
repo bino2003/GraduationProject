@@ -33,7 +33,6 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="72dp"
-        android:layout_marginEnd="36dp"
         android:background="@drawable/text"
 
         android:inputType="textPersonName"
@@ -42,15 +41,16 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uplodeimgupdate"></EditText>
 
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="56dp"
         android:src="@drawable/plate"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/et_nameupdate"
         app:layout_constraintTop_toTopOf="@+id/et_nameupdate" />
 
 
@@ -70,7 +70,6 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="36dp"
         android:background="@drawable/text"
 
         android:inputType="text"
@@ -79,15 +78,16 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_nameupdate"></EditText>
 
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
         android:src="@drawable/seeking"
-        app:layout_constraintEnd_toEndOf="@+id/et_descriptionupdate"
+        app:layout_constraintStart_toStartOf="@+id/et_descriptionupdate"
         app:layout_constraintTop_toTopOf="@+id/et_descriptionupdate" />
 
     <TextView
@@ -106,7 +106,6 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="36dp"
         android:background="@drawable/text"
 
         android:inputType="phone"
@@ -115,15 +114,16 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate"></EditText>
 
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="20dp"
         android:src="@drawable/categorys"
-        app:layout_constraintEnd_toEndOf="@+id/et_categryupdate"
+        app:layout_constraintStart_toStartOf="@+id/et_categryupdate"
         app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate" />
 
     <TextView
@@ -142,7 +142,6 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="36dp"
         android:background="@drawable/text"
 
         android:inputType="textEmailAddress"
@@ -151,15 +150,16 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_categryupdate"></EditText>
 
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
         android:src="@drawable/dollar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/et_priceupdate"
         app:layout_constraintTop_toTopOf="@+id/et_priceupdate" />
 
     <Button
@@ -167,13 +167,13 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="32dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"
         android:text="up date"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_priceupdate"></Button>
 
 
