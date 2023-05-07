@@ -101,7 +101,7 @@ public class CategoryFragment extends Fragment {
                         @Override
                         public void OnClickItem(String name) {
                             Intent intent = new Intent(getActivity(), CategoryProductiveFamily.class);
-                            intent.putExtra("name", name);
+                            intent.putExtra("ctegoryname", name);
                             startActivity(intent);
                         }
                     });
