@@ -13,14 +13,17 @@ import android.view.ViewGroup;
 
 import com.example.graduationproject.databinding.FragmentCategoryBinding;
 import com.example.graduationproject.databinding.FragmentProductiveFamilyProfileBinding;
+import com.example.graduationproject.model.Category;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +34,7 @@ import java.util.List;
 public class CategoryFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
+    ArrayList<Category> categories;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,41 +84,39 @@ public class CategoryFragment extends Fragment {
         FragmentCategoryBinding binding=FragmentCategoryBinding.inflate(inflater,container,false);
 //        binding.carNameTv.setText(CarName);
 
-        firebaseFirestore.collection("Category")
-                .document("categories")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("scccefull","task.isSuccessful()");
-                            binding.progressBar.setVisibility(View.GONE);
-                            DocumentSnapshot document = task.getResult();
-                            List<String> names = (List<String>) document.get("categories_name");
-                            List<String> images = (List<String>) document.get("categories_image");
-                            CategoryAdapter adapter=new CategoryAdapter(names, images, getActivity(), new ListenerOnClickItem() {
-                                @Override
-                                public void OnClickItem(String name) {
-                                    Intent intent=new Intent(getActivity(),CategoryProductiveFamily.class);
-                                    intent.putExtra("ctegoryname",name);
-                                    startActivity(intent);
+        firebaseFirestore.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
 
+                    binding.progressBar.setVisibility(View.GONE);
 
-                                }
-                            });
-                            binding.rv.setAdapter(adapter);
-                            binding.rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
-
-
+                    categories = (ArrayList<Category>) task.getResult().toObjects(Category.class);
+//                    for (int i = 0; i < categories.size(); i++) {
+//                        String id = task.getResult().getDocuments().get(i).getId();
+//                        Category category = categories.get(i);
+//
+//                    }
+                    CategoryAdapter adapterCategoryGraduation = new CategoryAdapter(categories, getActivity(), new ListenerOnClickItem() {
+                        @Override
+                        public void OnClickItem(String name) {
+                            Intent intent = new Intent(getActivity(), CategoryProductiveFamily.class);
+                            intent.putExtra("name", name);
+                            startActivity(intent);
                         }
-                        else {
-                            task.getException().printStackTrace();
-
-                        }
-                    }
-                });
+                    });
 
 
+                    binding.rv.setAdapter(adapterCategoryGraduation);
+
+                    binding.rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                    adapterCategoryGraduation.notifyDataSetChanged();
+
+
+                } else {
+
+                }
+            }});
 
         return binding.getRoot();
     }

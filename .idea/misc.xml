@@ -15,7 +15,9 @@
         <entry key="app/src/main/res/layout/activity_users_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_view_information_protective_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_view_product.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/fragment_delete_dialog.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_home_fragmint.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_information_prodective_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_item_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemcategory.xml" value="0.28229166666666666" />
