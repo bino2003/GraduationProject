@@ -93,11 +93,7 @@ public class CategoryFragment extends Fragment {
                     binding.progressBar.setVisibility(View.GONE);
 
                     categories = (ArrayList<Category>) task.getResult().toObjects(Category.class);
-//                    for (int i = 0; i < categories.size(); i++) {
-//                        String id = task.getResult().getDocuments().get(i).getId();
-//                        Category category = categories.get(i);
-//
-//                    }
+
                     CategoryAdapter adapterCategoryGraduation = new CategoryAdapter(categories, getActivity(), new ListenerOnClickItem() {
                         @Override
                         public void OnClickItem(String name) {
