@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,14 +35,14 @@ FirebaseFirestore firebaseFirestore;
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         if (document.getString("image")!=null){
-                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgview);
+                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgViewproduct);
 
 
                         }
-                        binding.tvCategoryview.setText(document.getString("category"));
-                        binding.tvDescriptionview.setText(document.getString("description"));
-                        binding.tvNameview.setText(document.getString("name"));
-                        binding.tvPriceview.setText(document.getString("price"));
+                        binding.etCategryViewproduct.setText(document.getString("category"));
+                        binding.etDescriptionViewproduct.setText(document.getString("description"));
+                        binding.etNameViewproduct.setText(document.getString("name"));
+                        binding.etPriceViewproduct.setText(document.getString("price"));
 
 //
                     }
@@ -58,13 +58,7 @@ FirebaseFirestore firebaseFirestore;
 //        binding.tvDescriptionview.setText(description);
 //        binding.tvPriceview.setText(price);
 //        binding.tvNameview.setText(name);
-        binding.exitview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ViewProduct.this,ProductiveFamilyProfile.class));
-                finish();
-            }
-        });
+
 
 
 

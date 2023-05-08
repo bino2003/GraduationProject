@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    tools:context=".ProdativeFamily.InformationProdectiveFamilyFragment"
 
 
     >
@@ -22,118 +22,58 @@
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
-        android:id="@+id/cirvle"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/circle"
+        android:id="@+id/image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/mcdonalds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="The Set:"
-        android:textColor="#2C3333"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/cirvle"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    ,
-
-
-    <TextView
-        android:id="@+id/tv_set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
-
-        android:text="Gaza-El Remal in front of
-Capitol Mall"
-        android:textColor="#2C3333"
-        android:textSize="14sp"
+    <EditText
+        android:id="@+id/et_description"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Write Descrption"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set" />
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
-    <ImageView
-        android:id="@+id/cirvle2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/circle"
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Category"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cirvle" />
+        app:layout_constraintTop_toBottomOf="@+id/et_description" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <Button
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:text="The Desception:"
-        android:textColor="#2C3333"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/cirvle2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_set" />
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
 
-    <TextView
-        android:id="@+id/tv_desception"
+    <Button
+        android:id="@+id/btn_view_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-
-        android:layout_marginTop="12dp"
-        android:text="Gaza-El Remal in front of
-Capitol Mall"
-        android:textColor="#2C3333"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <ImageView
-        android:id="@+id/cirvle3"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
-        android:background="@drawable/circle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cirvle2" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:text="The Phone:"
-        android:textColor="#2C3333"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/cirvle3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_desception" />
-
-    <TextView
-        android:id="@+id/tv_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
-        android:text="Gaza-El Remal in front of
-Capitol Mall"
-        android:textColor="#2C3333"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-
+        android:layout_marginStart="20dp"
+        android:text="View"
+        app:layout_constraintStart_toEndOf="@+id/save"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
 </androidx.constraintlayout.widget.ConstraintLayout>

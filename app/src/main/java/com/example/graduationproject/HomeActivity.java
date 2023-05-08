@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.graduationproject.Interface.ListenerOnClickItem;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.ProfileFragment;
 import com.example.graduationproject.databinding.ActivityHomeBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.example.graduationproject.model.users;
@@ -69,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.categories:
                         replacefragmint(new CategoryFragment());
-                       break;
+                        break;
 
                     case R.id.profile:
                         replacefragmint(new ProfileFragment());
@@ -87,34 +89,35 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
-        firestore = FirebaseFirestore.getInstance();
-        firestore.collection("Category")
-                .document("categories")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            List<String> names = (List<String>) document.get("categories_name");
-                            List<String> images = (List<String>) document.get("categories_image");
-                            CategoryAdapter adapter=new CategoryAdapter(names, images, getApplicationContext(), new ListenerOnClickItem() {
-                                @Override
-                                public void OnClickItem(String name) {
-                                    Intent intent=new Intent(getApplicationContext(),CategoryProductiveFamily.class);
-                                    intent.putExtra("ctegoryname",name);
-                                    startActivity(intent);
+//        firestore = FirebaseFirestore.getInstance();
+//        firestore.collection("Category")
+//                .document("categories")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            List<String> names = (List<String>) document.get("categories_name");
+//                            List<String> images = (List<String>) document.get("categories_image");
+//                            CategoryAdapter adapter=new CategoryAdapter(names, images, getApplicationContext(), new ListenerOnClickItem() {
+//                                @Override
+//                                public void OnClickItem(String name) {
+//                                    Intent intent=new Intent(getApplicationContext(),CategoryProductiveFamily.class);
+//                                    intent.putExtra("ctegoryname",name);
+//                                    startActivity(intent);
+//
+//
+//                                }
+//                            });
+//
+//                        }
+//                        else {
+//                            task.getException().printStackTrace();
+//                        }
+//                    }
+//                });
 
-
-                                }
-                            });
-                    
-                        }
-                        else {
-                            task.getException().printStackTrace();
-                        }
-                    }
-                });
     }
 
     private void replacefragmint(Fragment fragment) {

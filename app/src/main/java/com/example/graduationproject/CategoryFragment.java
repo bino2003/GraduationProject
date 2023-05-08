@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.graduationproject.Interface.ListenerOnClickItem;
 import com.example.graduationproject.databinding.FragmentCategoryBinding;
 import com.example.graduationproject.databinding.FragmentProductiveFamilyProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -98,10 +99,9 @@ public class CategoryFragment extends Fragment {
                                     Intent intent=new Intent(getActivity(),CategoryProductiveFamily.class);
                                     intent.putExtra("ctegoryname",name);
                                     startActivity(intent);
-
-
                                 }
-                            });
+
+                        });
                             binding.rv.setAdapter(adapter);
                             binding.rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
