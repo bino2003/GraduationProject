@@ -1,6 +1,6 @@
 package com.example.graduationproject;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +20,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.ArrayList;
 
 public class CategoryProductiveFamily extends AppCompatActivity {
-ActivityCategoryProductiveFamilyBinding binding;
-FirebaseFirestore firebaseFirestore;
+    ActivityCategoryProductiveFamilyBinding binding;
+    FirebaseFirestore firebaseFirestore;
 
     ArrayList<ProductiveFamily>     productiveFamilyArrayList=new ArrayList<>();
     ArrayList<ProductiveFamily> productiveFamilyArrayListCat=new ArrayList<>();
@@ -39,9 +41,9 @@ FirebaseFirestore firebaseFirestore;
         cat=getIntent().getStringExtra("ctegoryname");
 
 
-binding.tvCategoryName.setText(cat);
+        binding.tvCategoryName.setText(cat);
 
-getproductivefamily();
+        getproductivefamily();
 
     }
     void getproductivefamily(){
@@ -64,7 +66,7 @@ getproductivefamily();
 
                         }
                     },productiveFamilyArrayList);
-                            binding.rv.setAdapter(categoryProductFamilyAdapter);
+                    binding.rv.setAdapter(categoryProductFamilyAdapter);
 
                     binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
                     categoryProductFamilyAdapter.notifyDataSetChanged();
