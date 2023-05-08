@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout/activity_category_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_details_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_productive_family_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.28229166666666666" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/fragment_item_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_new_product.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_productive_family_profile.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemcategory.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemproduct.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/productivefamilyitem.xml" value="0.28229166666666666" />

@@ -1,6 +1,6 @@
 package com.example.graduationproject;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
+import com.example.graduationproject.Interface.ListenerOnClickItem;
+import com.example.graduationproject.Interface.OnClickProductiveFamily;
 import com.example.graduationproject.databinding.ActivityCategoryProductiveFamilyBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,12 +20,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryProductiveFamily extends AppCompatActivity {
-ActivityCategoryProductiveFamilyBinding binding;
-FirebaseFirestore firebaseFirestore;
+    ActivityCategoryProductiveFamilyBinding binding;
+    FirebaseFirestore firebaseFirestore;
 
     ArrayList<ProductiveFamily>     productiveFamilyArrayList=new ArrayList<>();
     ArrayList<ProductiveFamily> productiveFamilyArrayListCat=new ArrayList<>();
@@ -37,9 +41,9 @@ FirebaseFirestore firebaseFirestore;
         cat=getIntent().getStringExtra("ctegoryname");
 
 
-binding.tvCategoryName.setText(cat);
+        binding.tvCategoryName.setText(cat);
 
-getproductivefamily();
+        getproductivefamily();
 
     }
     void getproductivefamily(){
@@ -49,14 +53,19 @@ getproductivefamily();
                 if (task.isSuccessful()) {
                     productiveFamilyArrayList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
                     Toast.makeText(CategoryProductiveFamily.this, productiveFamilyArrayList+"", Toast.LENGTH_SHORT).show();
-                    CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new ListenerOnClickItem() {
+                    CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                         @Override
-                        public void OnClickItem(String name) {
-                            Intent intent = new Intent(getApplicationContext(), DetailsProductiveFamily.class);
-                            startActivity(intent);
+                        public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
+                            if (productiveFamily.getId()!=null){
+                                Intent intent=new Intent(getApplicationContext(), DetailsProductiveFamily.class);
+
+                                intent.putExtra("idproductivefamily",productiveFamily.getId());
+                                startActivity(intent);
+                            }
+
 
                         }
-                    }, productiveFamilyArrayList);
+                    },productiveFamilyArrayList);
                     binding.rv.setAdapter(categoryProductFamilyAdapter);
 
                     binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));

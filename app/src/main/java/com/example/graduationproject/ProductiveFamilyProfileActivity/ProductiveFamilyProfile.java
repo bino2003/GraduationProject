@@ -1,6 +1,6 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -9,29 +9,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.graduationproject.HomeActivity;
 import com.example.graduationproject.ProductiveFamily.InformationProdectiveFamilyFragment;
 import com.example.graduationproject.databinding.ActivityProductiveFamilyProfileBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 
 public class ProductiveFamilyProfile extends AppCompatActivity {
-ActivityProductiveFamilyProfileBinding binding;
+    ActivityProductiveFamilyProfileBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityProductiveFamilyProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-binding.exit.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
-        startActivity(intent);
-        finish();
-    }
-});
+        binding.exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
 
@@ -47,7 +49,7 @@ binding.exit.setOnClickListener(new View.OnClickListener() {
         binding.ViewPager.setAdapter(itemProductAdapter);
         new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            public void onConfigureTab(TabLayout.@NonNull Tab tab, int position) {
                 tab.setText(tabs.get(position));
             }
         }).attach();
