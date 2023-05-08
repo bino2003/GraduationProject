@@ -37,11 +37,11 @@
         android:id="@+id/imageviewname_viewproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginStart="20dp"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/plate"
-        app:layout_constraintStart_toStartOf="@+id/et_name_viewproduct"
+        app:layout_constraintEnd_toEndOf="@+id/et_name_viewproduct"
         app:layout_constraintTop_toTopOf="@+id/et_name_viewproduct" />
 
     <TextView
@@ -64,10 +64,10 @@
         android:id="@+id/imageviewdescription_viewproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/seeking"
-        app:layout_constraintStart_toStartOf="@+id/et_description_viewproduct"
+        app:layout_constraintEnd_toEndOf="@+id/et_description_viewproduct"
         app:layout_constraintTop_toTopOf="@+id/et_description_viewproduct" />
 
     <TextView
@@ -90,11 +90,11 @@
         android:id="@+id/imageviewcategory_viewproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/categorys"
-        app:layout_constraintStart_toStartOf="@+id/et_categry_viewproduct"
-        app:layout_constraintTop_toBottomOf="@+id/et_description_viewproduct" />
+        app:layout_constraintEnd_toEndOf="@+id/et_categry_viewproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_categry_viewproduct" />
 
     <TextView
         android:id="@+id/et_price_viewproduct"
@@ -116,10 +116,10 @@
         android:id="@+id/imageviewprice_viewproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/dollar"
-        app:layout_constraintStart_toStartOf="@+id/et_price_viewproduct"
+        app:layout_constraintEnd_toEndOf="@+id/et_price_viewproduct"
         app:layout_constraintTop_toTopOf="@+id/et_price_viewproduct" />
 
 

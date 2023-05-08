@@ -5,6 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductiveFamilyProfile">
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="550dp"
+        android:layout_height="550dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/photo"
+        app:layout_constraintBottom_toTopOf="@+id/tab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:layout_width="28dp"
+        android:layout_height="40dp"
+        android:background="#CBE4DE"
+
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:text="Profile"
+        android:textColor="#0A1D37"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="97dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="12dp"
+
+        android:background="@drawable/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvprofile">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="95dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:text="nammmme"
+        android:textColor="#282C37"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:tabIndicatorColor="@color/teal_200"
+        app:tabSelectedTextColor="@color/teal_200"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/ViewPager"
+        android:layout_width="403dp"
+        android:layout_height="414dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab"
+        app:layout_constraintVertical_bias="0.0"></androidx.viewpager2.widget.ViewPager2>
 
 
 
