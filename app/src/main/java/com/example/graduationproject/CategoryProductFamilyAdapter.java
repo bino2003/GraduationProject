@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.ListenerOnClickItem;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
-import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
+
 import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
 import com.example.graduationproject.model.ProductiveFamily;
+
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

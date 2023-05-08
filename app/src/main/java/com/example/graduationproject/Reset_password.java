@@ -24,7 +24,7 @@ FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityResetPasswordBinding.inflate(getLayoutInflater());
+        binding= ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,8 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -15,6 +14,11 @@ import android.view.ViewGroup;
 
 import com.example.graduationproject.Interface.OnDelete;
 import com.example.graduationproject.R;
+
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import javax.annotation.Nullable;
 
 
 public class DeleteDialogFragment extends DialogFragment {

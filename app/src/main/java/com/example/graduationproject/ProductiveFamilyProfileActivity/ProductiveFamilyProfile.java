@@ -10,7 +10,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.graduationproject.HomeActivity;
-import com.example.graduationproject.ProductiveFamily.InformationProdectiveFamilyFragment;
+
+
 import com.example.graduationproject.databinding.ActivityProductiveFamilyProfileBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
