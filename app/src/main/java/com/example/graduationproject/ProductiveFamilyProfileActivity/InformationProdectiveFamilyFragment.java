@@ -1,4 +1,4 @@
-package com.example.graduationproject.ProductiveFamily;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -20,9 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.graduationproject.R;
+
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.model.ProductiveFamily;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

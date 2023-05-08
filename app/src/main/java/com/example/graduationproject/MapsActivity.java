@@ -12,9 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 
 import com.example.graduationproject.databinding.ActivityMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +48,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMapsBinding.inflate(getLayoutInflater());
+        binding= ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 

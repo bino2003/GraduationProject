@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.example.graduationproject.Interface.ListenerOnClickItem;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.ProfileFragment;
+
 import com.example.graduationproject.databinding.ActivityHomeBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.example.graduationproject.model.users;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
@@ -42,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityHomeBinding.inflate(getLayoutInflater());
+        binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        binding.logout.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -127,6 +129,7 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
     //             String id=   auth.getUid();
 //                firestore.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //                    @Override
