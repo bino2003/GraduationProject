@@ -1,38 +1,34 @@
 package com.example.graduationproject;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.graduationproject.ListenerOnClickItem;
 import com.example.graduationproject.databinding.ItemcategoryBinding;
-import com.example.graduationproject.model.Category;
-
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-    List<Category> categories;
+public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
+    List<String> categories_name;
+    List<String> categories_image;
     Context context;
     ListenerOnClickItem listener;
     //ListenerFavarite listenerFavarite;
 
 
-
-    public CategoryAdapter(List<Category> categories, Context context, ListenerOnClickItem listener) {
-        this.categories = categories;
+    public CategoryAdapter(List<String> categories_name,List<String> categories_image, Context context, ListenerOnClickItem listener) {
+        this.categories_name = categories_name;
         this.context = context;
         this.listener = listener;
-
+        this.categories_image=categories_image;
     }
 
     @NonNull
@@ -48,12 +44,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         int pos = position;
-        holder.category_name.setText(categories.get(pos).getName());
-        Glide.with(context).load(categories.get(position).getImage()).into(holder.imageView);
+        holder.category_name.setText(categories_name.get(pos));
+        Glide.with(context).load(categories_image.get(pos)).into(holder.imageView);
+         holder.imageView.setImageURI(Uri.parse(categories_image.get(pos).toString()));;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.OnClickItem(holder.category_name.getText().toString());
+
+                listener.OnClickItem(categories_name.get(pos));
             }
         });
 
@@ -64,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return categories_name.size();
     }
 
     public   class MyViewHolder extends RecyclerView.ViewHolder {
@@ -72,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         ImageView imageView;
 
 
-                public MyViewHolder(@NonNull ItemcategoryBinding binding) {
+        public MyViewHolder(@NonNull ItemcategoryBinding binding) {
             super(binding.getRoot());
 
             category_name = binding.category1;
@@ -84,3 +82,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     }
 }
+

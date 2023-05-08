@@ -1,7 +1,6 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.graduationproject.Interface.ProductsAction;
 import com.example.graduationproject.databinding.ItemproductBinding;
 import com.example.graduationproject.model.Product;
 
@@ -83,7 +83,7 @@ ImageView delete;
         imageViewProduct =binding.imageViewproduct;
         productname=binding.tvProductName;
         productprice=binding.tvProductPrice;
-//        edite=binding.;
+        edite=binding.edit;
         delete=binding.delete;
 
 

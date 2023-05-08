@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,7 +63,7 @@ public class ViewInformationProtectiveFamilyActivity extends AppCompatActivity {
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),UpdateInformationProductiveFamilyActivity.class));
+                startActivity(new Intent(getBaseContext(), UpdateInformationProductiveFamilyActivity.class));
                 finish();
             }
         });

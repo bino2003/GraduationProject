@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -147,7 +146,7 @@ binding.updatebtn.setOnClickListener(new View.OnClickListener() {
 
 
                     Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),ProductiveFamilyProfile.class));
+                    startActivity(new Intent(getApplicationContext(), ProductiveFamilyProfile.class));
                     finish();
                 }else {
                     Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();

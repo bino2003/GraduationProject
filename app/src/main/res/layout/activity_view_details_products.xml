@@ -7,7 +7,7 @@
     >
 
     <ImageView
-        android:id="@+id/uplodeimg"
+        android:id="@+id/uplodeimg_viewdetailsproduct"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="24dp"
@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/heart" />
 
-    <EditText
-        android:id="@+id/et_nameadd"
+    <TextView
+        android:id="@+id/et_name_viewdetailsproduct"
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="72dp"
@@ -31,21 +31,21 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uplodeimg"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/uplodeimg_viewdetailsproduct"></TextView>
 
     <ImageView
-        android:id="@+id/imageviewname"
+        android:id="@+id/imageviewname_viewdetailsproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
         android:layout_marginStart="20dp"
 
         android:layout_marginTop="20dp"
         android:src="@drawable/plate"
-        app:layout_constraintStart_toStartOf="@+id/et_nameadd"
-        app:layout_constraintTop_toTopOf="@+id/et_nameadd" />
+        app:layout_constraintStart_toStartOf="@+id/et_name_viewdetailsproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_name_viewdetailsproduct" />
 
-    <EditText
-        android:id="@+id/et_descriptionadd"
+    <TextView
+        android:id="@+id/et_description_viewdetailsproduct"
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -58,46 +58,46 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_nameadd"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/et_name_viewdetailsproduct"></TextView>
 
     <ImageView
-        android:id="@+id/imageviewdescription"
+        android:id="@+id/imageviewdescription_viewdetailsproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/seeking"
-        app:layout_constraintStart_toStartOf="@+id/et_descriptionadd"
-        app:layout_constraintTop_toTopOf="@+id/et_descriptionadd" />
+        app:layout_constraintStart_toStartOf="@+id/et_description_viewdetailsproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_description_viewdetailsproduct" />
 
-    <EditText
-        android:id="@+id/et_categryadd"
+    <TextView
+        android:id="@+id/et_categry_viewdetailsproduct"
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/text"
         android:hint="Categories"
-        android:inputType="text"
+        android:inputType="phone"
         android:paddingStart="10dp"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/et_description_viewdetailsproduct"></TextView>
 
     <ImageView
-        android:id="@+id/imageviewcategory"
+        android:id="@+id/imageviewcategory_viewdetailsproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/categorys"
-        app:layout_constraintStart_toStartOf="@+id/et_categryadd"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd" />
+        app:layout_constraintStart_toStartOf="@+id/et_categry_viewdetailsproduct"
+        app:layout_constraintTop_toBottomOf="@+id/et_description_viewdetailsproduct" />
 
-    <EditText
-        android:id="@+id/et_priceadd"
+    <TextView
+        android:id="@+id/et_price_viewdetailsproduct"
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -110,31 +110,19 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_categryadd"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/et_categry_viewdetailsproduct"></TextView>
 
     <ImageView
-        android:id="@+id/imageviewprice"
+        android:id="@+id/imageviewprice_viewdetailsproduct"
         android:layout_width="21dp"
         android:layout_height="17dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/dollar"
-        app:layout_constraintStart_toStartOf="@+id/et_priceadd"
-        app:layout_constraintTop_toTopOf="@+id/et_priceadd" />
+        app:layout_constraintStart_toStartOf="@+id/et_price_viewdetailsproduct"
+        app:layout_constraintTop_toTopOf="@+id/et_price_viewdetailsproduct" />
 
-    <Button
-        android:id="@+id/addbtn"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="44dp"
-        android:backgroundTint="#0E8388"
-        android:clickable="false"
-        android:text="ADD"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_priceadd"></Button>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

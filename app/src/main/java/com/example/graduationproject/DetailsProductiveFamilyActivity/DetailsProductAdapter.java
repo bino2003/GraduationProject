@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.DetailsProductiveFamilyActivity;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -7,9 +7,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
 
-public class ItemProductAdapter extends FragmentStateAdapter {
+
+
+
+public class DetailsProductAdapter extends FragmentStateAdapter {
     ArrayList<Fragment> fragmentArrayList;
-    public ItemProductAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragmentArrayList) {
+    public DetailsProductAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragmentArrayList) {
         super(fragmentActivity);
         this.fragmentArrayList=fragmentArrayList;
     }
@@ -23,4 +26,5 @@ public class ItemProductAdapter extends FragmentStateAdapter {
         return fragmentArrayList.size();
     }
 }
+
 

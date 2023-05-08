@@ -1,7 +1,6 @@
 package com.example.graduationproject;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,38 +11,59 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.graduationproject.Interface.ListenerOnClickItem;
+import com.example.graduationproject.Interface.OnClickProductiveFamily;
+import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
+import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryProductFamilyVH>{
     Context context;
-    ListenerOnClickItem onClickItem;
+    OnClickProductiveFamily onClickProductiveFamily;
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
 
-    public CategoryProductFamilyAdapter(Context context, ListenerOnClickItem onClickItem, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
+    public CategoryProductFamilyAdapter(Context context, OnClickProductiveFamily onClickProductiveFamily, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
         this.context = context;
-        this.onClickItem = onClickItem;
+        this.onClickProductiveFamily = onClickProductiveFamily;
         this.productiveFamilyArrayList = productiveFamilyArrayList;
     }
 
     @NonNull
     @Override
     public CategoryProductFamilyVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      View view=  LayoutInflater.from(parent.getContext()).inflate(R.layout.productivefamilyitem,null);
-        return new  CategoryProductFamilyVH(view);
+        CategoryProductFamilyVH categoryProductFamilyVH= new CategoryProductFamilyVH(ProductivefamilyitemBinding.inflate(LayoutInflater.from(parent.getContext())));
+
+        return categoryProductFamilyVH;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryProductFamilyVH holder, int position) {
+        int rating=0;
         int pos=position;
         holder.location.setText(productiveFamilyArrayList.get(position).getLocation());
-if (productiveFamilyArrayList.get(pos).getEvaluation()!=null&&productiveFamilyArrayList.get(pos).getEvaluation()!=""){
-    holder.ratingBar.setRating(Integer.parseInt(productiveFamilyArrayList.get(position).getEvaluation()));
+//        if (productiveFamilyArrayList.get(pos).getEvaluation()!=null){
+//            List<String> listreating=productiveFamilyArrayList.get(pos).getEvaluation();
+//            for (int i=0;i<listreating.size();i++) {
+//                String num= listreating.get(i);
+//                rating=rating+Integer.getInteger(num);
+//                if (i==listreating.size()-1){
+//                    int avg=rating/listreating.size();
+//                    holder.ratingBar.setNumStars(avg);
+//                }
+//
+//            }
+//        }
 
-}
+
+//if (productiveFamilyArrayList.get(pos).getEvaluation()!=null&&productiveFamilyArrayList.get(pos).getEvaluation()!=""){
+//    holder.ratingBar.setRating(Integer.parseInt(productiveFamilyArrayList.get(position).getEvaluation()));
+
+
 //if (productiveFamilyArrayList.get(position).getImage()!=null){
 //    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
 //
@@ -54,11 +74,15 @@ if (productiveFamilyArrayList.get(pos).getEvaluation()!=null&&productiveFamilyAr
 
 
         holder.name.setText(productiveFamilyArrayList.get(position).getName());
+        if (productiveFamilyArrayList.get(pos).getDetails()!=null){
+            holder.details.setText(productiveFamilyArrayList.get(pos).getDetails());
+
+        }
         holder.details.setText(productiveFamilyArrayList.get(position).getDetails());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickItem.OnClickItem(productiveFamilyArrayList.get(pos).getName());
+                onClickProductiveFamily.onclickproductiveFamily(productiveFamilyArrayList.get(pos));
             }
         });
 
@@ -75,13 +99,13 @@ if (productiveFamilyArrayList.get(pos).getEvaluation()!=null&&productiveFamilyAr
     TextView location;
     RatingBar ratingBar;
     ImageView imageView;
-    public CategoryProductFamilyVH(@NonNull View view) {
+    public CategoryProductFamilyVH(@NonNull ProductivefamilyitemBinding binding) {
 
-        super(view);
-        name=view.findViewById(R.id.tv_name);
-        imageView=view.findViewById(R.id.imageproductivecat);
-//        details =view.findViewById(R.id.tv_details);
-        location=view.findViewById(R.id.tv_location);
-//        ratingBar=view.findViewById(R.id.ratingBar);
+        super(binding.getRoot());
+        name=binding.name;
+        imageView=binding.imageView5;
+        details =binding.desception;
+        location=binding.set;
+        ratingBar=binding.ratingBar;
     }
 }

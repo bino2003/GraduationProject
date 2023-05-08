@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -16,14 +16,16 @@ import android.widget.Toast;
 
 import com.example.graduationproject.databinding.ActivityAddProductsBinding;
 import com.example.graduationproject.model.Product;
-import com.example.graduationproject.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.List;
 
 public class AddProducts extends AppCompatActivity {
     ActivityAddProductsBinding binding;
@@ -99,6 +101,7 @@ firebaseAuth=FirebaseAuth.getInstance();
         product.setPrice(price);
         product.setImage(String.valueOf(imageuri));
         product.setUser(firebaseAuth.getUid());
+
         firebaseFirestore.collection("Products").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -106,7 +109,7 @@ firebaseAuth=FirebaseAuth.getInstance();
 
 
                     Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddProducts.this,ProductiveFamilyProfile.class));
+                    startActivity(new Intent(AddProducts.this, ProductiveFamilyProfile.class));
                     finish();
                 }else {
                     Toast.makeText(AddProducts.this, "Product addition failed  ", Toast.LENGTH_SHORT).show();

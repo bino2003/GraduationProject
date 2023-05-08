@@ -1,15 +1,38 @@
 package com.example.graduationproject.model;
 
+import java.util.List;
+
 public class ProductiveFamily {
     String name;
     String details;
     String latlong;
     String location;
 
-    String evaluation;
+    List<String> evaluation;
     int phone;
     String category;
     String image;
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ProductiveFamily(String name, String details, String latlong, String location, List<String> evaluation, int phone, String category, String image, String id) {
+        this.name = name;
+        this.details = details;
+        this.latlong = latlong;
+        this.location = location;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.image = image;
+        this.id = id;
+    }
 
     public String getImage() {
         return image;
@@ -19,15 +42,15 @@ public class ProductiveFamily {
         this.image = image;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, String evaluation, int phone, String category, String image) {
+    public ProductiveFamily(String name, String details, String latlong, String location, int phone, String category, String image, String id) {
         this.name = name;
         this.details = details;
         this.latlong = latlong;
         this.location = location;
-        this.evaluation = evaluation;
         this.phone = phone;
         this.category = category;
         this.image = image;
+        this.id = id;
     }
 
     public ProductiveFamily() {
@@ -44,6 +67,8 @@ public class ProductiveFamily {
                 ", evaluation=" + evaluation +
                 ", phone=" + phone +
                 ", category='" + category + '\'' +
+                ", image='" + image + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 
@@ -79,11 +104,12 @@ public class ProductiveFamily {
         this.location = location;
     }
 
-    public String getEvaluation() {
+
+    public List<String> getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(String evaluation) {
+    public void setEvaluation(List<String> evaluation) {
         this.evaluation = evaluation;
     }
 
@@ -103,20 +129,18 @@ public class ProductiveFamily {
         this.category = category;
     }
 
-    public ProductiveFamily(String name, String details, String location, String evaluation) {
+    public ProductiveFamily(String name, String details, String location) {
         this.name = name;
         this.details = details;
         this.location = location;
-        this.evaluation = evaluation;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, String evaluation, int phone, String category) {
+    public ProductiveFamily(String name, String details, String category, String image) {
         this.name = name;
         this.details = details;
-        this.latlong = latlong;
-        this.location = location;
-        this.evaluation = evaluation;
-        this.phone = phone;
         this.category = category;
+        this.image = image;
     }
+
+
 }

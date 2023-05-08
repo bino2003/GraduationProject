@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.Interface;
 
 import com.example.graduationproject.model.Product;
 

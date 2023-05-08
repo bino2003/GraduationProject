@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.graduationproject.Interface.OnDelete;
+import com.example.graduationproject.Interface.ProductsAction;
 import com.example.graduationproject.databinding.FragmentItemProductiveFamilyBinding;
 import com.example.graduationproject.model.Product;
-import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -82,7 +84,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
 binding.add.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        Intent intent=new Intent(getActivity(),AddProducts.class);
+        Intent intent=new Intent(getActivity(), AddProducts.class);
         startActivity(intent);
     }
 });
@@ -97,13 +99,13 @@ firebaseAuth=FirebaseAuth.getInstance();
                       String id= task.getResult().getDocuments().get(i).getId();
                       Product product=productsallArrayList.get(i);
                       product.setId(id);
+                        
                      String user= product.getUser();
                     String userid= firebaseAuth.getUid();
                     if (user.equals(userid)){
 
                         productsArrayList.add(product);
                     }else {
-                        Toast.makeText(getActivity(), "Add Products", Toast.LENGTH_SHORT).show();
 
                     }
                     }
@@ -151,6 +153,7 @@ firebaseAuth=FirebaseAuth.getInstance();
                      intent.putExtra("image", product.getImage());
                      intent.putExtra("price", product.getPrice());
                      intent.putExtra("idview", product.getId());
+                     Toast.makeText(getActivity(), product.getId(), Toast.LENGTH_SHORT).show();
                      startActivity(intent);
 
 
