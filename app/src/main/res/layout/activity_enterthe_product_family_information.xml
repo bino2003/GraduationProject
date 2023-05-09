@@ -57,7 +57,7 @@
             android:id="@+id/btnImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/car_ui_icon_add"
+            android:src="@drawable/ic_baseline_image_24"
             app:layout_constraintBottom_toBottomOf="@+id/cardimag"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />

@@ -35,7 +35,7 @@ FirebaseFirestore firebaseFirestore;
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         if (document.getString("image")!=null){
-                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgViewproduct);
+                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
 
                         }

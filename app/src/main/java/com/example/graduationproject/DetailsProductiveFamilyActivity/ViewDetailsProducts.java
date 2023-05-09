@@ -35,7 +35,7 @@ ActivityViewDetailsProductsBinding binding;
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         if (document.getString("image")!=null){
-                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgViewdetailsproduct);
+                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
 
                         }
