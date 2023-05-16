@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+
+
 import com.example.graduationproject.databinding.ActivityViewProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+
+
 import com.example.graduationproject.databinding.ActivityViewInformationProtectiveFamilyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
