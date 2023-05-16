@@ -7,42 +7,38 @@
     tools:context=".HomeActivity">
 
 
-  <SearchView
-      android:id="@+id/simpleSearchView"
-      android:layout_width="343dp"
-      android:layout_height="36dp"
-      android:layout_marginTop="28dp"
-      android:background="@drawable/text"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <SearchView
+        android:id="@+id/simpleSearchView"
+        android:layout_width="343dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/text"
+        app:layout_constraintBottom_toTopOf="@+id/Framin_tLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
   <ImageView
       android:id="@+id/imageView"
       android:layout_width="35dp"
       android:layout_height="25dp"
-      android:layout_marginTop="5dp"
+      android:layout_marginTop="20dp"
       android:layout_marginEnd="4dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@drawable/ic_baseline_dehaze_24" />
 
+
   <FrameLayout
       android:id="@+id/Framin_tLayout"
-      android:layout_width="407dp"
-      android:layout_height="574dp"
+      android:layout_width="406dp"
+      android:layout_height="584dp"
       app:layout_constraintBottom_toTopOf="@+id/linearLayout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/simpleSearchView"/>
+      app:layout_constraintTop_toBottomOf="@+id/simpleSearchView" />
 
-
-
-
-
-
-
-  <LinearLayout
+    <LinearLayout
       android:id="@+id/linearLayout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -53,18 +49,19 @@
       app:layout_constraintTop_toBottomOf="@+id/Framin_tLayout">
 
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="412dp"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="false"
-        android:background="@drawable/cw_button_shadow"
-        app:itemIconSize="25dp"
-        app:itemIconTint="@drawable/iconselector"
-        app:itemRippleColor="@color/black"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/botton_navmenu" />
+      <com.google.android.material.bottomnavigation.BottomNavigationView
+          android:id="@+id/bottomNavigationView"
+          android:layout_width="392dp"
+          android:layout_height="65dp"
+          android:layout_marginLeft="10dp"
+          android:layout_alignParentBottom="false"
+          android:layout_marginEnd="10dp"
+          android:background="@drawable/cw_button_shadow"
+          app:itemIconSize="20dp"
+          app:itemIconTint="@drawable/iconselector"
+          app:itemTextColor="@drawable/textselector"
+          app:labelVisibilityMode="labeled"
+          app:menu="@menu/botton_navmenu" />
   </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
