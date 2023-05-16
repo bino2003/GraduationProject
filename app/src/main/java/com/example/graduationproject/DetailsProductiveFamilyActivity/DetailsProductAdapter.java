@@ -1,9 +1,11 @@
 package com.example.graduationproject.DetailsProductiveFamilyActivity;
 
-import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 

@@ -77,6 +77,8 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name);
         }
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
     }
 
     @Override
@@ -84,7 +86,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                              Bundle savedInstanceState) {
 
         FragmentItemProductiveFamilyBinding binding = FragmentItemProductiveFamilyBinding.inflate(inflater, container, false);
-        firebaseFirestore=FirebaseFirestore.getInstance();
+
 binding.add.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -96,7 +98,7 @@ binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-firebaseAuth=FirebaseAuth.getInstance();
+
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
                     for (int i=0 ;i<productsallArrayList.size();i++){
@@ -106,12 +108,12 @@ firebaseAuth=FirebaseAuth.getInstance();
                         
                      String user= product.getUser();
                     String userid= firebaseAuth.getUid();
-                    if (user.equals(userid)){
-
-                        productsArrayList.add(product);
-                    }else {
-
-                    }
+//                    if (user.equals(userid)){
+//
+//                        productsArrayList.add(product);
+//                    }else {
+//
+//                    }
                     }
 
                     Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();

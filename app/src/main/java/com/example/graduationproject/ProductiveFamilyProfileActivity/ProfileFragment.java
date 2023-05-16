@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamilyProfile;
 import com.example.graduationproject.HomeActivity;
 
 
@@ -76,6 +77,14 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
        FragmentProfile2Binding binding=FragmentProfile2Binding.inflate(inflater,container,false);
 
+        binding.exit2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), HomeActivity.class);
+                startActivity(intent);
+
+            }
+        });
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
 

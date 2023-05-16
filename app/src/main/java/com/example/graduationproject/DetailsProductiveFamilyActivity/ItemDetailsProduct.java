@@ -32,28 +32,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDetailsProduct extends Fragment {
-boolean isfav=true;
-
-    ArrayList<Product> productsArrayList = new ArrayList<>();
-    ItemDetailsProductAdapter itemDetailsProductAdapter;
-    static int allPrice = 0;
-    FirebaseFirestore firebaseFirestore;
-    FirebaseAuth firebaseAuth;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final String ARG_db_name2 = "dbName2";
+    private static final String ARG_ID_ProductiveFamily = "id";
+    static int allPrice = 0;
+    static int i = 0;
+    boolean isfav = true;
+    ArrayList<Product> productsArrayList = new ArrayList<>();
+    ItemDetailsProductAdapter itemDetailsProductAdapter;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore db;
+    Product products;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    static int i = 0;
-    FirebaseFirestore db;
-    Product products;
-
-
-    private static final String ARG_db_name2 = "dbName2";
-    private static final String ARG_ID_ProductiveFamily = "id";
-
-
     private String dbname;
     private String id;
 
@@ -88,88 +82,86 @@ boolean isfav=true;
                              Bundle savedInstanceState) {
         FragmentItemDetailsProductBinding binding = FragmentItemDetailsProductBinding.inflate(inflater, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection(dbname).whereEqualTo("user",id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection(dbname).whereEqualTo("user", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-if (task.isSuccessful()){
+                if (task.isSuccessful()) {
+
+                    firebaseFirestore = FirebaseFirestore.getInstance();
+                    binding.progressBar.setVisibility(View.GONE);
+                    productsArrayList = (ArrayList<Product>) task.getResult().toObjects(Product.class);
+                    for (int i = 0; i < productsArrayList.size(); i++) {
+                        String id = task.getResult().getDocuments().get(i).getId();
+                        Product product = productsArrayList.get(i);
+                        product.setId(id);
+                    }
+                    itemDetailsProductAdapter = new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
+                        @Override
+                        public void onfav(Product product) {
+                            if (isfav) {
+                                isfav = false;
+                                Toast.makeText(getActivity(), isfav + "", Toast.LENGTH_SHORT).show();
+                                firebaseFirestore.collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            List<Product> favorite = task.getResult().toObjects(Product.class);
+                                            for (int i = 0; i < favorite.size(); i++) {
+                                                String favid = task.getResult().getDocuments().get(i).getId();
+                                                product.setFavid(favid);
+                                            }
+                                        }
 
 
+                                    }
+                                });
 
-    firebaseFirestore=FirebaseFirestore.getInstance();
-    binding.progressBar.setVisibility(View.GONE);
-    productsArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
-    for (int i=0 ;i<productsArrayList.size();i++){
-        String id= task.getResult().getDocuments().get(i).getId();
-        Product product=productsArrayList.get(i);
-        product.setId(id);
-    }
- itemDetailsProductAdapter=new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
-     @Override
-     public void onfav(Product product) {
-         if (isfav){
-             isfav=false;
-             Toast.makeText(getActivity(), isfav+"", Toast.LENGTH_SHORT).show();
-             firebaseFirestore.collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                 @Override
-                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                     if (task.isSuccessful()){
-                         List<Product> favorite=     task.getResult().toObjects(Product.class);
-                         for (int i=0;i<favorite.size();i++){
-                             String favid=  task.getResult().getDocuments().get(i).getId();
-                             product.setFavid(favid);
-                         }
-                     }
+                                firebaseFirestore.collection("Favorites").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
 
+                                        if (task.isSuccessful()) {
 
-                 }
-             });
+                                            Toast.makeText(getActivity(), "Product added to favorites", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else if (isfav == false) {
+                                isfav = true;
+                                if (product.getFavid() != null) {
+                                    firebaseFirestore.collection("Favorites").document(product.getFavid()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
 
-             firebaseFirestore.collection("Favorites").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-                 @Override
-                 public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(getActivity(), product.getFavid(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "The product has been removed from favorites successfully", Toast.LENGTH_SHORT).show();
 
-                     if (task.isSuccessful()){
-
-                         Toast.makeText(getActivity(), "Product added to favorites", Toast.LENGTH_SHORT).show();
-                     }
-                 }
-             });
-         }else if (isfav==false){
-             isfav=true;
-             if (product.getFavid()!=null){
-                 firebaseFirestore.collection("Favorites").document(product.getFavid()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                     @Override
-                     public void onComplete(@NonNull Task<Void> task) {
-                         if (task.isSuccessful()){
-
-                             Toast.makeText(getActivity(), product.getFavid(), Toast.LENGTH_SHORT).show();
-                             Toast.makeText(getActivity(), "The product has been removed from favorites successfully", Toast.LENGTH_SHORT).show();
-
-                         }else {
-                             Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                 });
-             }
+                                            } else {
+                                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
 
 
-         }
-     }
+                            }
+                        }
 
-     @Override
-     public void onClickItem(Product product) {
-Intent intent=new Intent(getActivity(),ViewDetailsProducts.class);
+                        @Override
+                        public void onClickItem(Product product) {
+                            Intent intent = new Intent(getActivity(), ViewDetailsProducts.class);
 
-intent.putExtra("detailsproductid",product.getId());
-startActivity(intent);
-     }
- });
-         binding.rv.setAdapter(itemDetailsProductAdapter);
+                            intent.putExtra("detailsproductid", product.getId());
+                            startActivity(intent);
+                        }
+                    });
+                    binding.rv.setAdapter(itemDetailsProductAdapter);
 
-    binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-    itemDetailsProductAdapter.notifyDataSetChanged();
+                    binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+                    itemDetailsProductAdapter.notifyDataSetChanged();
 
-}
+                }
 
             }
         });

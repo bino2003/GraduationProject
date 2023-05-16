@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class EntertheProductFamilyInformation extends AppCompatActivity {
+import com.example.graduationproject.databinding.ActivityEntertheProductFamilyInformationBinding;
 
+public class EntertheProductFamilyInformation extends AppCompatActivity {
+ActivityEntertheProductFamilyInformationBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enterthe_product_family_information);
+        binding=ActivityEntertheProductFamilyInformationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
 }
