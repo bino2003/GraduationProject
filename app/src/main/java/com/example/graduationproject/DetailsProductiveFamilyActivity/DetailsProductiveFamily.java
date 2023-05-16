@@ -39,45 +39,19 @@ ActivityDetailsProductiveFamilyBinding binding;
         super.onCreate(savedInstanceState);
         binding=ActivityDetailsProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        String id=getIntent().getStringExtra("idproductivefamily");
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
 
 
-        firebaseFirestore.collection("Productive family").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG 1", "DocumentSnapshot data: " + document.getData());
-                        Log.d("current user",  auth.getCurrentUser().getUid());
-                        Log.d("name document", document.getString("name")+"category "+document.getString("category"));
-//                        binding.imageView2.setImageURI(Uri.parse(document.getString("image")));
-                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView3);
-                        Log.d("image",document.getString("image"));
-//                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image")).into(binding.imageView2);
-                        binding.name.setText(document.getString("name"));
-//                        double phone=document.getDouble("phone");
-//                        int phone
-//                        binding.tvPhone.setText((Integer));
-                    } else {
-                        Log.d("TAG 2", "No such document");
-                    }
-                } else {
-                    Log.d("TAG 3", "get failed with ", task.getException());
-                }
-
-
-
-            }
-
-        });
 
 
 
 
 
-        String id=getIntent().getStringExtra("idproductivefamily");
+
+
+
 
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
@@ -87,7 +61,18 @@ ActivityDetailsProductiveFamilyBinding binding;
         ArrayList<Fragment> detailsproductivefamilylist=new ArrayList<>();
         detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",id));
         detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id));
+firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    @Override
+    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+   DocumentSnapshot documentSnapshot=task.getResult();
+   if (task.isSuccessful()){
+       binding.name.setText(documentSnapshot.getString("name"));
+       Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
 
+
+   }
+    }
+});
 
         Log.d("productlist",detailsproductivefamilylist.toString());
         DetailsProductAdapter detailsProductAdapter=new DetailsProductAdapter(this,detailsproductivefamilylist);

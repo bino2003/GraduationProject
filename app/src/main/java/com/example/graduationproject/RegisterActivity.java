@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.graduationproject.databinding.ActivityRegisterBinding;
+import com.example.graduationproject.model.ProductiveFamily;
 import com.example.graduationproject.model.users;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +35,7 @@ ActivityRegisterBinding binding;
     String categorize;
     String location;
     FirebaseAuth firebaseAuth;
+    boolean isuser;
     SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences;
     int  catid;
@@ -84,8 +86,10 @@ ActivityRegisterBinding binding;
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i==R.id.radioButton){
                     categorize="Productive family";
+                    isuser=false;
                 }else if (i==R.id.radioButton_users){
                     categorize="Users";
+                    isuser=true;
                 }
             }
         });
@@ -106,9 +110,11 @@ ActivityRegisterBinding binding;
                         if (i== R.id.radioButton){
                             cat="Productive family";
                             catid=i;
+                            isuser=false;
                         }else if (i==R.id.radioButton_users){
                             cat="Users";
                             catid=i;
+                            isuser=true;
                         }
                     }
                 });
@@ -182,7 +188,8 @@ ActivityRegisterBinding binding;
                     register();
                     editor.putString("name",binding.fullname.getText().toString());
                     editor.putInt("phone", Integer.parseInt(binding.PhoneNumber.getText().toString()));
-//                   editor.putString("latlong", binding.maps.getla().toString());
+                   editor.putString("latlong",location);
+                   editor.putString("category",categorize);
                     editor.apply();
 
 
@@ -229,20 +236,47 @@ ActivityRegisterBinding binding;
                 users.setCategorize(categorize);
             }
          if (!location.isEmpty()){
-               users.setLocation(location);
+               users.setLatlong(location);
              Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
             }
-            firebaseFirestore.collection("users").document(user.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
+        ProductiveFamily productiveFamily=new ProductiveFamily();
+         productiveFamily.setId(user.getUid());
+         if (categorize!=null){
+             productiveFamily.setCategory(categorize);
+         }
+         if (!location.isEmpty()){
+             productiveFamily.setLatlong(location);
+         }
+         productiveFamily.setName(name);
+         productiveFamily.setPhone(Integer.parseInt(phone));
+if (isuser){
+    firebaseFirestore.collection("users").document(user.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            if (task.isSuccessful()){
+                Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
 
-                    }
-                }
-            });
+            }
+        }
+    });
+}else if (isuser==false){
+    firebaseFirestore.collection("Productive family").document(user.getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            if (task.isSuccessful()){
+                Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    });
+}
+
+
+
            
         }
 

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity {
 
     ActivityUpdateInformationProductiveFamilyBinding binding;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
     FirebaseFirestore firebaseFirestore;
@@ -39,7 +42,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = ActivityUpdateInformationProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        sharedPreferences = getApplicationContext().getSharedPreferences("sp", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -71,12 +75,15 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                         Log.d("image", document.getString("image"));
 //                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image")).into(binding.imageView2);
                         binding.etName.setText(document.getString("name"));
-                        binding.etCategryupdate.setText(document.getString("category"));
+                        binding.etLocationupdate.setText(document.getString("location"));
                         binding.etDescriptionupdate.setText(document.getString("details"));
                         binding.etPhoneupdate.setText("" + document.getLong("phone").intValue());
 //                        double phone=document.getDouble("phone");
 //                        int phone
 //                        binding.tvPhone.setText((Integer));
+                        String oldimage=document.getString("image");
+                        editor.putString("image",oldimage);
+                        editor.apply();
                     } else {
                         Log.d("TAG 2", "No such document");
                     }
@@ -91,17 +98,36 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
         binding.updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                firebaseAuth=FirebaseAuth.getInstance();
                 String name = binding.etName.getText().toString();
                 int phone = Integer.parseInt(binding.etPhoneupdate.getText().toString());
-                String category = binding.etName.getText().toString();
+                String location = binding.etLocationupdate.getText().toString();
                 String descrption = binding.etDescriptionupdate.getText().toString();
+                String productCategory=sharedPreferences.getString("productcategory","");
+                Toast.makeText(UpdateInformationProductiveFamilyActivity.this, productCategory, Toast.LENGTH_SHORT).show();
+               String latlong = sharedPreferences.getString("latlong", null);
+              String  category =sharedPreferences.getString("category",null);
+
                 String image = String.valueOf(imageuri);
                 ProductiveFamily productiveFamily = new ProductiveFamily();
                 productiveFamily.setName(name);
+                productiveFamily.setProductCategory(productCategory);
+                productiveFamily.setId(firebaseAuth.getUid());
+                productiveFamily.setLatlong(latlong);
+                productiveFamily.setCategory(category);
+
+
                 productiveFamily.setPhone(phone);
                 productiveFamily.setDetails(descrption);
-                productiveFamily.setImage(image);
-                productiveFamily.setCategory(category);
+                if (imageuri==null){
+                    String oldimage=sharedPreferences.getString("image","");
+                    productiveFamily.setImage(oldimage);
+                }else {
+                    productiveFamily.setImage(image);
+                }
+
+                productiveFamily.setLocation(location);
+
 
                 firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

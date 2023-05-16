@@ -15,21 +15,24 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.databinding.FragmentDetailsProductiveFamilyProfileBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 
+import com.google.android.gms.common.moduleinstall.internal.ApiFeatureRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class DetailsProductiveFamilyProfile extends Fragment {
@@ -73,10 +76,39 @@ FirebaseAuth firebaseAuth;
         FragmentDetailsProductiveFamilyProfileBinding binding = FragmentDetailsProductiveFamilyProfileBinding.inflate(inflater, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
+
         firebaseFirestore.collection(dbname).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot documentSnapshot=task.getResult();
+              float r=  binding.ratingBar2.getRating();
+                String.valueOf(r);
+                String[] dataArray = {String.valueOf(r)}; // Replace with your desired data
+
+                DocumentReference docRef = firebaseFirestore.collection("Productive Family").document(id);
+
+// Update the document with the array data
+                Task<DocumentSnapshot> future = docRef.get();
+                if (future.isSuccessful()){
+                    DocumentSnapshot document = future.getResult();
+
+                    if (document.exists()) {
+                        // Get the existing array field
+                        List<String> rating = (List<String>) document.get("evaluation");
+
+                        // Add the new data to the existing array
+                        List<String> newArray = new ArrayList<>();
+                        newArray.addAll(Arrays.asList(dataArray));
+
+                        // Update the document with the new array
+                        docRef.update("evaluation", newArray);
+                        System.out.println("Array data added successfully!");
+                    } else {
+                        System.out.println("Document does not exist.");
+                    }
+
+
+                }
 
                 binding.tvDesception.setText(documentSnapshot.getString("details"));
                 binding.tvSet.setText(documentSnapshot.getString("location"));

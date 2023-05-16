@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,6 +86,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
 
         FragmentItemProductiveFamilyBinding binding = FragmentItemProductiveFamilyBinding.inflate(inflater, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
+
 binding.add.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -165,7 +167,7 @@ firebaseAuth=FirebaseAuth.getInstance();
              });
                      binding.rv.setAdapter(productAdapter);
 
-                    binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+                    binding.rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                     productAdapter.notifyDataSetChanged();
 
 

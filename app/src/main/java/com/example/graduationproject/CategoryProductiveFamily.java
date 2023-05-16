@@ -49,7 +49,7 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
     }
     void getproductivefamily(){
-        firebaseFirestore.collection("Productive family").whereEqualTo("category",cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Productive family").whereEqualTo("productCategory",cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

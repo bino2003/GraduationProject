@@ -7,6 +7,7 @@ public class ProductiveFamily {
     String details;
     String latlong;
     String location;
+    String productCategory;
 
     List<String> evaluation;
     int phone;
@@ -19,6 +20,27 @@ public class ProductiveFamily {
     }
 
     public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public ProductiveFamily(String name, String details, String latlong, String location, String productCategory, List<String> evaluation, int phone, String category, String image, String id) {
+        this.name = name;
+        this.details = details;
+        this.latlong = latlong;
+        this.location = location;
+        this.productCategory = productCategory;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.image = image;
         this.id = id;
     }
 
@@ -64,6 +86,7 @@ public class ProductiveFamily {
                 ", details='" + details + '\'' +
                 ", latlong='" + latlong + '\'' +
                 ", location='" + location + '\'' +
+                ", productCategory='" + productCategory + '\'' +
                 ", evaluation=" + evaluation +
                 ", phone=" + phone +
                 ", category='" + category + '\'' +
