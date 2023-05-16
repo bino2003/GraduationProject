@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
 //binding.inflate(R.)
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.categories:
                         replacefragmint(new CategoryFragment());
@@ -91,6 +91,16 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+        /*
+        NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
+
+            }
+        });
+
+        */
+
 //        firestore = FirebaseFirestore.getInstance();
 //        firestore.collection("Category")
 //                .document("categories")

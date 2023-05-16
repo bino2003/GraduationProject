@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,11 @@ import java.util.Map;
 
 public class DetailsProductiveFamilyProfile extends Fragment {
 
-    final Map<String, Object> ratting = new HashMap<>();
-
     private static final String ARG_db_name = "dbName3";
     private static final String ARG_ID_ProductiveFamily = "id2";
-FirebaseFirestore firebaseFirestore;
-FirebaseAuth firebaseAuth;
+    final Map<String, Object> ratting = new HashMap<>();
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
     // TODO: Rename and change types of parameters
     private String dbname;
     private String id;
@@ -49,11 +49,11 @@ FirebaseAuth firebaseAuth;
     }
 
 
-    public static DetailsProductiveFamilyProfile newInstance(String dbname, String id) {
+    public static DetailsProductiveFamilyProfile newInstance(String dbname) {
         DetailsProductiveFamilyProfile fragment = new DetailsProductiveFamilyProfile();
         Bundle args = new Bundle();
         args.putString(ARG_db_name, dbname);
-        args.putString(ARG_ID_ProductiveFamily, id);
+        args.putString(ARG_ID_ProductiveFamily, fragment.id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,20 +71,21 @@ FirebaseAuth firebaseAuth;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentDetailsProductiveFamilyProfileBinding binding = FragmentDetailsProductiveFamilyProfileBinding.inflate(inflater, container, false);
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore.collection(dbname).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore.collection(dbname).document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot=task.getResult();
-
+                DocumentSnapshot documentSnapshot = task.getResult();
+                Log.d("uid ", firebaseAuth.getCurrentUser().getUid());
                 binding.tvDesception.setText(documentSnapshot.getString("details"));
                 binding.tvSet.setText(documentSnapshot.getString("location"));
-                binding.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
+                Log.d("phone", documentSnapshot.getLong("phone")+"");
+                binding.tvPhone.setText("" + documentSnapshot.getLong("phone"));
 
 
             }
         });
-      return   binding.getRoot();
+        return binding.getRoot();
     }
 }

@@ -86,7 +86,7 @@ ActivityDetailsProductiveFamilyBinding binding;
 
         ArrayList<Fragment> detailsproductivefamilylist=new ArrayList<>();
         detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",id));
-        detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id));
+        detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family"));
 
 
         Log.d("productlist",detailsproductivefamilylist.toString());
