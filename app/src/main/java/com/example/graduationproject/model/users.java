@@ -6,9 +6,28 @@ package com.example.graduationproject.model;
     String password;
     String rePassword;
     String location;
+    String latlong;
     String categorize;
 
-    public users(String name, String phone, String password, String rePassword) {
+       public String getLatlong() {
+           return latlong;
+       }
+
+       public void setLatlong(String latlong) {
+           this.latlong = latlong;
+       }
+
+       public users(String name, String phone, String password, String rePassword, String location, String latlong, String categorize) {
+           this.name = name;
+           this.phone = phone;
+           this.password = password;
+           this.rePassword = rePassword;
+           this.location = location;
+           this.latlong = latlong;
+           this.categorize = categorize;
+       }
+
+       public users(String name, String phone, String password, String rePassword) {
         this.name = name;
         this.phone = phone;
         this.password = password;
@@ -58,7 +77,13 @@ package com.example.graduationproject.model;
        @Override
        public String toString() {
            return "users{" +
-                   "categorize='" + categorize + '\'' +
+                   "name='" + name + '\'' +
+                   ", phone='" + phone + '\'' +
+                   ", password='" + password + '\'' +
+                   ", rePassword='" + rePassword + '\'' +
+                   ", location='" + location + '\'' +
+                   ", latlong='" + latlong + '\'' +
+                   ", categorize='" + categorize + '\'' +
                    '}';
        }
 

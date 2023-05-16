@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,8 +78,6 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name);
         }
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
     }
 
     @Override
@@ -86,6 +85,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                              Bundle savedInstanceState) {
 
         FragmentItemProductiveFamilyBinding binding = FragmentItemProductiveFamilyBinding.inflate(inflater, container, false);
+        firebaseFirestore=FirebaseFirestore.getInstance();
 
 binding.add.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -98,7 +98,7 @@ binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-
+firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
                     for (int i=0 ;i<productsallArrayList.size();i++){
@@ -108,12 +108,12 @@ binding.add.setOnClickListener(new View.OnClickListener() {
                         
                      String user= product.getUser();
                     String userid= firebaseAuth.getUid();
-//                    if (user.equals(userid)){
-//
-//                        productsArrayList.add(product);
-//                    }else {
-//
-//                    }
+                    if (user.equals(userid)){
+
+                        productsArrayList.add(product);
+                    }else {
+
+                    }
                     }
 
                     Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
@@ -167,7 +167,7 @@ binding.add.setOnClickListener(new View.OnClickListener() {
              });
                      binding.rv.setAdapter(productAdapter);
 
-                    binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+                    binding.rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                     productAdapter.notifyDataSetChanged();
 
 
