@@ -33,6 +33,7 @@
         android:id="@+id/fullname"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -43,6 +44,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
 
     <ImageView
@@ -58,6 +60,7 @@
         android:id="@+id/location"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -68,6 +71,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullname"></EditText>
 
     <ImageView
@@ -83,6 +87,7 @@
         android:id="@+id/PhoneNumber"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -93,6 +98,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location"></EditText>
 
     <ImageView
@@ -108,6 +114,7 @@
         android:id="@+id/EmailAddress"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -118,6 +125,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PhoneNumber"></EditText>
 
     <ImageView
@@ -133,6 +141,7 @@
         android:id="@+id/Password"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -143,6 +152,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EmailAddress"></EditText>
 
     <ImageView
@@ -158,6 +168,7 @@
         android:id="@+id/ConfirmPassword"
         android:layout_width="343dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/text"
@@ -168,6 +179,7 @@
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password"></EditText>
 
     <ImageView
@@ -206,6 +218,7 @@
         android:id="@+id/btn_Signup"
         android:layout_width="343dp"
         android:layout_height="61dp"
+        android:layout_marginStart="37dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"
@@ -214,6 +227,7 @@
         android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"></Button>
 
 

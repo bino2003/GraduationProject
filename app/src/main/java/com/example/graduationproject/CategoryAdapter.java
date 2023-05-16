@@ -81,8 +81,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             category_name = binding.category1;
             imageView = binding.image1;
 
-
-
         }
 
     }
