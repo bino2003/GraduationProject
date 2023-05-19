@@ -138,7 +138,7 @@ editor.apply();
                 activityResultLauncher.launch(photoPicker);
             }
         });
-     binding2.updateproductivefamilyprofile.setOnClickListener(new View.OnClickListener() {
+     binding2.update.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
 
