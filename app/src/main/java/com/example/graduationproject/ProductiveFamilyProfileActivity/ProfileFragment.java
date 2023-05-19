@@ -46,7 +46,7 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
     ArrayList<String> tabs =new ArrayList<>();
     SharedPreferences sharedPreferences;
-    boolean isuser=true;
+    boolean isuser;
     SharedPreferences.Editor   editor;
 
     // TODO: Rename parameter arguments, choose names that match

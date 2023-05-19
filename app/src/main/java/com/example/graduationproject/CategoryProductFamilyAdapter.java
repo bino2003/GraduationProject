@@ -65,12 +65,13 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 //    holder.ratingBar.setRating(Integer.parseInt(productiveFamilyArrayList.get(position).getEvaluation()));
 
 
-//if (productiveFamilyArrayList.get(position).getImage()!=null){
-//    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
-//
-//}else if (productiveFamilyArrayList.get(position).getImage().equals(null)){
-//}
-        Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
+if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
+    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
+
+}else if (productiveFamilyArrayList.get(position).getImage().isEmpty()){
+    Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
+
+}
 
 
 
