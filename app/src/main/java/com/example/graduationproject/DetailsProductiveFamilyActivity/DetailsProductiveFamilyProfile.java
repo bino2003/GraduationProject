@@ -34,9 +34,9 @@ public class DetailsProductiveFamilyProfile extends Fragment {
 
     private static final String ARG_db_name = "dbName3";
     private static final String ARG_ID_ProductiveFamily = "id2";
-FirebaseFirestore firebaseFirestore;
-FirebaseAuth firebaseAuth;
-List<String> rating;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+    List<String> rating;
     // TODO: Rename and change types of parameters
     private String dbname;
     private String id;
@@ -68,27 +68,27 @@ List<String> rating;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FragmentDetailsProductiveFamilyProfileBinding binding = FragmentDetailsProductiveFamilyProfileBinding.inflate(inflater, container, false);
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        float r=  binding.ratingBar2.getRating();
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        float r = binding.ratingBar2.getRating();
+        firebaseAuth = FirebaseAuth.getInstance();
         binding.ratingBar2.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                if (b){
-if (id!=null){
-    firebaseFirestore.collection("Productive Family").document(id).update("evaluation", FieldValue.arrayUnion("hhjhjk")).addOnCompleteListener(new OnCompleteListener<Void>() {
-        @Override
-        public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
-            if (task.isSuccessful()){
-                Toast.makeText(getActivity(), "rating", Toast.LENGTH_SHORT).show();
+                if (b) {
+                    if (id != null) {
+                        firebaseFirestore.collection("Productive family").document(id).update("evaluation", FieldValue.arrayUnion(String.valueOf(v))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "rating", Toast.LENGTH_SHORT).show();
 
-            }else {
-                Toast.makeText(getActivity(), task.getException().getMessage()+"", Toast.LENGTH_SHORT).show();
-            }
-        }
-    });
+                                } else {
+                                    Toast.makeText(getActivity(), task.getException().getMessage() + "", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
-}
+                    }
                 }
             }
         });
@@ -97,7 +97,7 @@ if (id!=null){
         firebaseFirestore.collection(dbname).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot=task.getResult();
+                DocumentSnapshot documentSnapshot = task.getResult();
 
 //                  firebaseFirestore.collection("Productive Family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //                      @Override
@@ -112,14 +112,13 @@ if (id!=null){
 //                  });
 
 
-
                 binding.tvDesception.setText(documentSnapshot.getString("details"));
                 binding.tvSet.setText(documentSnapshot.getString("location"));
-                binding.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
+                binding.tvPhone.setText("" + documentSnapshot.getLong("phone").intValue());
 
 
             }
         });
-      return   binding.getRoot();
+        return binding.getRoot();
     }
 }

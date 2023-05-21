@@ -8,7 +8,7 @@ public class ProductiveFamily {
     String latlong;
     String location;
     String productCategory;
-
+String rating;
     List<String> evaluation;
     int phone;
     String category;
@@ -31,12 +31,21 @@ public class ProductiveFamily {
         this.productCategory = productCategory;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, String productCategory, List<String> evaluation, int phone, String category, String image, String id) {
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public ProductiveFamily(String name, String details, String latlong, String location, String productCategory, String rating, List<String> evaluation, int phone, String category, String image, String id) {
         this.name = name;
         this.details = details;
         this.latlong = latlong;
         this.location = location;
         this.productCategory = productCategory;
+        this.rating = rating;
         this.evaluation = evaluation;
         this.phone = phone;
         this.category = category;
@@ -87,6 +96,7 @@ public class ProductiveFamily {
                 ", latlong='" + latlong + '\'' +
                 ", location='" + location + '\'' +
                 ", productCategory='" + productCategory + '\'' +
+                ", rating='" + rating + '\'' +
                 ", evaluation=" + evaluation +
                 ", phone=" + phone +
                 ", category='" + category + '\'' +
