@@ -1,4 +1,4 @@
-package com.example.graduationproject;
+package com.example.graduationproject.Category;
 
 import android.content.Context;
 import android.view.LayoutInflater;

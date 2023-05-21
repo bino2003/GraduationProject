@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class UpdateProducts extends AppCompatActivity {
     final private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -52,6 +56,17 @@ public class UpdateProducts extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         if (document.getString("image") != null) {
+//                            try {
+//                                Uri imageUri = Uri.parse(document.getString("image"));
+//
+//
+//                               InputStream inputStream = getApplicationContext().getContentResolver().openInputStream(imageUri);
+//                                Drawable image=   Drawable.createFromStream(inputStream, imageUri.toString());
+//                                Glide.with(getApplicationContext()).load().circleCrop().into(binding.uplodeimgupdate);
+//
+//                            } catch (FileNotFoundException e) {
+//                                throw new RuntimeException(e);
+//                            }
                             Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
                             imageupdate = document.getString("image");
 
