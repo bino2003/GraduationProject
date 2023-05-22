@@ -71,7 +71,7 @@ public int getItemCount() {
         return productArrayList.size();
         }
         }
-class DetailsProductAdapterVH extends RecyclerView.ViewHolder{
+class DetailsProductAdapterVH extends RecyclerView.ViewHolder {
     ImageView imageViewProduct;
     TextView productname;
     TextView productprice;
@@ -80,12 +80,9 @@ class DetailsProductAdapterVH extends RecyclerView.ViewHolder{
 
     public DetailsProductAdapterVH(@NonNull ItemdetailsproductivefamileproductBinding binding) {
         super(binding.getRoot());
-        imageViewProduct =binding.imageViewdetailsproduct;
-        productname=binding.tvDetailsproductName;
-        productprice=binding.tvDetailsproductPrice;
-        fav=binding.fav;
-
-
-
+        imageViewProduct = binding.imageViewdetailsproduct;
+        productname = binding.tvDetailsproductName;
+        productprice = binding.tvDetailsproductPrice;
+        fav = binding.fav;
     }
 }

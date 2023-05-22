@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
-import com.example.graduationproject.Interface.ListenerOnClickItem;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 
 import com.example.graduationproject.databinding.ActivityCategoryProductiveFamilyBinding;
@@ -54,8 +54,7 @@ public class CategoryProductiveFamily extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     productiveFamilyArrayList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
-                    Toast.makeText(CategoryProductiveFamily.this, productiveFamilyArrayList+"", Toast.LENGTH_SHORT).show();
-                    CategoryProductFamilyAdapter  categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
+                    CategoryProductFamilyAdapter categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                         @Override
                         public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
                             if (productiveFamily.getId()!=null){

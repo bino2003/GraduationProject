@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     List<ProductiveFamily> productiveFamilyList=task.getResult().toObjects(ProductiveFamily.class);
                     for (int i=0;i<productiveFamilyList.size();i++){
@@ -115,7 +115,7 @@ isuser=false;
         });
         firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     List<users> usersList=task.getResult().toObjects(users.class);
                     for (int i=0;i<usersList.size();i++){
@@ -132,7 +132,7 @@ isuser=false;
 
         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot documentSnapshot=task.getResult();
                 if (documentSnapshot.get("name")!=null){
                     binding.name.setText(documentSnapshot.getString("name"));
