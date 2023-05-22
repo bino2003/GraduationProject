@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +48,7 @@ public class ItemDetailsProduct extends Fragment {
     ItemDetailsProductAdapter itemDetailsProductAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
+    Favorites favorites_;
     FirebaseFirestore db;
     Product products;
     // TODO: Rename and change types of parameters
@@ -106,25 +106,25 @@ public class ItemDetailsProduct extends Fragment {
                     itemDetailsProductAdapter = new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
                         @Override
                         public void onfav(Product product) {
-
                             firebaseAuth = FirebaseAuth.getInstance();
-                            Favorites favorites = new Favorites();
-                            favorites.setCategory(product.getCategory());
-                            favorites.setDescription(product.getDescription());
-                            favorites.setName(product.getName());
-                            favorites.setImage(product.getImage());
+
+                            DocumentReference documentReference = firebaseFirestore.collection("Productive family").document(id);
                             firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(Task<DocumentSnapshot> task) {
-                                    favorites.setProductiveFamilyId(task.getResult().getString("name"));
-                                    Log.d("name", favorites.getProductiveFamilyId());
+                                    if (task.isSuccessful()){
+                                       favorites_ = new Favorites();
+                                        favorites_.setCategory(product.getCategory());
+                                        favorites_.setDescription(product.getDescription());
+                                        favorites_.setName(product.getName());
+                                        favorites_.setImage(product.getImage());
+                                        favorites_.setPrice(product.getPrice());
+                                        favorites_.setUser(firebaseAuth.getUid());
+                                        favorites_.setId(product.getId());
+                                    }
+                                    favorites_.setProductiveFamilyId(task.getResult().getString("name"));
                                 }
                             });
-                            favorites.setPrice(product.getPrice());
-                            favorites.setUser(firebaseAuth.getUid());
-                            favorites.setId(product.getId());
-                            DocumentReference documentReference = firebaseFirestore.collection("Productive family").document(id);
-
 
 
                             Toast.makeText(getActivity(), documentReference.getId() + "", Toast.LENGTH_SHORT).show();
@@ -142,7 +142,7 @@ public class ItemDetailsProduct extends Fragment {
 
                                                 if (id.equals(firebaseAuth.getUid())) {
                                                     if (firebaseAuth.getUid() != null) {
-                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).set(favorites).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -171,7 +171,7 @@ public class ItemDetailsProduct extends Fragment {
 
                                                 if (id.equals(firebaseAuth.getUid())) {
                                                     if (firebaseAuth.getUid() != null) {
-                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).set(favorites).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -205,7 +205,7 @@ public class ItemDetailsProduct extends Fragment {
                                                 for (int i = 0; i < usersList.size(); i++) {
                                                     String id = task.getResult().getDocuments().get(i).getId();
                                                     if (id.equals(firebaseAuth.getUid())) {
-                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -233,7 +233,7 @@ public class ItemDetailsProduct extends Fragment {
                                                 for (int i = 0; i < productiveFamilyList.size(); i++) {
                                                     String id = task.getResult().getDocuments().get(i).getId();
                                                     if (id.equals(firebaseAuth.getUid())) {
-                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
