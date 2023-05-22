@@ -22,6 +22,7 @@ import com.example.graduationproject.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -116,18 +117,14 @@ public class FavouriteFragment extends Fragment {
 
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(int pos, String product_id) {
-                                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(product_id).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                public void OnDelete(Favorites favorites3) {
+                                                    DocumentReference snapshot=      firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
+                                                    snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(Task<Void> task) {
                                                             if (task.isSuccessful()){
-                                                                favorites.remove(pos);
-                                                                Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
-
-                                                                //    adpter.notifyDataSetChanged();
-                                                              //  adpter.notifyItemRemoved(pos);
+                                                                Toast.makeText(getActivity(), "Succesfully", Toast.LENGTH_SHORT).show();
                                                             }
-                                                            Log.d("product id ", product_id);
                                                         }
                                                     });
                                                 }
@@ -135,6 +132,7 @@ public class FavouriteFragment extends Fragment {
                                    //         Log.d("favo", favorites.toString());
                                             binding.rv.setAdapter(adpter);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                                            adpter.notifyDataSetChanged();
 
                                         }
 
@@ -166,11 +164,14 @@ public class FavouriteFragment extends Fragment {
 
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(int pos, String product_id) {
-                                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(product_id).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                public void OnDelete(Favorites favorites3) {
+                                                    DocumentReference snapshot=      firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
+                                                    snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(Task<Void> task) {
-                                                            Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
+                                                            if (task.isSuccessful()){
+                                                                Toast.makeText(getActivity(), "Succesfully", Toast.LENGTH_SHORT).show();
+                                                            }
                                                         }
                                                     });
                                                 }
@@ -178,6 +179,7 @@ public class FavouriteFragment extends Fragment {
                                             Log.d("favo", favorites.toString());
                                             binding.rv.setAdapter(adpter);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                                            adpter.notifyDataSetChanged();
 
                                         }
 
