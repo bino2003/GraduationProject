@@ -26,6 +26,7 @@ import com.example.graduationproject.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -121,7 +122,9 @@ if (task.isSuccessful()){
          favorites.setPrice(product.getPrice());
          favorites.setUser(firebaseAuth.getUid());
          favorites.setId(product.getId());
-
+     DocumentReference documentReference=    firebaseFirestore.collection("Productive family").document(id);
+favorites.setProductiveFamilyId(documentReference.getId());
+         Toast.makeText(getActivity(), documentReference.getId()+"", Toast.LENGTH_SHORT).show();
 
 
 
