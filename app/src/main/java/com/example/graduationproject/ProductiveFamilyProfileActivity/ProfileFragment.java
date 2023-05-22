@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ActivityUsersProfileBinding;
 import com.example.graduationproject.databinding.FragmentProfile2Binding;
 import com.example.graduationproject.model.ProductiveFamily;
