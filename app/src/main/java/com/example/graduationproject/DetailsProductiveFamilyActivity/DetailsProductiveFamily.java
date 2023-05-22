@@ -4,16 +4,13 @@ package com.example.graduationproject.DetailsProductiveFamilyActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.graduationproject.HomeActivity;
-import com.example.graduationproject.ProductiveFamilyProfileActivity.ItemProductAdapter;
-import com.example.graduationproject.ProductiveFamilyProfileActivity.ItemProductiveFamily;
+
 
 
 import com.example.graduationproject.databinding.ActivityDetailsProductiveFamilyBinding;
@@ -33,6 +30,7 @@ public class DetailsProductiveFamily extends AppCompatActivity {
 ActivityDetailsProductiveFamilyBinding binding;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth auth;
+    public static String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,6 @@ ActivityDetailsProductiveFamilyBinding binding;
 
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
-
         tabs.add(" Profile");
 
         ArrayList<Fragment> detailsproductivefamilylist=new ArrayList<>();
@@ -63,10 +60,13 @@ ActivityDetailsProductiveFamilyBinding binding;
         detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id));
 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
     @Override
-    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
    DocumentSnapshot documentSnapshot=task.getResult();
    if (task.isSuccessful()){
+       name=documentSnapshot.getString("name");
+
        binding.name.setText(documentSnapshot.getString("name"));
+       Log.d("name prod", documentSnapshot.getString("name"));
        Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
 
 

@@ -25,8 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class RegisterActivity extends AppCompatActivity {
-FirebaseFirestore firebaseFirestore;
-ActivityRegisterBinding binding;
+    FirebaseFirestore firebaseFirestore;
+    ActivityRegisterBinding binding;
     String name;
     String password;
 
@@ -99,11 +99,11 @@ ActivityRegisterBinding binding;
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(RegisterActivity.this,MapsActivity.class);
-               String passwordmaps= binding.Password.getText().toString();
-               String repasswordmaps=binding.ConfirmPassword.getText().toString();
-               String phonemaps=binding.PhoneNumber.getText().toString();
-               String emailmaps=binding.EmailAddress.getText().toString();
-               String namemaps=binding.fullname.getText().toString();
+                String passwordmaps= binding.Password.getText().toString();
+                String repasswordmaps=binding.ConfirmPassword.getText().toString();
+                String phonemaps=binding.PhoneNumber.getText().toString();
+                String emailmaps=binding.EmailAddress.getText().toString();
+                String namemaps=binding.fullname.getText().toString();
                 binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -121,7 +121,7 @@ ActivityRegisterBinding binding;
                 if (namemaps!=null){
                     editor.putString("nameaftermap",namemaps);
 
-                   editor.apply();
+                    editor.apply();
 
 
                 }
@@ -163,7 +163,7 @@ ActivityRegisterBinding binding;
             }
         });
 
-       
+
         //double location=
 
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -175,26 +175,26 @@ ActivityRegisterBinding binding;
                 rePassword=binding.ConfirmPassword.getText().toString();
                 email=binding.EmailAddress.getText().toString();
                 location= getIntent().getStringExtra("latlong");
-                if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null||email==null){
+            //    if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null||email==null){
 
                     Toast.makeText(RegisterActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
-                }
-                else if (!password.equals(rePassword)){
+          //      }
+       //         else if (!password.equals(rePassword)){
                     Toast.makeText(RegisterActivity.this, "No password match", Toast.LENGTH_SHORT).show();
 
-                }
+           //     }
 
-                else {
+          //      else {
                     register();
                     editor.putString("name",binding.fullname.getText().toString());
                     editor.putInt("phone", Integer.parseInt(binding.PhoneNumber.getText().toString()));
-                   editor.putString("latlong",location);
-                   editor.putString("category",categorize);
+                    editor.putString("latlong",location);
+                    editor.putString("category",categorize);
                     editor.apply();
 
 
 
-                }
+            //    }
 
             }
         });
@@ -227,57 +227,57 @@ ActivityRegisterBinding binding;
 
 
 
-            users users=new users();
-            users.setName(name);
+        users users=new users();
+        users.setName(name);
 
-            users.setPhone(phone);
+        users.setPhone(phone);
 
-            if (categorize!=null){
-                users.setCategorize(categorize);
-            }
-         if (!location.isEmpty()){
-               users.setLatlong(location);
-             Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            }
+//        if (categorize!=null){
+            users.setCategorize(categorize);
+//        }
+//        if (!location.isEmpty()){
+            users.setLatlong(location);
+            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+//        }
         ProductiveFamily productiveFamily=new ProductiveFamily();
-         productiveFamily.setId(user.getUid());
-         if (categorize!=null){
-             productiveFamily.setCategory(categorize);
-         }
-         if (!location.isEmpty()){
-             productiveFamily.setLatlong(location);
-         }
-         productiveFamily.setName(name);
-         productiveFamily.setPhone(Integer.parseInt(phone));
-if (isuser){
-    firebaseFirestore.collection("users").document(user.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-        @Override
-        public void onComplete(@NonNull Task<Void> task) {
-            if (task.isSuccessful()){
-                Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
+        productiveFamily.setId(user.getUid());
+      //  if (categorize!=null){
+            productiveFamily.setCategory(categorize);
+       // }
+    //    if (!location.isEmpty()){
+            productiveFamily.setLatlong(location);
+     //   }
+        productiveFamily.setName(name);
+        productiveFamily.setPhone(Integer.parseInt(phone));
+        if (isuser){
+            firebaseFirestore.collection("users").document(user.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
 
-            }
+                    }
+                }
+            });
+        }else if (isuser==false){
+            firebaseFirestore.collection("Productive family").document(user.getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
         }
-    });
-}else if (isuser==false){
-    firebaseFirestore.collection("Productive family").document(user.getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-        @Override
-        public void onComplete(@NonNull Task<Void> task) {
-            if (task.isSuccessful()){
-                Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-    });
-}
 
 
 
-           
-        }
 
     }
+
+}

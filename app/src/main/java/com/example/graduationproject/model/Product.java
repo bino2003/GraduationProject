@@ -2,6 +2,7 @@ package com.example.graduationproject.model;
 
 public class Product {
     String name;
+    String productive_family;
     String description;
     String price;
     String category;
@@ -9,6 +10,14 @@ public class Product {
     String user;
 String id;
 String favid;
+
+    public String getProductive_family() {
+        return productive_family;
+    }
+
+    public void setProductive_family(String productive_family) {
+        this.productive_family = productive_family;
+    }
 
     public String getFavid() {
         return favid;

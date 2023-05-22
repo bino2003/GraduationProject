@@ -6,25 +6,18 @@ public class Favorites {
     String price;
     String category;
     String image;
+    String productiveFamilyId;
     String user;
     String id;
+
+
+
 
     public Favorites() {
 
     }
 
-    @Override
-    public String toString() {
-        return "Favorites{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
-                ", category='" + category + '\'' +
-                ", image='" + image + '\'' +
-                ", user='" + user + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
+
 
     public String getName() {
         return name;
@@ -82,12 +75,35 @@ public class Favorites {
         this.id = id;
     }
 
-    public Favorites(String name, String description, String price, String category, String image, String user, String id) {
+    @Override
+    public String toString() {
+        return "Favorites{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", category='" + category + '\'' +
+                ", image='" + image + '\'' +
+                ", productiveFamilyId='" + productiveFamilyId + '\'' +
+                ", user='" + user + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
+    public String getProductiveFamilyId() {
+        return productiveFamilyId;
+    }
+
+    public void setProductiveFamilyId(String productiveFamilyId) {
+        this.productiveFamilyId = productiveFamilyId;
+    }
+
+    public Favorites(String name, String description, String price, String category, String image, String productiveFamilyId, String user, String id) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
+        this.productiveFamilyId = productiveFamilyId;
         this.user = user;
         this.id = id;
     }

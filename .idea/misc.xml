@@ -6,6 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.16354166666666667" />
         <entry key="app/src/main/res/drawable-mdpi/circle.xml" value="0.147" />
         <entry key="app/src/main/res/drawable-mdpi/ic_baseline_image_24.xml" value="0.2235" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2235" />
         <entry key="app/src/main/res/layout/activity_add_products.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_category_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_details_productive_family.xml" value="0.28229166666666666" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_view_details_products.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_view_information_protective_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_view_product.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/favouriteitem.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/fragment_delete_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_details_productive_family_profile.xml" value="0.28229166666666666" />
@@ -35,6 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_productive_family_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile2.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragmentinformationproductivefamily2.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemcategory.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemdetailsproductivefamileproduct.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/itemproduct.xml" value="0.28229166666666666" />
