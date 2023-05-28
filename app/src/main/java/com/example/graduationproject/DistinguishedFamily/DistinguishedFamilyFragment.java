@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
-import com.example.graduationproject.R;
-import com.example.graduationproject.databinding.FragmentCategoryBinding;
 import com.example.graduationproject.databinding.FragmentDistinguishedFamilyBinding;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +25,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DistinguishedFamilyFragment extends Fragment {
 

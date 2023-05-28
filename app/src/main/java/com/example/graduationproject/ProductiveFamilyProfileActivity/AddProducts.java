@@ -20,22 +20,23 @@ import com.example.graduationproject.model.Product;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.List;
-
 public class AddProducts extends AppCompatActivity {
     ActivityAddProductsBinding binding;
-
+FirebaseOptions firebaseOptions;
+FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    StorageReference firebaseStorage=FirebaseStorage.getInstance().getReference();
     private Uri imageuri;
+
     final private FirebaseFirestore firebaseFirestore =FirebaseFirestore.getInstance();
     final  private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
 
@@ -44,6 +45,10 @@ public class AddProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityAddProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+
+
 
         binding.addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +108,43 @@ firebaseAuth=FirebaseAuth.getInstance();
         product.setCategory(category);
         product.setDescription(description);
         product.setPrice(price);
-        product.setImage(String.valueOf(imageuri));
-        product.setUser(firebaseAuth.getUid());
+
+        product.setUser(firebaseUser.getUid());
+
+// Initialize FirebaseApp
+//        FirebaseOptions options = null;
+//        try {
+//            options = new FirebaseOptions.Builder()
+//                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream("path/to/serviceAccountKey.json")))
+//                    .setStorageBucket("gs://graduationproject-ce496.appspot.com")
+//                    .build();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        FirebaseApp.initializeApp(options);
+//
+//
+//
+//
+//// Create a Storage instance
+//        Storage storage = StorageOptions.getDefaultInstance().getService();
+//
+//// Specify the image URI
+//        String imageUri = imageuri+"";
+//
+//// Specify the bucket name and desired file name
+//        String bucketName = "gs://graduationproject-ce496.appspot.com";
+//        String fileName = "image.jpg";
+//
+//// Create a BlobId using the bucket name and desired file name
+//        BlobId blobId = BlobId.of(bucketName, fileName);
+//
+//// Create a BlobInfo object with the image URI as the content
+//        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
+//        Blob blob = storage.create(blobInfo, imageUri.getBytes());
+//
+//        System.out.println("Image URI stored successfully in Firebase Storage.");
+
 
         firebaseFirestore.collection("Products").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -113,7 +153,6 @@ firebaseAuth=FirebaseAuth.getInstance();
 
 
                     Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddProducts.this, ProductiveFamilyProfile.class));
                     finish();
                 }else {
                     Toast.makeText(AddProducts.this, "Product addition failed  ", Toast.LENGTH_SHORT).show();

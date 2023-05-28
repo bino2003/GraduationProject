@@ -11,18 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.graduationproject.Interface.OnDelete;
 import com.example.graduationproject.Interface.UnFavoritve;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
-import com.example.graduationproject.databinding.FragmentProductiveFamilyProfileBinding;
-import com.example.graduationproject.model.Category;
 import com.example.graduationproject.model.Favorites;
 import com.example.graduationproject.model.ProductiveFamily;
 import com.example.graduationproject.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 

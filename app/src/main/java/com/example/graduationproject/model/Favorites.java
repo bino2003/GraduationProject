@@ -55,6 +55,14 @@ public class Favorites {
         return image;
     }
 
+    public String getProductiveFamilyId() {
+        return productiveFamilyId;
+    }
+
+    public void setProductiveFamilyId(String productiveFamilyId) {
+        this.productiveFamilyId = productiveFamilyId;
+    }
+
     public void setImage(String image) {
         this.image = image;
     }
@@ -87,14 +95,6 @@ public class Favorites {
                 ", user='" + user + '\'' +
                 ", id='" + id + '\'' +
                 '}';
-    }
-
-    public String getProductiveFamilyId() {
-        return productiveFamilyId;
-    }
-
-    public void setProductiveFamilyId(String productiveFamilyId) {
-        this.productiveFamilyId = productiveFamilyId;
     }
 
     public Favorites(String name, String description, String price, String category, String image, String productiveFamilyId, String user, String id) {

@@ -166,7 +166,6 @@ public class UpdateProducts extends AppCompatActivity {
 
 
                     Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), ProductiveFamilyProfile.class));
                     finish();
                 } else {
                     Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();

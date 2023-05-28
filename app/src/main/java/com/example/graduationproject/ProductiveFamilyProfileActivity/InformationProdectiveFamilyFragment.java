@@ -24,8 +24,8 @@ import android.widget.Toast;
 
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
-import com.example.graduationproject.model.ProductiveFamily;
 
+import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

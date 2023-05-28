@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
-import com.example.graduationproject.model.ProductiveFamily;
 
+import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -136,8 +136,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                             Log.d("data ", productiveFamily.toString());
 
                             Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-                            //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-
+finish();
                         } else {
                             Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
 

@@ -1,5 +1,8 @@
 package com.example.graduationproject.DetailsProductiveFamilyActivity;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -31,6 +34,7 @@ import java.util.Map;
 public class DetailsProductiveFamilyProfile extends Fragment {
 
     final Map<String, Object> ratting = new HashMap<>();
+
 
     private static final String ARG_db_name = "dbName3";
     private static final String ARG_ID_ProductiveFamily = "id2";
@@ -71,6 +75,30 @@ public class DetailsProductiveFamilyProfile extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         float r = binding.ratingBar2.getRating();
         firebaseAuth = FirebaseAuth.getInstance();
+        binding.watsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "was", Toast.LENGTH_SHORT).show();
+                String phoneNumber = "0598681854";
+
+                // Create a URI with the phone number
+                Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber);
+
+                // Create an Intent with the ACTION_VIEW action and the URI
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                // Set the package name of WhatsApp to ensure only WhatsApp handles this intent
+                intent.setPackage("com.whatsapp");
+
+                // Verify that there's a WhatsApp application available to handle this intent
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    // WhatsApp is not installed on the device or no activity can handle the intent
+                    // You can show an error message or redirect the user to the Play Store to install WhatsApp
+                }
+            }
+        });
         binding.ratingBar2.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
