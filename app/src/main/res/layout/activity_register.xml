@@ -50,34 +50,34 @@
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_baseline_perm_identity_24"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fullname"
         app:layout_constraintTop_toTopOf="@+id/fullname" />
 
-    <EditText
+
+    <TextView
         android:id="@+id/location"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/text"
-        android:hint="location"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:text="Click to select a location.."
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullname"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/fullname" />
 
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_baseline_add_location_24"
         app:layout_constraintEnd_toEndOf="@+id/location"
@@ -104,11 +104,11 @@
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_baseline_phone_iphone_24"
         app:layout_constraintEnd_toEndOf="@+id/PhoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toTopOf="@+id/PhoneNumber" />
 
     <EditText
         android:id="@+id/EmailAddress"
@@ -131,10 +131,10 @@
     <ImageView
         android:layout_width="21dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_outline_email_24"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/EmailAddress"
         app:layout_constraintTop_toTopOf="@+id/EmailAddress" />
 
     <EditText

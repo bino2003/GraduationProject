@@ -12,31 +12,62 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Edit Profile"
-        android:textColor="#282C37"
+        android:textColor="@color/green"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/uplodeimg"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/uplodeimgupdate"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="241dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/img" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="75dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="75dp">
+
+                <ImageView
+                    android:id="@+id/uplodeimgupdate"
+                    android:layout_width="130dp"
+                    android:layout_height="120dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.44"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img" />
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <EditText
         android:id="@+id/et_name"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/editetext"
-        android:hint="product name"
+        android:hint="Name"
         android:inputType="textPersonName"
         android:paddingStart="10dp"
         android:textColor="#000000"
@@ -44,31 +75,15 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uplodeimgupdate"></EditText>
-
-    <EditText
-        android:id="@+id/et_descriptionadd"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/editetext"
-        android:hint="Product Description"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></EditText>
 
     <EditText
         android:id="@+id/et_categryupdate"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/editetext"
-        android:hint="Category:"
+        android:hint="Category"
         android:inputType="text"
         android:paddingStart="10dp"
         android:textColor="#000000"
@@ -77,6 +92,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_name"></EditText>
+
+    <!--    <Spinner-->
+    <!--        android:id="@+id/spinner"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="40dp"-->
+    <!--        android:layout_marginStart="30dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_weight="1"-->
+
+    <!--        android:background="@drawable/editetext"-->
+    <!--        android:entries="@array/Category" />-->
 
 
     <EditText
@@ -85,15 +111,17 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/editetext"
-        android:hint="Desception:"
+        android:hint="Desception"
         android:inputType="phone"
         android:paddingStart="10dp"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/et_categryupdate"></EditText>
+
 
     <EditText
         android:id="@+id/et_locationupdate"
@@ -101,23 +129,21 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/editetext"
-        android:hint="Desception:"
+        android:hint="Location"
         android:inputType="phone"
         android:paddingStart="10dp"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/et_phoneupdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionadd"
-        app:layout_constraintVertical_bias="0.771"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate"></EditText>
 
     <EditText
         android:id="@+id/et_phoneupdate"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/editetext"
         android:hint="Phone Number"
         android:inputType="textEmailAddress"
@@ -125,25 +151,25 @@
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/updatebtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_descriptionupdate"></EditText>
-
+        app:layout_constraintTop_toBottomOf="@+id/et_locationupdate"></EditText>
 
     <Button
         android:id="@+id/updatebtn"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"
         android:text="Edit Profile"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></Button>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneupdate"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

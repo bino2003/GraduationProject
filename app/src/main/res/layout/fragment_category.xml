@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Category.CategoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,13 +12,18 @@
         android:id="@+id/rv"
         android:layout_height="match_parent" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.App.CircularProgressIndicator"
+        android:layout_width="77dp"
+        android:layout_height="62dp"
         android:layout_gravity="center"
-         />
+        android:accessibilityLiveRegion="polite"
+        android:indeterminate="true"
+        android:scrollbarStyle="insideInset"
+        app:indicatorColor="#CBE4DE"
+        app:trackColor="@color/green"
+        app:trackCornerRadius="0dp" />/>
 
 
 </FrameLayout>

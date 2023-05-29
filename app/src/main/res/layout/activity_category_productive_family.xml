@@ -7,16 +7,22 @@
     android:background="#F5F4F4"
     tools:context=".CategoryProductiveFamily">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.App.CircularProgressIndicator"
+        android:layout_width="77dp"
+        android:layout_height="62dp"
         android:layout_gravity="center"
+        android:accessibilityLiveRegion="polite"
+        android:indeterminate="true"
+        android:scrollbarStyle="insideInset"
+        app:indicatorColor="#CBE4DE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/rv"
-        app:layout_constraintTop_toTopOf="@+id/tv_categoryName" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv"
+        app:trackColor="@color/green"
+        app:trackCornerRadius="0dp" />/>
 
     <TextView
         android:id="@+id/tv_categoryName"
@@ -25,7 +31,7 @@
         android:text="Food"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
