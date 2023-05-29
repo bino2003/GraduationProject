@@ -13,15 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.graduationproject.Adapters.ItemDetailsProductAdapter;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
 import com.example.graduationproject.databinding.FragmentItemDetailsProductBinding;
-import com.example.graduationproject.model.Favorites;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.Product;
 
-import com.example.graduationproject.model.ProductiveFamily;
-import com.example.graduationproject.model.users;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,7 @@ public class ItemDetailsProduct extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_db_name2 = "dbName2";
     private static final String ARG_ID_ProductiveFamily = "id";
+    private static final String ARG_ID_Product_Id = "product_id";
     static int allPrice = 0;
     static int i = 0;
     boolean isfav = true;
@@ -47,12 +49,14 @@ public class ItemDetailsProduct extends Fragment {
     ItemDetailsProductAdapter itemDetailsProductAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
+    Favorites favorites_;
     FirebaseFirestore db;
     Product products;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private String dbname;
+    private String product_id;
     private String id;
 
     public ItemDetailsProduct() {
@@ -60,12 +64,13 @@ public class ItemDetailsProduct extends Fragment {
     }
 
 
-    public static ItemDetailsProduct newInstance(String dbname, String id) {
+    public static ItemDetailsProduct newInstance(String dbname, String id,String product_id) {
         ItemDetailsProduct fragment = new ItemDetailsProduct();
         Bundle args = new Bundle();
 
         args.putString(ARG_db_name2, dbname);
         args.putString(ARG_ID_ProductiveFamily, id);
+        args.putString(ARG_ID_Product_Id, product_id);
         fragment.setArguments(args);
         return fragment;
 
@@ -78,6 +83,7 @@ public class ItemDetailsProduct extends Fragment {
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name2);
             id = getArguments().getString(ARG_ID_ProductiveFamily);
+            product_id = getArguments().getString(ARG_ID_Product_Id);
         }
     }
 
@@ -101,28 +107,33 @@ public class ItemDetailsProduct extends Fragment {
                         Product product = productsArrayList.get(i);
                         product.setId(id);
                     }
+
+
                     itemDetailsProductAdapter = new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
                         @Override
                         public void onfav(Product product) {
-
                             firebaseAuth = FirebaseAuth.getInstance();
-                            Favorites favorites = new Favorites();
-                            favorites.setCategory(product.getCategory());
-                            favorites.setDescription(product.getDescription());
-                            favorites.setName(product.getName());
-                            favorites.setImage(product.getImage());
+
+                            DocumentReference documentReference = firebaseFirestore.collection("Productive family").document(id);
                             firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(Task<DocumentSnapshot> task) {
-                                    favorites.setProductiveFamilyId(task.getResult().getString("name"));
-                                    Log.d("name", favorites.getProductiveFamilyId());
+                                    if (task.isSuccessful()){
+                                       favorites_ = new Favorites();
+                                        favorites_.setCategory(product.getCategory());
+                                        favorites_.setDescription(product.getDescription());
+                                        favorites_.setName(product.getName());
+                                        favorites_.setImage(product.getImage());
+                                        favorites_.setPrice(product.getPrice());
+                                        favorites_.setUser(firebaseAuth.getUid());
+                                        favorites_.setId(product.getId());
+                                        favorites_.setProductiveFamilyName(task.getResult().getString("name"));
+                                        favorites_.setProductiveFamilyId(task.getResult().getString("id"));
+                                        Log.d("idProductivefamily", task.getResult().getString("id"));
+                                    }
+
                                 }
                             });
-                            favorites.setPrice(product.getPrice());
-                            favorites.setUser(firebaseAuth.getUid());
-                            favorites.setId(product.getId());
-                            DocumentReference documentReference = firebaseFirestore.collection("Productive family").document(id);
-
 
 
                             Toast.makeText(getActivity(), documentReference.getId() + "", Toast.LENGTH_SHORT).show();
@@ -140,7 +151,7 @@ public class ItemDetailsProduct extends Fragment {
 
                                                 if (id.equals(firebaseAuth.getUid())) {
                                                     if (firebaseAuth.getUid() != null) {
-                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).set(favorites).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -169,7 +180,7 @@ public class ItemDetailsProduct extends Fragment {
 
                                                 if (id.equals(firebaseAuth.getUid())) {
                                                     if (firebaseAuth.getUid() != null) {
-                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).set(favorites).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -203,7 +214,7 @@ public class ItemDetailsProduct extends Fragment {
                                                 for (int i = 0; i < usersList.size(); i++) {
                                                     String id = task.getResult().getDocuments().get(i).getId();
                                                     if (id.equals(firebaseAuth.getUid())) {
-                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
@@ -231,7 +242,7 @@ public class ItemDetailsProduct extends Fragment {
                                                 for (int i = 0; i < productiveFamilyList.size(); i++) {
                                                     String id = task.getResult().getDocuments().get(i).getId();
                                                     if (id.equals(firebaseAuth.getUid())) {
-                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {

@@ -1,6 +1,6 @@
 package com.example.graduationproject.Interface;
 
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Product;
 
 public interface ProductsAction {
     void OnDelete(String name,int pos);

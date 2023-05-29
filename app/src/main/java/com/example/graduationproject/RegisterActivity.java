@@ -11,8 +11,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.graduationproject.databinding.ActivityRegisterBinding;
-import com.example.graduationproject.model.ProductiveFamily;
-import com.example.graduationproject.model.users;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

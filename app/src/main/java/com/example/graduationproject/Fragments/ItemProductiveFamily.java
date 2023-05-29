@@ -1,4 +1,4 @@
-package com.example.graduationproject.ProductiveFamilyProfileActivity;
+package com.example.graduationproject.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,25 +6,27 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.graduationproject.Adapters.ProductAdapter;
+import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.OnDelete;
 import com.example.graduationproject.Interface.ProductsAction;
 
-import com.example.graduationproject.Model.Product;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.AddProducts;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.UpdateProducts;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
 import com.example.graduationproject.databinding.FragmentItemProductiveFamilyBinding;
+import com.example.graduationproject.Model.Product;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -52,19 +54,25 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
 
 
     private static final String ARG_db_name = "dbName";
+    private static final String ARG_db_id = "idFamily";
+    private static final String ARG_db_id_product = "idProduct";
 
     private String dbname;
+    private String family_id;
+    private String product_id;
 
     public ItemProductiveFamily() {
         // Required empty public constructor
     }
 
 
-    public static ItemProductiveFamily newInstance(String dbname) {
+    public static ItemProductiveFamily newInstance(String dbname,String family_id,String product_id) {
         ItemProductiveFamily fragment = new ItemProductiveFamily();
         Bundle args = new Bundle();
 
         args.putString(ARG_db_name, dbname);
+        args.putString(ARG_db_id, family_id);
+        args.putString(ARG_db_id_product, product_id);
         fragment.setArguments(args);
         return fragment;
 
@@ -78,6 +86,8 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name);
+            family_id = getArguments().getString(ARG_db_id);
+            product_id = getArguments().getString(ARG_db_id_product);
         }
     }
 
@@ -87,7 +97,13 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
 
         FragmentItemProductiveFamilyBinding binding = FragmentItemProductiveFamilyBinding.inflate(inflater, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
+        if (family_id!=null){
+            Log.d("id!null", family_id);
+       //     binding.add.setVisibility(View.GONE);
+           // firebaseFirestore.collection("Products").document(product_id).get().addOnCompleteListener(m)
+        }else{
 
+        }
         binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +118,11 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                     firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
+                    if (productsallArrayList.isEmpty()){
+                        startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+
+                        binding.progressBar.setVisibility(View.GONE);
+                    }
                     for (int i=0 ;i<productsallArrayList.size();i++){
                         String id= task.getResult().getDocuments().get(i).getId();
                         Product product=productsallArrayList.get(i);
@@ -117,7 +138,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                         }
                     }
 
-                    Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
+             //       Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
                     productAdapter=new ProductAdapter(productsArrayList, getActivity(), new ProductsAction() {
                         @Override
                         public void OnDelete(String name, int pos) {
@@ -160,7 +181,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                             intent.putExtra("image", product.getImage());
                             intent.putExtra("price", product.getPrice());
                             intent.putExtra("idview", product.getId());
-                            Toast.makeText(getActivity(), product.getId(), Toast.LENGTH_SHORT).show();
+                //            Toast.makeText(getActivity(), product.getId(), Toast.LENGTH_SHORT).show();
                             startActivity(intent);
 
 
@@ -179,6 +200,10 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
 
             }
         });
+
+       // Log.d("id_productive",  intent.getStringExtra("id"));
+
+
 
         return binding.getRoot();
     }

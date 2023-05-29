@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/layout/activity_category_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_details_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_enterthe_product_family_information.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_handle_empity.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.28229166666666666" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_update_information_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_update_products.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/activity_users_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_verification_code.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_view_details_products.xml" value="0.28229166666666666" />

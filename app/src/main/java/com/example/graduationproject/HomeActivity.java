@@ -11,10 +11,11 @@ import android.view.MenuItem;
 
 import com.example.graduationproject.Category.CategoryFragment;
 import com.example.graduationproject.DistinguishedFamily.DistinguishedFamilyFragment;
-import com.example.graduationproject.ProductiveFamilyProfileActivity.ProfileFragment;
+import com.example.graduationproject.Fragments.FavouriteFragment;
+import com.example.graduationproject.Fragments.ProfileFragment;
 
 import com.example.graduationproject.databinding.ActivityHomeBinding;
-import com.example.graduationproject.model.users;
+import com.example.graduationproject.Model.users;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;

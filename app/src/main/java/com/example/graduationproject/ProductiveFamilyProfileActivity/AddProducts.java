@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.graduationproject.databinding.ActivityAddProductsBinding;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Product;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;

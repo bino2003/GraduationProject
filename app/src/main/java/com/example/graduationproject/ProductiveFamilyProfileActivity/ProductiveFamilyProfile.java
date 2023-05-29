@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.graduationproject.Adapters.ItemProductAdapter;
+import com.example.graduationproject.Fragments.InformationProdectiveFamilyFragment;
+import com.example.graduationproject.Fragments.ItemProductiveFamily;
 import com.example.graduationproject.HomeActivity;
 
 
@@ -27,6 +30,7 @@ public class ProductiveFamilyProfile extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 SharedPreferences.Editor editor;
     ActivityProductiveFamilyProfileBinding binding;
+    public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,9 @@ SharedPreferences.Editor editor;
         setContentView(binding.getRoot());
         sharedPreferences = getApplicationContext().getSharedPreferences("sp", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        id=getIntent().getStringExtra("id");
+        Log.d("id_productive_family", id);
+
         binding.exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +51,6 @@ SharedPreferences.Editor editor;
         });
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
-
         tabs.add(" Profile");
 
 binding.ViewPager.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -64,8 +70,8 @@ editor.apply();
     }
 });
         ArrayList<Fragment> item_productArrayList=new ArrayList<>();
-        item_productArrayList.add(ItemProductiveFamily.newInstance("Products"));
-        item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance());
+        item_productArrayList.add(ItemProductiveFamily.newInstance("Products",id,getIntent().getStringExtra("id_product")));
+        item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance(id,getIntent().getStringExtra("id_product")));
 
 
         Log.d("productlist",item_productArrayList.toString());
@@ -78,4 +84,6 @@ editor.apply();
             }
         }).attach();
     }
+
+
 }

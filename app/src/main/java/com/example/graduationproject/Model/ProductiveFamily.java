@@ -1,4 +1,4 @@
-package com.example.graduationproject.model;
+package com.example.graduationproject.Model;
 
 import java.util.List;
 

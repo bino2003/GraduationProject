@@ -1,4 +1,4 @@
-package com.example.graduationproject.ProductiveFamilyProfileActivity;
+package com.example.graduationproject.Fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -22,10 +22,11 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 
+import com.example.graduationproject.ProductiveFamilyProfileActivity.UpdateInformationProductiveFamilyActivity;
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
+import com.example.graduationproject.Model.ProductiveFamily;
 
-import com.example.graduationproject.model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,20 +58,28 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     String category;
     String latlong;
     String location;
-SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor;
     private String mParam1;
     private String mParam2;
     String Productcategory;
     String description;
     String image;
+
+    private static final String ARG_db_id = "idFamily";
+    private static final String ARG_db_id_product = "idProduct";
+
+    private String family_id;
+    private String product_id;
     public InformationProdectiveFamilyFragment() {
         // Required empty public constructor
     }
 
 
-    public static InformationProdectiveFamilyFragment newInstance() {
+    public static InformationProdectiveFamilyFragment newInstance(String family_id,String product_id) {
         InformationProdectiveFamilyFragment fragment = new InformationProdectiveFamilyFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_db_id, family_id);
+        args.putString(ARG_db_id_product, product_id);
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
@@ -85,8 +94,10 @@ SharedPreferences.Editor editor;
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (getArguments() != null) {
+            family_id = getArguments().getString(ARG_db_id);
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            product_id = getArguments().getString(ARG_db_id_product);
 
             sharedPreferences = getActivity().getSharedPreferences("sp", MODE_PRIVATE);
             editor = sharedPreferences.edit();
@@ -97,30 +108,30 @@ SharedPreferences.Editor editor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
 
         FragmentInformationProdectiveFamilyBinding binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
         Fragmentinformationproductivefamily2Binding binding2 = Fragmentinformationproductivefamily2Binding.inflate(inflater, container, false);
-firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-    @Override
-    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-   if (task.isSuccessful()){
-       DocumentSnapshot documentSnapshot=task.getResult();
- shareddetails=documentSnapshot.getString("details");
- sharedlocation=documentSnapshot.getString("location");
- sharedphone= String.valueOf(documentSnapshot.getLong("phone").intValue());
-editor.putString("shareddetails",shareddetails);
-editor.putString("sharedlocation",sharedlocation);
-editor.putString("sharedphone",sharedphone);
-editor.apply();
+        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    shareddetails=documentSnapshot.getString("details");
+                    sharedlocation=documentSnapshot.getString("location");
+// sharedphone= String.valueOf(documentSnapshot.getLong("phone").intValue());
+                    editor.putString("shareddetails",shareddetails);
+                    editor.putString("sharedlocation",sharedlocation);
+                    editor.putString("sharedphone",sharedphone);
+                    editor.apply();
 
 
-       binding2.tvDesception.setText(documentSnapshot.getString("details"));
-       binding2.tvSet.setText(documentSnapshot.getString("location"));
-       binding2.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
-   }
-    }
-});
+                    binding2.tvDesception.setText(documentSnapshot.getString("details"));
+                    binding2.tvSet.setText(documentSnapshot.getString("location"));
+//       binding2.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
+                }
+            }
+        });
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -145,15 +156,15 @@ editor.apply();
                 activityResultLauncher.launch(photoPicker);
             }
         });
-     binding2.update.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
+        binding2.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-             startActivity(new Intent(getActivity(),UpdateInformationProductiveFamilyActivity.class));
-         }
-     });
+                startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
+            }
+        });
 
-       binding.btnCreate.setOnClickListener(new View.OnClickListener() {
+        binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 image = String.valueOf(binding.imageView.getDrawable());
@@ -247,14 +258,14 @@ editor.apply();
         });
 
 
-String location=sharedPreferences.getString("sharedlocation","");
+        String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
         String phone=sharedPreferences.getString("sharedphone","");
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
 
-return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+        return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
 
 
     }

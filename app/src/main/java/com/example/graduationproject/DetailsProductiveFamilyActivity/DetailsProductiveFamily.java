@@ -9,12 +9,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 
-
+import com.example.graduationproject.Adapters.DetailsProductAdapter;
 import com.example.graduationproject.databinding.ActivityDetailsProductiveFamilyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +39,8 @@ ActivityDetailsProductiveFamilyBinding binding;
         binding=ActivityDetailsProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         String id=getIntent().getStringExtra("idproductivefamily");
+        String id2=getIntent().getStringExtra("id");
+        String id_product=getIntent().getStringExtra("id_product");
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
 
@@ -77,24 +76,47 @@ ActivityDetailsProductiveFamilyBinding binding;
         tabs.add("Products");
         tabs.add(" Profile");
 
+        ArrayList<Fragment> detailsproductivefamilylist1=new ArrayList<>();
         ArrayList<Fragment> detailsproductivefamilylist=new ArrayList<>();
-        detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",id));
-        detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id));
-firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-    @Override
-    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-   DocumentSnapshot documentSnapshot=task.getResult();
-   if (task.isSuccessful()){
-       name=documentSnapshot.getString("name");
 
-       binding.name.setText(documentSnapshot.getString("name"));
-       Log.d("name prod", documentSnapshot.getString("name"));
-       Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
+        if (id!=null){
+            detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",id,id_product));
+            detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id,id_product));
+            firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if (task.isSuccessful()){
+                        name=documentSnapshot.getString("name");
+
+                        binding.name.setText(documentSnapshot.getString("name"));
+                        Log.d("name prod", documentSnapshot.getString("name"));
+                        // Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
 
 
-   }
-    }
-});
+                    }
+                }
+            });
+        }else if (id2!=null){
+            detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",id2,id_product));
+            detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",id2,id_product));
+            firebaseFirestore.collection("Productive family").document(id2).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if (task.isSuccessful()){
+                        name=documentSnapshot.getString("name");
+
+                        binding.name.setText(documentSnapshot.getString("name"));
+                        Log.d("name prod", documentSnapshot.getString("name"));
+                        // Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
+
+
+                    }
+                }
+            });
+        }
+
 
         Log.d("productlist",detailsproductivefamilylist.toString());
         DetailsProductAdapter detailsProductAdapter=new DetailsProductAdapter(this,detailsproductivefamilylist);

@@ -1,4 +1,4 @@
-package com.example.graduationproject.ProductiveFamilyProfileActivity;
+package com.example.graduationproject.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.ProductsAction;
 
 import com.example.graduationproject.databinding.ItemproductBinding;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Product;
 
 
 import org.checkerframework.checker.nullness.qual.NonNull;
