@@ -188,9 +188,8 @@ public class ProfileFragment extends Fragment {
                 tab.setText(tabs.get(position));
             }
         }).attach();
-
-
         return isuser ? bindinguser.getRoot() : binding.getRoot();
+
     }
 
 }
