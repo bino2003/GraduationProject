@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 
+import com.example.graduationproject.Adapters.CategoryProductFamilyAdapter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 
 import com.example.graduationproject.databinding.ActivityCategoryProductiveFamilyBinding;
-import com.example.graduationproject.model.ProductiveFamily;
+import com.example.graduationproject.Model.ProductiveFamily;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,6 +56,12 @@ public class CategoryProductiveFamily extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     productiveFamilyArrayList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                    binding.progressBar2.setVisibility(View.GONE);
+                    if (productiveFamilyArrayList.isEmpty()){
+                        startActivity(new Intent(getApplicationContext(),HandleEmpityActivity.class));
+                        finish();
+                        binding.progressBar2.setVisibility(View.GONE);
+                    }
                     CategoryProductFamilyAdapter categoryProductFamilyAdapter =new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                         @Override
                         public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
@@ -67,6 +75,7 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
                         }
                     },productiveFamilyArrayList);
+
                     binding.rv.setAdapter(categoryProductFamilyAdapter);
 
                     binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));

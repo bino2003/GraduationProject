@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.example.graduationproject.databinding.ActivityUpdateProductsBinding;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Product;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,9 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 public class UpdateProducts extends AppCompatActivity {
     final private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,23 +35,26 @@ public class DetailsProductiveFamilyProfile extends Fragment {
 
     private static final String ARG_db_name = "dbName3";
     private static final String ARG_ID_ProductiveFamily = "id2";
+    private static final String ARG_ID_Product_Id = "producr_id";
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     List<String> rating;
     // TODO: Rename and change types of parameters
     private String dbname;
     private String id;
+    private String product_id;
 
     public DetailsProductiveFamilyProfile() {
         // Required empty public constructor
     }
 
 
-    public static DetailsProductiveFamilyProfile newInstance(String dbname, String id) {
+    public static DetailsProductiveFamilyProfile newInstance(String dbname, String id,String product_id) {
         DetailsProductiveFamilyProfile fragment = new DetailsProductiveFamilyProfile();
         Bundle args = new Bundle();
         args.putString(ARG_db_name, dbname);
         args.putString(ARG_ID_ProductiveFamily, id);
+        args.putString(ARG_ID_Product_Id, product_id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,14 +65,20 @@ public class DetailsProductiveFamilyProfile extends Fragment {
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name);
             id = getArguments().getString(ARG_ID_ProductiveFamily);
+            product_id = getArguments().getString(ARG_ID_Product_Id);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (id!=null){
+            Log.d("id_", id);
+        }
+        Log.d("d_", id);
         FragmentDetailsProductiveFamilyProfileBinding binding = FragmentDetailsProductiveFamilyProfileBinding.inflate(inflater, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
+
         float r = binding.ratingBar2.getRating();
         firebaseAuth = FirebaseAuth.getInstance();
         binding.ratingBar2.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -78,7 +88,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                     if (id != null) {
                         firebaseFirestore.collection("Productive family").document(id).update("evaluation", FieldValue.arrayUnion(String.valueOf(v))).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), "rating", Toast.LENGTH_SHORT).show();
 
@@ -92,12 +102,11 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                 }
             }
         });
-
-
-        firebaseFirestore.collection(dbname).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
+        if (id!=null){
+            firebaseFirestore.collection(dbname).document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
 
 //                  firebaseFirestore.collection("Productive Family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //                      @Override
@@ -112,13 +121,17 @@ public class DetailsProductiveFamilyProfile extends Fragment {
 //                  });
 
 
-                binding.tvDesception.setText(documentSnapshot.getString("details"));
-                binding.tvSet.setText(documentSnapshot.getString("location"));
-                binding.tvPhone.setText("" + documentSnapshot.getLong("phone").intValue());
+                    binding.tvDesception.setText(documentSnapshot.getString("details"));
+                    binding.tvSet.setText(documentSnapshot.getString("location"));
+                    binding.tvPhone.setText("" + documentSnapshot.getLong("phone").intValue());
 
 
-            }
-        });
+                }
+            });
+        }
+
+
+
         return binding.getRoot();
     }
 }

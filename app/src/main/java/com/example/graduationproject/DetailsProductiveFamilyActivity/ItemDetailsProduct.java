@@ -6,23 +6,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.graduationproject.Adapters.ItemDetailsProductAdapter;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
 import com.example.graduationproject.databinding.FragmentItemDetailsProductBinding;
-import com.example.graduationproject.model.Favorites;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.Product;
 
-import com.example.graduationproject.model.ProductiveFamily;
-import com.example.graduationproject.model.users;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +41,7 @@ public class ItemDetailsProduct extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_db_name2 = "dbName2";
     private static final String ARG_ID_ProductiveFamily = "id";
+    private static final String ARG_ID_Product_Id = "product_id";
     static int allPrice = 0;
     static int i = 0;
     boolean isfav = true;
@@ -55,6 +56,7 @@ public class ItemDetailsProduct extends Fragment {
     private String mParam1;
     private String mParam2;
     private String dbname;
+    private String product_id;
     private String id;
 
     public ItemDetailsProduct() {
@@ -62,12 +64,13 @@ public class ItemDetailsProduct extends Fragment {
     }
 
 
-    public static ItemDetailsProduct newInstance(String dbname, String id) {
+    public static ItemDetailsProduct newInstance(String dbname, String id,String product_id) {
         ItemDetailsProduct fragment = new ItemDetailsProduct();
         Bundle args = new Bundle();
 
         args.putString(ARG_db_name2, dbname);
         args.putString(ARG_ID_ProductiveFamily, id);
+        args.putString(ARG_ID_Product_Id, product_id);
         fragment.setArguments(args);
         return fragment;
 
@@ -80,6 +83,7 @@ public class ItemDetailsProduct extends Fragment {
         if (getArguments() != null) {
             dbname = getArguments().getString(ARG_db_name2);
             id = getArguments().getString(ARG_ID_ProductiveFamily);
+            product_id = getArguments().getString(ARG_ID_Product_Id);
         }
     }
 
@@ -103,6 +107,8 @@ public class ItemDetailsProduct extends Fragment {
                         Product product = productsArrayList.get(i);
                         product.setId(id);
                     }
+
+
                     itemDetailsProductAdapter = new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
                         @Override
                         public void onfav(Product product) {
@@ -121,8 +127,11 @@ public class ItemDetailsProduct extends Fragment {
                                         favorites_.setPrice(product.getPrice());
                                         favorites_.setUser(firebaseAuth.getUid());
                                         favorites_.setId(product.getId());
+                                        favorites_.setProductiveFamilyName(task.getResult().getString("name"));
+                                        favorites_.setProductiveFamilyId(task.getResult().getString("id"));
+                                        Log.d("idProductivefamily", task.getResult().getString("id"));
                                     }
-                                    favorites_.setProductiveFamilyId(task.getResult().getString("name"));
+
                                 }
                             });
 

@@ -1,4 +1,4 @@
-package com.example.graduationproject.DetailsProductiveFamilyActivity;
+package com.example.graduationproject.Adapters;
 
 
 import androidx.fragment.app.Fragment;
@@ -9,12 +9,9 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 
-
-
-
-public class DetailsProductAdapter extends FragmentStateAdapter {
+public class ItemProductAdapter extends FragmentStateAdapter {
     ArrayList<Fragment> fragmentArrayList;
-    public DetailsProductAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragmentArrayList) {
+    public ItemProductAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<Fragment> fragmentArrayList) {
         super(fragmentActivity);
         this.fragmentArrayList=fragmentArrayList;
     }
@@ -28,5 +25,4 @@ public class DetailsProductAdapter extends FragmentStateAdapter {
         return fragmentArrayList.size();
     }
 }
-
 

@@ -1,4 +1,4 @@
-package com.example.graduationproject.DetailsProductiveFamilyActivity;
+package com.example.graduationproject.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,8 +14,9 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
-import com.example.graduationproject.model.Product;
+import com.example.graduationproject.Model.Product;
 
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -26,6 +27,7 @@ public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProdu
         ArrayList<Product> productArrayList=new ArrayList<>();
         Context context;
         DetailsProductAction detailsProductAction;
+    boolean isfavarite;
 
 
 
@@ -55,6 +57,7 @@ public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int positi
    holder.fav.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
+           holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
            detailsProductAction.onfav(productArrayList.get(pos));
        }
    });

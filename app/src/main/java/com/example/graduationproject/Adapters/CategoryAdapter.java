@@ -1,4 +1,4 @@
-package com.example.graduationproject.Category;
+package com.example.graduationproject.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import com.example.graduationproject.Interface.ListenerOnClickItem;
 
 
 import com.example.graduationproject.databinding.ItemcategoryBinding;
-import com.example.graduationproject.model.Category;
+import com.example.graduationproject.Model.Category;
 
 
 

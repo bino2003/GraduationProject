@@ -10,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.graduationproject.Adapters.CategoryAdapter;
 import com.example.graduationproject.CategoryProductiveFamily;
 import com.example.graduationproject.Interface.ListenerOnClickItem;
 
 import com.example.graduationproject.databinding.FragmentCategoryBinding;
-import com.example.graduationproject.model.Category;
+import com.example.graduationproject.Model.Category;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
