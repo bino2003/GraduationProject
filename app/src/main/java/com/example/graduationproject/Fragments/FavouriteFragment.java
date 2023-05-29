@@ -1,5 +1,6 @@
-package com.example.graduationproject;
+package com.example.graduationproject.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,19 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.graduationproject.Interface.OnDelete;
+import com.example.graduationproject.Adapters.FavoriteAdpter;
+import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
+import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.UnFavoritve;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
-import com.example.graduationproject.databinding.FragmentProductiveFamilyProfileBinding;
-import com.example.graduationproject.model.Category;
-import com.example.graduationproject.model.Favorites;
-import com.example.graduationproject.model.ProductiveFamily;
-import com.example.graduationproject.model.users;
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -54,6 +54,7 @@ public class FavouriteFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FavoriteAdpter adpter;
 
     public FavouriteFragment() {
         // Required empty public constructor
@@ -86,7 +87,7 @@ public class FavouriteFragment extends Fragment {
         }
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        favorites1=new Favorites();
+        favorites1 = new Favorites();
 
     }
 
@@ -99,40 +100,58 @@ public class FavouriteFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+
                     firebaseAuth = FirebaseAuth.getInstance();
                     List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
                     for (int i = 0; i < productiveFamilyList.size(); i++) {
-                      //  favorites.get(i).setProductiveFamilyId(productiveFamilyList.get(i).getName());
+                        //  favorites.get(i).setProductiveFamilyId(productiveFamilyList.get(i).getName());
                         String id = task.getResult().getDocuments().get(i).getId();
 
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
-                                firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user",firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user", firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
 
                                             binding.progressBar.setVisibility(View.GONE);
                                             favorites = (ArrayList<Favorites>) task.getResult().toObjects(Favorites.class);
+                                            if (favorites.isEmpty()){
+                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 
-                                            FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
+                                                binding.progressBar.setVisibility(View.GONE);
+                                            }
+                                            adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites3) {
-                                                    DocumentReference snapshot=      firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
+                                                public void OnDelete(Favorites favorites3, int post) {
+                                                    DocumentReference snapshot = firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
                                                     snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(Task<Void> task) {
-                                                            if (task.isSuccessful()){
+                                                            if (task.isSuccessful()) {
                                                                 Toast.makeText(getActivity(), "Succesfully", Toast.LENGTH_SHORT).show();
+                                                                favorites.remove(post);
+                                                                adpter.notifyItemRemoved(post);
+                                                                if (adpter.getItemCount() == 0) {
+                                                                    //empty
+                                                                }
+
                                                             }
                                                         }
                                                     });
                                                 }
+
+                                                @Override
+                                                public void OnClickItem(String id,String id_product) {
+                                                    Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
+                                                    intent.putExtra("id",id);
+                                                    intent.putExtra("id_product",id_product);
+                                                    startActivity(intent);
+                                                }
                                             });
-                                   //         Log.d("favo", favorites.toString());
+                                            //         Log.d("favo", favorites.toString());
                                             binding.rv.setAdapter(adpter);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                                            adpter.notifyDataSetChanged();
 
                                         }
 
@@ -157,26 +176,42 @@ public class FavouriteFragment extends Fragment {
 
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
-                                firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user",firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user", firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
+                                            if (favorites.isEmpty()){
+                                                startActivity(new Intent(getActivity(),HandleEmpityActivity.class));
 
+                                                binding.progressBar.setVisibility(View.GONE);
+                                            }
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites3) {
-                                                    DocumentReference snapshot=      firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
+                                                public void OnDelete(Favorites favorites3, int post) {
+                                                    DocumentReference snapshot = firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
                                                     snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(Task<Void> task) {
-                                                            if (task.isSuccessful()){
+                                                            if (task.isSuccessful()) {
                                                                 Toast.makeText(getActivity(), "Succesfully", Toast.LENGTH_SHORT).show();
+                                                                favorites.remove(post);
                                                             }
                                                         }
                                                     });
                                                 }
+
+                                                @Override
+                                                public void OnClickItem(String id,String id_product) {
+                                                   Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
+                                                   intent.putExtra("id",id);
+                                                    intent.putExtra("id_product",id_product);
+                                                   startActivity(intent);
+                                                    Log.d("id_productive_family", id);
+                                                    Log.d("id_product", id_product);
+                                                }
                                             });
                                             Log.d("favo", favorites.toString());
+
                                             binding.rv.setAdapter(adpter);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                                             adpter.notifyDataSetChanged();

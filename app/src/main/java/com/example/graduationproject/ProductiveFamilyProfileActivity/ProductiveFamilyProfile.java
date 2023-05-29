@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.graduationproject.Adapters.ItemProductAdapter;
+import com.example.graduationproject.Fragments.InformationProdectiveFamilyFragment;
+import com.example.graduationproject.Fragments.ItemProductiveFamily;
 import com.example.graduationproject.HomeActivity;
 
 
@@ -22,11 +25,15 @@ import java.util.ArrayList;
 
 public class ProductiveFamilyProfile extends AppCompatActivity {
     ActivityProductiveFamilyProfileBinding binding;
+    public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityProductiveFamilyProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        id=getIntent().getStringExtra("id");
+        Log.d("id_productive_family", id);
+
         binding.exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,12 +44,11 @@ public class ProductiveFamilyProfile extends AppCompatActivity {
         });
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
-
-        tabs.add("make Profile");
+        tabs.add(" Profile");
 
         ArrayList<Fragment> item_productArrayList=new ArrayList<>();
-        item_productArrayList.add(ItemProductiveFamily.newInstance("Products"));
-        item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance());
+        item_productArrayList.add(ItemProductiveFamily.newInstance("Products",id,getIntent().getStringExtra("id_product")));
+        item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance(id,getIntent().getStringExtra("id_product")));
 
 
         Log.d("productlist",item_productArrayList.toString());
@@ -55,4 +61,6 @@ public class ProductiveFamilyProfile extends AppCompatActivity {
             }
         }).attach();
     }
+
+
 }

@@ -1,6 +1,7 @@
-package com.example.graduationproject;
+package com.example.graduationproject.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +11,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.graduationproject.Interface.OnDelete;
 import com.example.graduationproject.Interface.UnFavoritve;
 import com.example.graduationproject.databinding.FavouriteitemBinding;
-import com.example.graduationproject.model.Favorites;
+import com.example.graduationproject.Model.Favorites;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHolder> {
-   ArrayList<Favorites> favorites;
+    ArrayList<Favorites> favorites;
     Context context;
     UnFavoritve unFavoritve;
 
@@ -41,13 +40,20 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         int pos = position;
         holder.price.setText(favorites.get(pos).getPrice());
-        holder.productive_family_name.setText(favorites.get(pos).getProductiveFamilyId());
+        holder.productive_family_name.setText(favorites.get(pos).getProductiveFamilyName());
         holder.product_name.setText(favorites.get(pos).getName());
         Glide.with(context).load(favorites.get(position).getImage()).into(holder.imageView);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unFavoritve.OnDelete(favorites.get(pos));
+                unFavoritve.OnDelete(favorites.get(pos), pos);
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unFavoritve.OnClickItem(favorites.get(pos).getProductiveFamilyId(),favorites.get(pos).getId());
+                Log.d("id_Productive_family", favorites.get(pos).getProductiveFamilyId());
             }
         });
     }
@@ -57,10 +63,10 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
         return favorites.size();
     }
 
-    public   class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView    productive_family_name;
-        TextView    price;
-        TextView    product_name;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView productive_family_name;
+        TextView price;
+        TextView product_name;
         ImageView imageView;
         ImageView delete;
 
@@ -72,7 +78,7 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
             product_name = binding.ProductName;
             productive_family_name = binding.prodectiveFamilyName;
             imageView = binding.imageview;
-            delete=binding.delete;
+            delete = binding.delete;
 
         }
 

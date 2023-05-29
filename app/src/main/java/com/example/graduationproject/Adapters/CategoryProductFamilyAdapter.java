@@ -1,4 +1,4 @@
-package com.example.graduationproject.DistinguishedFamily;
+package com.example.graduationproject.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,42 +10,39 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
-import com.example.graduationproject.R;
-import com.example.graduationproject.databinding.FragmentDistinguishedFamilyBinding;
-import com.example.graduationproject.databinding.ItemproductBinding;
+
 import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
-import com.example.graduationproject.model.ProductiveFamily;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.graduationproject.Model.ProductiveFamily;
+
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DistinguishedFamilyAdapter extends RecyclerView.Adapter<DistinguishedFamilyVH> {
+public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryProductFamilyVH>{
     Context context;
     OnClickProductiveFamily onClickProductiveFamily;
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
-    public DistinguishedFamilyAdapter(Context context, OnClickProductiveFamily onClickProductiveFamily, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
+
+    public CategoryProductFamilyAdapter(Context context, OnClickProductiveFamily onClickProductiveFamily, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
         this.context = context;
         this.onClickProductiveFamily = onClickProductiveFamily;
         this.productiveFamilyArrayList = productiveFamilyArrayList;
     }
 
-    @androidx.annotation.NonNull
+    @NonNull
     @Override
-    public DistinguishedFamilyVH onCreateViewHolder(@androidx.annotation.NonNull ViewGroup parent, int viewType) {
-        DistinguishedFamilyVH distinguishedFamilyVH= new DistinguishedFamilyVH(ProductivefamilyitemBinding.inflate(LayoutInflater.from(parent.getContext())));
+    public CategoryProductFamilyVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        CategoryProductFamilyVH categoryProductFamilyVH= new CategoryProductFamilyVH(ProductivefamilyitemBinding.inflate(LayoutInflater.from(parent.getContext())));
 
-        return distinguishedFamilyVH;
+        return categoryProductFamilyVH;
     }
 
     @Override
-    public void onBindViewHolder(@androidx.annotation.NonNull DistinguishedFamilyVH holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryProductFamilyVH holder, int position) {
         float rating=0;
-        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
         int pos=position;
         holder.location.setText(productiveFamilyArrayList.get(position).getLocation());
         if (productiveFamilyArrayList.get(pos).getEvaluation()!=null){
@@ -55,11 +52,9 @@ public class DistinguishedFamilyAdapter extends RecyclerView.Adapter<Distinguish
                 rating=rating+Float.parseFloat(num);
                 if (i==listreating.size()-1){
                     float avg=rating/listreating.size();
-productiveFamilyArrayList.get(pos).setRating(String.valueOf(avg));
-firebaseFirestore.collection("Productive family").document(productiveFamilyArrayList.get(pos).getId()).update("rating",String.valueOf(avg));
+
 
                     holder.ratingBar.setRating(avg);
-                    productiveFamilyArrayList.get(pos).setRating(String.valueOf(avg));
                 }
 
             }
@@ -68,14 +63,14 @@ firebaseFirestore.collection("Productive family").document(productiveFamilyArray
 
 
 
-        Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
 
-//        if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
-//            Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
+//if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
+//    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
 //
-//        }else if (productiveFamilyArrayList.get(position).getImage().isEmpty()){
+//}else if (productiveFamilyArrayList.get(position).getImage().isEmpty()){
+//    Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
 //
-//        }
+//}
 
 
 
@@ -91,6 +86,7 @@ firebaseFirestore.collection("Productive family").document(productiveFamilyArray
                 onClickProductiveFamily.onclickproductiveFamily(productiveFamilyArrayList.get(pos));
             }
         });
+
     }
 
     @Override
@@ -98,14 +94,13 @@ firebaseFirestore.collection("Productive family").document(productiveFamilyArray
         return productiveFamilyArrayList.size();
     }
 }
-class DistinguishedFamilyVH extends RecyclerView.ViewHolder{
-
+ class CategoryProductFamilyVH extends RecyclerView.ViewHolder {
     TextView name;
     TextView details;
     TextView location;
     RatingBar ratingBar;
     ImageView imageView;
-    public DistinguishedFamilyVH(@NonNull ProductivefamilyitemBinding binding) {
+    public CategoryProductFamilyVH(@NonNull ProductivefamilyitemBinding binding) {
 
         super(binding.getRoot());
         name=binding.name;

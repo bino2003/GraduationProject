@@ -1,4 +1,4 @@
-package com.example.graduationproject.model;
+package com.example.graduationproject.Model;
 
 public class Favorites {
     String name;
@@ -7,11 +7,18 @@ public class Favorites {
     String category;
     String image;
     String productiveFamilyId;
+    String productiveFamilyName;
     String user;
     String id;
 
 
+    public String getProductiveFamilyName() {
+        return productiveFamilyName;
+    }
 
+    public void setProductiveFamilyName(String productiveFamilyName) {
+        this.productiveFamilyName = productiveFamilyName;
+    }
 
     public Favorites() {
 

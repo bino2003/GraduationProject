@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
-import com.example.graduationproject.model.ProductiveFamily;
+import com.example.graduationproject.Model.ProductiveFamily;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
