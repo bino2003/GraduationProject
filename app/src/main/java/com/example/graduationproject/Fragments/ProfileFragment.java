@@ -190,7 +190,7 @@ public class ProfileFragment extends Fragment {
         }).attach();
 
 
-        return isuser ? bindinguser.getRoot() : binding.getRoot();
+        return isuser ? bindinguser.getRoot() : bindinguser.getRoot();
     }
 
 }
