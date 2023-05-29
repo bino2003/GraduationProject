@@ -175,6 +175,7 @@ public class FavouriteFragment extends Fragment {
                         String id = task.getResult().getDocuments().get(i).getId();
 
 
+
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user", firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
