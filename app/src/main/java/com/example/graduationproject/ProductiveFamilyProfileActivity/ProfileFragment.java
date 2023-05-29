@@ -92,6 +92,87 @@ public class ProfileFragment extends Fragment  {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FragmentProfile2Binding binding=FragmentProfile2Binding.inflate(getLayoutInflater());
+
+        firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    List<ProductiveFamily> productiveFamilyList=task.getResult().toObjects(ProductiveFamily.class);
+                    for (int i=0;i<productiveFamilyList.size();i++){
+                        String id= task.getResult().getDocuments().get(i).getId();
+                        if (id.equals(firebaseAuth.getUid())){
+                            isuser=false;
+                            ArrayList<String> tabs =new ArrayList<>();
+                            tabs.add("Products");
+
+                            tabs.add("Profile");
+                            binding.ViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+                                @Override
+                                public void transformPage(@androidx.annotation.NonNull View page, float position) {
+                                    Toast.makeText(getActivity(), "scroll", Toast.LENGTH_SHORT).show();
+                                    if (position==0){
+
+                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
+
+                                    }else {
+                                        binding.icon.setImageResource(R.drawable.edite);
+
+
+                                    }
+                                }
+                            });
+
+                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot documentSnapshot=task.getResult();
+                                    if (documentSnapshot.get("name")!=null){
+                                        binding.name.setText(documentSnapshot.getString("name"));
+
+                                    }
+                                    if (documentSnapshot.get("image")!=null){
+                                        Glide.with(getActivity()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
+
+                                    }
+
+
+                                }
+                            });
+
+
+
+                            ArrayList<Fragment> item_productArrayList=new ArrayList<>();
+                            item_productArrayList.add(ItemProductiveFamily.newInstance("Products"));
+                            item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance());
+
+
+                            Log.d("productlist",item_productArrayList.toString());
+                            ItemProductAdapter itemProductAdapter=new ItemProductAdapter(getActivity(),item_productArrayList);
+                            binding.ViewPager.setAdapter(itemProductAdapter);
+
+                            new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+                                @Override
+                                public void onConfigureTab(TabLayout.@NonNull Tab tab, int position) {
+                                    tab.setText(tabs.get(position));
+                                }
+                            }).attach();
+
+
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

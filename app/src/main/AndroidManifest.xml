@@ -32,6 +32,9 @@
             android:name=".DetailsProductiveFamilyActivity.DetailsProductiveFamily"
             android:exported="false" />
         <activity
+            android:name=".ProductiveFamilyProfileActivity.InformationProdectiveFamilyFragment"
+            android:exported="false" />
+        <activity
             android:name=".Reset_password"
             android:exported="false" />
         <activity
