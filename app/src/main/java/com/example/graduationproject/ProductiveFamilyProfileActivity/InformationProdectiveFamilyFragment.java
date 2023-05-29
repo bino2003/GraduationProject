@@ -24,13 +24,18 @@ import android.widget.Toast;
 
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
-import com.example.graduationproject.Model.ProductiveFamily;
 
+import com.example.graduationproject.Model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -41,6 +46,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     FirebaseFirestore firebaseFirestore;
+    StorageReference storageRef= FirebaseStorage.getInstance().getReference();
+
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
     SharedPreferences sharedPreferences;
@@ -170,7 +177,6 @@ editor.apply();
                 productiveFamily.setProductCategory(Productcategory);
                 productiveFamily.setLocation(location);
                 productiveFamily.setId(firebaseAuth.getUid());
-                productiveFamily.setImage(String.valueOf(imageuri));
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
                 int phone = sharedPreferences.getInt("phone", 0);
@@ -183,29 +189,56 @@ editor.apply();
                 productiveFamily.setDetails(description);
                 productiveFamily.setLatlong(latlong);
 //        Log.d("category_name", category);
-                if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
-                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("data ", productiveFamily.toString());
-
-                                Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
-                                //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-editor.putString("productcategory",Productcategory);
-editor.apply();
+                StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
+                UploadTask uploadTask = riversRef.putFile(imageuri);
 
 
-                            } else {
-                                Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@androidx.annotation.NonNull Exception e) {
+                        Toast.makeText(getActivity(), "upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getActivity(), "upload success", Toast.LENGTH_SHORT).show();
+                        riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                                if (task.isSuccessful()){
+                                    productiveFamily.setImage(task.getResult().toString());
 
+
+                                }
                             }
-                        }
-                    });
+                        });
+                        if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
+                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("data ", productiveFamily.toString());
 
-                }else {
-                    Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
-                }
+                                        Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                        //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+                                        editor.putString("productcategory",Productcategory);
+                                        editor.apply();
+
+
+                                    } else {
+                                        Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+
+                        }else {
+                            Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
 
 
 

@@ -16,8 +16,8 @@ import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProd
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 
 import com.example.graduationproject.databinding.ActivityCategoryProductiveFamilyBinding;
-import com.example.graduationproject.Model.ProductiveFamily;
 
+import com.example.graduationproject.Model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -18,20 +18,29 @@ import android.widget.Toast;
 import com.example.graduationproject.databinding.ActivityAddProductsBinding;
 import com.example.graduationproject.Model.Product;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class AddProducts extends AppCompatActivity {
     ActivityAddProductsBinding binding;
-
+FirebaseOptions firebaseOptions;
+FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    StorageReference storageRef=FirebaseStorage.getInstance().getReference();
     private Uri imageuri;
+
     final private FirebaseFirestore firebaseFirestore =FirebaseFirestore.getInstance();
     final  private StorageReference storageReference= FirebaseStorage.getInstance().getReference();
 
@@ -40,6 +49,10 @@ public class AddProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityAddProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+firebaseAuth=FirebaseAuth.getInstance();
+
 
         binding.addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,31 +105,57 @@ String name=binding.etNameadd.getText().toString();
         String category=binding.etCategryadd.getText().toString();
         String price=binding.etPriceadd.getText().toString();
 
-firebaseAuth=FirebaseAuth.getInstance();
         Product product=new Product();
 
         product.setName(name);
         product.setCategory(category);
         product.setDescription(description);
         product.setPrice(price);
-        product.setImage(String.valueOf(imageuri));
+
         product.setUser(firebaseAuth.getUid());
+        StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
+        UploadTask uploadTask = riversRef.putFile(imageuri);
 
-        firebaseFirestore.collection("Products").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+            public void onFailure(@androidx.annotation.NonNull Exception e) {
+                Toast.makeText(AddProducts.this, "upload failed", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(AddProducts.this, "upload success", Toast.LENGTH_SHORT).show();
+                riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                        if (task.isSuccessful()){
+                            product.setImage(task.getResult().toString());
+                            firebaseFirestore.collection("Products").document().set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
 
 
-                    Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddProducts.this, ProductiveFamilyProfile.class));
-                    finish();
-                }else {
-                    Toast.makeText(AddProducts.this, "Product addition failed  ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }else {
+                                        Toast.makeText(AddProducts.this, "Product addition failed  ", Toast.LENGTH_SHORT).show();
 
-                }
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                });
+
             }
         });
+
+
+
+
 
     }
 }

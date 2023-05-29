@@ -20,15 +20,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent" />
+    <ImageButton
+        android:id="@+id/icon"
+        android:layout_width="28dp"
+        android:layout_height="40dp"
 
-        <ImageButton
-            android:layout_width="28dp"
-            android:layout_height="40dp"
-            android:background="#CBE4DE"
+        android:background="#CBE4DE"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="542dp"
+        android:layout_height="510dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/photo"
+        app:layout_constraintBottom_toTopOf="@+id/tab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:layout_width="28dp"
+        android:layout_height="40dp"
+        android:background="#CBE4DE"
+
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView

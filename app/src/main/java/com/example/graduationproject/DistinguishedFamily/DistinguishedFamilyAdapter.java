@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 import com.example.graduationproject.R;
-import com.example.graduationproject.databinding.FragmentDistinguishedFamilyBinding;
-import com.example.graduationproject.databinding.ItemproductBinding;
 import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
 import com.example.graduationproject.Model.ProductiveFamily;
 import com.google.firebase.firestore.FirebaseFirestore;

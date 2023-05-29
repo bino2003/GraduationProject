@@ -20,12 +20,15 @@ import com.example.graduationproject.databinding.ActivityUpdateProductsBinding;
 import com.example.graduationproject.Model.Product;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -36,6 +39,8 @@ public class UpdateProducts extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     String imageupdate;
     private Uri imageuri;
+    StorageReference storageRef=FirebaseStorage.getInstance().getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,29 +152,69 @@ public class UpdateProducts extends AppCompatActivity {
         product.setCategory(newcategory);
         product.setDescription(newdescription);
         product.setPrice(newprice);
+        product.setUser(firebaseAuth.getUid());
+
         if (imageuri != null) {
-            product.setImage(String.valueOf(imageuri));
+            StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
+            UploadTask uploadTask = riversRef.putFile(imageuri);
+
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@androidx.annotation.NonNull Exception e) {
+                    Toast.makeText(UpdateProducts.this, "upload failed", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(UpdateProducts.this, "upload success", Toast.LENGTH_SHORT).show();
+                    riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                            if (task.isSuccessful()){
+                                product.setImage(task.getResult().toString());
+                                firebaseFirestore.collection("Products").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+
+                                            Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+
+                }
+            });
+
         } else {
             product.setImage(imageupdate);
+            firebaseFirestore.collection("Products").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+
+
+                        Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
 
         }
 
-        product.setUser(firebaseAuth.getUid());
-        firebaseFirestore.collection("Products").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
 
-
-                    Toast.makeText(UpdateProducts.this, "Product Update successfully ", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), ProductiveFamilyProfile.class));
-                    finish();
-                } else {
-                    Toast.makeText(UpdateProducts.this, "Product Update failed  ", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
 
     }
 
