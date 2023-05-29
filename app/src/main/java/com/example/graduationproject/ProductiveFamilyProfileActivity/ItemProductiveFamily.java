@@ -103,24 +103,24 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
                     for (int i=0 ;i<productsallArrayList.size();i++){
-                        String id= task.getResult().getDocuments().get(i).getId();
-                        Product product=productsallArrayList.get(i);
-                        product.setId(id);
+                      String id= task.getResult().getDocuments().get(i).getId();
+                      Product product=productsallArrayList.get(i);
+                      product.setId(id);
 
-                        String user= product.getUser();
-                        String userid= firebaseAuth.getUid();
-                        if (user.equals(userid)){
+                     String user= product.getUser();
+                    String userid= firebaseAuth.getUid();
+                    if (user.equals(userid)){
 
-                            productsArrayList.add(product);
-                        }else {
+                        productsArrayList.add(product);
+                    }else {
 
-                        }
+                    }
                     }
 
                     Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
-                    productAdapter=new ProductAdapter(productsArrayList, getActivity(), new ProductsAction() {
-                        @Override
-                        public void OnDelete(String name, int pos) {
+             productAdapter=new ProductAdapter(productsArrayList, getActivity(), new ProductsAction() {
+                 @Override
+                 public void OnDelete(String name, int pos) {
 
 //                     DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(productsArrayList.get(pos).getName(), pos);
 //
@@ -129,44 +129,44 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                             firebaseFirestore.collection("Products").document(product.getId()).delete();
                             Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
 
-                            productsArrayList.remove(product);
+                     productsArrayList.remove(product);
 
-                            productAdapter.notifyDataSetChanged();
-                            productAdapter.notifyItemChanged(pos);
-                        }
+                     productAdapter.notifyDataSetChanged();
+                     productAdapter.notifyItemChanged(pos);
+                 }
 
-                        @Override
-                        public void OnUpdate(Product product) {
+                 @Override
+                 public void OnUpdate(Product product) {
 
-                            Intent intent = new Intent(getActivity(), UpdateProducts.class);
-                            intent.putExtra("nameupdate", product.getName());
-                            intent.putExtra("id", product.getId());
-                            intent.putExtra("imageupdate", product.getImage());
+                     Intent intent = new Intent(getActivity(), UpdateProducts.class);
+                     intent.putExtra("nameupdate", product.getName());
+                     intent.putExtra("id", product.getId());
+                     intent.putExtra("imageupdate", product.getImage());
 
-                            intent.putExtra("categoryupdate", product.getCategory());
-                            intent.putExtra("descriptionupdate", product.getDescription());
-                            intent.putExtra("priceupdate", product.getPrice());
-                            startActivity(intent);
+                     intent.putExtra("categoryupdate", product.getCategory());
+                     intent.putExtra("descriptionupdate", product.getDescription());
+                     intent.putExtra("priceupdate", product.getPrice());
+                     startActivity(intent);
 
-                        }
-
-
-                        @Override
-                        public void OnClickItem(Product product) {
-                            Intent intent = new Intent(getActivity(), ViewProduct.class);
-                            intent.putExtra("name", product.getName());
-                            intent.putExtra("category", product.getCategory());
-                            intent.putExtra("description", product.getDescription());
-                            intent.putExtra("image", product.getImage());
-                            intent.putExtra("price", product.getPrice());
-                            intent.putExtra("idview", product.getId());
-                            Toast.makeText(getActivity(), product.getId(), Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
+                 }
 
 
-                        }
-                    });
-                    binding.rv.setAdapter(productAdapter);
+                 @Override
+                 public void OnClickItem(Product product) {
+                     Intent intent = new Intent(getActivity(), ViewProduct.class);
+                     intent.putExtra("name", product.getName());
+                     intent.putExtra("category", product.getCategory());
+                     intent.putExtra("description", product.getDescription());
+                     intent.putExtra("image", product.getImage());
+                     intent.putExtra("price", product.getPrice());
+                     intent.putExtra("idview", product.getId());
+                     Toast.makeText(getActivity(), product.getId(), Toast.LENGTH_SHORT).show();
+                     startActivity(intent);
+
+
+                 }
+             });
+                     binding.rv.setAdapter(productAdapter);
 
                     binding.rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                     productAdapter.notifyDataSetChanged();

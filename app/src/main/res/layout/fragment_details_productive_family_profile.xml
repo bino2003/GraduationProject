@@ -35,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="The Set:"
+        android:layout_marginTop="70dp"
+        android:text="Location"
         android:textColor="#2C3333"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -50,7 +50,7 @@
         android:id="@+id/tv_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
 
         android:text="Gaza-El Remal in front of
@@ -75,8 +75,8 @@ Capitol Mall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:text="The Desception:"
+        android:layout_marginTop="39dp"
+        android:text="Desception"
         android:textColor="#2C3333"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -87,7 +87,7 @@ Capitol Mall"
         android:id="@+id/tv_desception"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="50dp"
 
         android:layout_marginTop="12dp"
         android:text="Gaza-El Remal in front of
@@ -112,8 +112,8 @@ Capitol Mall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:text="The Phone:"
+        android:layout_marginTop="39dp"
+        android:text="Phone"
         android:textColor="#2C3333"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -125,7 +125,7 @@ Capitol Mall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
         android:text="Gaza-El Remal in front of
 Capitol Mall"
@@ -134,13 +134,36 @@ Capitol Mall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+    <ImageView
+        android:id="@+id/cirvle0"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cirvle3" />
+
+    <TextView
+        android:id="@+id/Riting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="43dp"
+        android:text="Rating"
+        android:textColor="#2C3333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/cirvle3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+
     <RatingBar
         android:id="@+id/ratingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
