@@ -9,6 +9,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -42,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:layout_width="28dp"
+        android:id="@+id/icon"android:layout_width="28dp"
         android:layout_height="40dp"
         android:background="#CBE4DE"
 

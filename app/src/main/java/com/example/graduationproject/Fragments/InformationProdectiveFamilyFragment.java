@@ -28,10 +28,15 @@ import com.example.graduationproject.databinding.Fragmentinformationproductivefa
 import com.example.graduationproject.Model.ProductiveFamily;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -42,6 +47,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     FirebaseFirestore firebaseFirestore;
+    StorageReference storageRef= FirebaseStorage.getInstance().getReference();
+
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
     SharedPreferences sharedPreferences;
@@ -51,7 +58,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     String category;
     String latlong;
     String location;
-SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor;
     private String mParam1;
     private String mParam2;
     String Productcategory;
@@ -101,30 +108,30 @@ SharedPreferences.Editor editor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
 
         FragmentInformationProdectiveFamilyBinding binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
         Fragmentinformationproductivefamily2Binding binding2 = Fragmentinformationproductivefamily2Binding.inflate(inflater, container, false);
-firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-    @Override
-    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-   if (task.isSuccessful()){
-       DocumentSnapshot documentSnapshot=task.getResult();
- shareddetails=documentSnapshot.getString("details");
- sharedlocation=documentSnapshot.getString("location");
+        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    shareddetails=documentSnapshot.getString("details");
+                    sharedlocation=documentSnapshot.getString("location");
 // sharedphone= String.valueOf(documentSnapshot.getLong("phone").intValue());
-editor.putString("shareddetails",shareddetails);
-editor.putString("sharedlocation",sharedlocation);
-editor.putString("sharedphone",sharedphone);
-editor.apply();
+                    editor.putString("shareddetails",shareddetails);
+                    editor.putString("sharedlocation",sharedlocation);
+                    editor.putString("sharedphone",sharedphone);
+                    editor.apply();
 
 
-       binding2.tvDesception.setText(documentSnapshot.getString("details"));
-       binding2.tvSet.setText(documentSnapshot.getString("location"));
+                    binding2.tvDesception.setText(documentSnapshot.getString("details"));
+                    binding2.tvSet.setText(documentSnapshot.getString("location"));
 //       binding2.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
-   }
-    }
-});
+                }
+            }
+        });
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -149,15 +156,15 @@ editor.apply();
                 activityResultLauncher.launch(photoPicker);
             }
         });
-     binding2.update.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
+        binding2.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-             startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
-         }
-     });
+                startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
+            }
+        });
 
-       binding.btnCreate.setOnClickListener(new View.OnClickListener() {
+        binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 image = String.valueOf(binding.imageView.getDrawable());
@@ -181,7 +188,6 @@ editor.apply();
                 productiveFamily.setProductCategory(Productcategory);
                 productiveFamily.setLocation(location);
                 productiveFamily.setId(firebaseAuth.getUid());
-                productiveFamily.setImage(String.valueOf(imageuri));
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
                 int phone = sharedPreferences.getInt("phone", 0);
@@ -194,29 +200,56 @@ editor.apply();
                 productiveFamily.setDetails(description);
                 productiveFamily.setLatlong(latlong);
 //        Log.d("category_name", category);
-                if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
-                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("data ", productiveFamily.toString());
-
-                                Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
-                                //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-editor.putString("productcategory",Productcategory);
-editor.apply();
+                StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
+                UploadTask uploadTask = riversRef.putFile(imageuri);
 
 
-                            } else {
-                                Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@androidx.annotation.NonNull Exception e) {
+                        Toast.makeText(getActivity(), "upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(getActivity(), "upload success", Toast.LENGTH_SHORT).show();
+                        riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                                if (task.isSuccessful()){
+                                    productiveFamily.setImage(task.getResult().toString());
+                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("data ", productiveFamily.toString());
 
+                                                    Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+                                                    editor.putString("productcategory",Productcategory);
+                                                    editor.apply();
+
+
+                                                } else {
+                                                    Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+                                        });
+
+                                    }else {
+                                        Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
                             }
-                        }
-                    });
+                        });
 
-                }else {
-                    Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
-                }
+
+
+                    }
+                });
 
 
 
@@ -225,14 +258,14 @@ editor.apply();
         });
 
 
-String location=sharedPreferences.getString("sharedlocation","");
+        String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
         String phone=sharedPreferences.getString("sharedphone","");
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
 
-return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+        return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
 
 
     }

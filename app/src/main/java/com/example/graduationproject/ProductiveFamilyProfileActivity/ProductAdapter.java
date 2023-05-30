@@ -1,7 +1,6 @@
 package com.example.graduationproject.ProductiveFamilyProfileActivity;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
         int pos=position;
         holder.productprice.setText(productArrayList.get(position).getPrice());
         holder.productname.setText(productArrayList.get(position).getName());
+        Glide.with(context).load(productArrayList.get(position).getImage()).into(holder.imageViewProduct);
 
         Glide.with(context).load(Uri.parse(productArrayList.get(position).getImage())).into(holder.imageViewProduct);
         holder.delete.setOnClickListener(new View.OnClickListener() {

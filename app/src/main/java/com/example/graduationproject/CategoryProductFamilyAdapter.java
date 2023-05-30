@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.graduationproject.Interface.ListenerOnClickItem;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 
 import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
@@ -64,7 +65,6 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 
 
 
-        Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
 
 if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
     Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).into(holder.imageView);
@@ -72,6 +72,7 @@ if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
 }else if (productiveFamilyArrayList.get(position).getImage().isEmpty()){
     Glide.with(context).load(R.drawable.mcdonalds).into(holder.imageView);
 
+}
 //if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
 //    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
 //

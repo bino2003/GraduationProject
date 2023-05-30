@@ -26,6 +26,7 @@ import com.example.graduationproject.databinding.FragmentInformationProdectiveFa
 import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
 
 import com.example.graduationproject.Model.ProductiveFamily;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,21 +47,22 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     FirebaseFirestore firebaseFirestore;
-    StorageReference storageRef= FirebaseStorage.getInstance().getReference();
-
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
     SharedPreferences sharedPreferences;
     String shareddetails;
     String sharedlocation;
-    String sharedphone;
+    String sharedproductCategory;
     String category;
     String latlong;
     String location;
 SharedPreferences.Editor editor;
     private String mParam1;
+    StorageReference storageRef= FirebaseStorage.getInstance().getReference();
+
     private String mParam2;
     String Productcategory;
+    int phone;
     String description;
     String image;
     public InformationProdectiveFamilyFragment() {
@@ -108,10 +110,12 @@ firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()
        DocumentSnapshot documentSnapshot=task.getResult();
  shareddetails=documentSnapshot.getString("details");
  sharedlocation=documentSnapshot.getString("location");
- sharedphone= String.valueOf(documentSnapshot.getLong("phone").intValue());
+ sharedproductCategory= documentSnapshot.getString("productCategory");
 editor.putString("shareddetails",shareddetails);
 editor.putString("sharedlocation",sharedlocation);
-editor.putString("sharedphone",sharedphone);
+editor.putString("sharedproductCategory",sharedproductCategory);
+       Toast.makeText(getActivity(), sharedproductCategory, Toast.LENGTH_SHORT).show();
+
 editor.apply();
 
 
@@ -177,9 +181,10 @@ editor.apply();
                 productiveFamily.setProductCategory(Productcategory);
                 productiveFamily.setLocation(location);
                 productiveFamily.setId(firebaseAuth.getUid());
+
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
-                int phone = sharedPreferences.getInt("phone", 0);
+                int phone = sharedPreferences.getInt("phone",0);
                 latlong = sharedPreferences.getString("latlong", null);
                 category =sharedPreferences.getString("category",null);
 
@@ -207,35 +212,34 @@ editor.apply();
                             public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
                                     productiveFamily.setImage(task.getResult().toString());
+                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("data ", productiveFamily.toString());
+
+                                                    Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+                                                    editor.putString("productcategory",Productcategory);
+                                                    editor.apply();
+
+
+                                                } else {
+                                                    Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+                                        });
+
+                                    }else {
+                                        Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
+                                    }
 
 
                                 }
                             }
                         });
-                        if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
-                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d("data ", productiveFamily.toString());
-
-                                        Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
-                                        //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-                                        editor.putString("productcategory",Productcategory);
-                                        editor.apply();
-
-
-                                    } else {
-                                        Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }
-                            });
-
-                        }else {
-                            Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
-                        }
-
 
                     }
                 });
@@ -249,12 +253,12 @@ editor.apply();
 
 String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
-        String phone=sharedPreferences.getString("sharedphone","");
+        String Category=sharedPreferences.getString("sharedproductCategory","");
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), Category, Toast.LENGTH_SHORT).show();
 
-return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+return  location.isEmpty()||Category.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
 
 
     }

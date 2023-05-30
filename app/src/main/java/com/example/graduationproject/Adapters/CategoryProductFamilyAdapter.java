@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ProductivefamilyitemBinding;
 import com.example.graduationproject.Model.ProductiveFamily;
 
@@ -63,12 +65,12 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 
 
 
+ Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
 
 //if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
 //    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
 //
 //}else if (productiveFamilyArrayList.get(position).getImage().isEmpty()){
-//    Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
 //
 //}
 

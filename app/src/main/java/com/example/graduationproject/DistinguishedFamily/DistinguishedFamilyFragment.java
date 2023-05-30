@@ -82,7 +82,7 @@ firebaseFirestore.collection("Productive family").orderBy("rating", Query.Direct
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
         if (task.isSuccessful()){
-            binding.progressBar2.setProgress(View.GONE);
+            binding.progressBar2.setVisibility(View.GONE);
             ArrayList<ProductiveFamily>productiveFamilyList= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
             distinguishedFamilyAdapter=new DistinguishedFamilyAdapter(getActivity(), new OnClickProductiveFamily() {
                 @Override

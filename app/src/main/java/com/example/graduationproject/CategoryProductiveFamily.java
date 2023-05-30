@@ -41,6 +41,7 @@ public class CategoryProductiveFamily extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         firebaseFirestore=FirebaseFirestore.getInstance();
         cat=getIntent().getStringExtra("ctegoryname");
 

@@ -1,11 +1,13 @@
 package com.example.graduationproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.graduationproject.Fragments.ProfileFragment;
 import com.example.graduationproject.Model.users;
 import com.example.graduationproject.databinding.ActivityUserProfileBinding;
 import com.example.graduationproject.databinding.ActivityUsersProfileBinding;
@@ -22,7 +24,7 @@ import com.google.firebase.firestore.auth.User;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class UserProfileActivity extends AppCompatActivity {
-ActivityUserProfileBinding binding;
+    ActivityUserProfileBinding binding;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -30,17 +32,24 @@ ActivityUserProfileBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityUserProfileBinding.inflate(getLayoutInflater());
+        binding = ActivityUserProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("firebaseUser", firebaseAuth.getCurrentUser().getEmail());
-        Log.d("uid", firebaseAuth.getUid());
+        Log.d("uid2", firebaseAuth.getUid());
+
         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(UserProfileActivity.this, "succesfully", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(UserProfileActivity.this, "Not Successfuly", Toast.LENGTH_SHORT).show();
+                }
                 DocumentSnapshot documentSnapshot = task.getResult();
+
 
 //                  firebaseFirestore.collection("Productive Family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //                      @Override
@@ -56,6 +65,8 @@ ActivityUserProfileBinding binding;
 
 
                 binding.etUserName.setText(documentSnapshot.getString("name"));
+                binding.etUserName.setText("documentSnapshot.getStri");
+
                 binding.etLocation.setText(documentSnapshot.getString("location"));
                 binding.etPhoneNumber.setText("" + documentSnapshot.getLong("phone").intValue());
 
@@ -74,8 +85,7 @@ ActivityUserProfileBinding binding;
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         Toast.makeText(UserProfileActivity.this, "Password Successfully", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Toast.makeText(UserProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
@@ -85,7 +95,7 @@ ActivityUserProfileBinding binding;
                                         }
                                     }
                                 });
-                        users user =new users();
+                        users user = new users();
                         user.setLatlong(binding.etLocation.getText().toString());
                         user.setPhone(binding.etPhoneNumber.getText().toString());
                         user.setName(binding.etUserName.getText().toString());
@@ -98,7 +108,6 @@ ActivityUserProfileBinding binding;
 
                     }
                 });
-
 
 
             }
