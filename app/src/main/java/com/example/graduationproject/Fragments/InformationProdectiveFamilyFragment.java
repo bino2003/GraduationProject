@@ -218,34 +218,34 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                             public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
                                     productiveFamily.setImage(task.getResult().toString());
+                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("data ", productiveFamily.toString());
 
+                                                    Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+                                                    editor.putString("productcategory",Productcategory);
+                                                    editor.apply();
+
+
+                                                } else {
+                                                    Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+                                        });
+
+                                    }else {
+                                        Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
                             }
                         });
-                        if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
-                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d("data ", productiveFamily.toString());
 
-                                        Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
-                                        //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-                                        editor.putString("productcategory",Productcategory);
-                                        editor.apply();
-
-
-                                    } else {
-                                        Toast.makeText(getActivity(), "not successfully  ", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                }
-                            });
-
-                        }else {
-                            Toast.makeText(getActivity(), "All fields must be filled in", Toast.LENGTH_SHORT).show();
-                        }
 
 
                     }

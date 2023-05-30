@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 
+import com.bumptech.glide.Glide;
 import com.example.graduationproject.Adapters.DetailsProductAdapter;
 import com.example.graduationproject.databinding.ActivityDetailsProductiveFamilyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -88,6 +89,7 @@ ActivityDetailsProductiveFamilyBinding binding;
                     DocumentSnapshot documentSnapshot=task.getResult();
                     if (task.isSuccessful()){
                         name=documentSnapshot.getString("name");
+                        Glide.with(getApplicationContext()).load(documentSnapshot.getString("image")).circleCrop().into(binding.imageView3);
 
                         binding.name.setText(documentSnapshot.getString("name"));
                         Log.d("name prod", documentSnapshot.getString("name"));

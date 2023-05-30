@@ -27,11 +27,14 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.ArrayList;
 
 public class AddProducts extends AppCompatActivity {
     ActivityAddProductsBinding binding;
@@ -135,7 +138,28 @@ String name=binding.etNameadd.getText().toString();
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
+firebaseFirestore.collection("Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    @Override
+    public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+        if (task.isSuccessful()){
+         ArrayList<Product>   productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
+            for (int i=0 ;i<productsallArrayList.size();i++){
+                String id= task.getResult().getDocuments().get(i).getId();
+                Product product=productsallArrayList.get(i);
+                product.setId(id);
 
+
+                firebaseFirestore.collection("Products").document(id).update("id",id);
+
+
+
+
+
+            }
+        }
+
+    }
+});
 
                                         Toast.makeText(AddProducts.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
                                         finish();

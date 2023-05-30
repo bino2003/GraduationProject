@@ -39,7 +39,7 @@ public class UserProfileActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("firebaseUser", firebaseAuth.getCurrentUser().getEmail());
         Log.d("uid2", firebaseAuth.getUid());
-        Log.d("user_id", ProfileFragment.user_id);
+
         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

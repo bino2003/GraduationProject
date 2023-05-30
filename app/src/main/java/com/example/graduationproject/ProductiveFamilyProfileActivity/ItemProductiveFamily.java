@@ -107,6 +107,12 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
                       Product product=productsallArrayList.get(i);
                       product.setId(id);
 
+
+                        firebaseFirestore.collection("Products").document(id).update("id",id);
+
+
+
+
                      String user= product.getUser();
                     String userid= firebaseAuth.getUid();
                     if (user.equals(userid)){
