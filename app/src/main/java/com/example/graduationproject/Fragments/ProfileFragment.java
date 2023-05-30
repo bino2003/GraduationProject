@@ -26,6 +26,7 @@ import com.example.graduationproject.databinding.ActivityUsersProfileBinding;
 import com.example.graduationproject.databinding.FragmentProfile2Binding;
 import com.example.graduationproject.Model.ProductiveFamily;
 import com.example.graduationproject.Model.users;
+import com.example.graduationproject.databinding.FragmentUserProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
@@ -53,6 +54,7 @@ public class ProfileFragment extends Fragment  {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public  static  String user_id;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -88,6 +90,7 @@ public class ProfileFragment extends Fragment  {
 
 
         }
+
     }
 
 
@@ -102,6 +105,8 @@ public class ProfileFragment extends Fragment  {
         FragmentProfile2Binding binding = FragmentProfile2Binding.inflate(inflater, container, false);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        user_id=firebaseAuth.getUid();
+        Log.d("user", user_id);
         firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -177,42 +182,14 @@ public class ProfileFragment extends Fragment  {
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
             }
-        });new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-                                @Override
-                                public void onConfigureTab(TabLayout.@NonNull Tab tab, int position) {
-                                    tab.setText(tabs.get(position));
-                                }
-                            }).attach();
-
-
-                        }
-                    }
-                }
-            }
         });
-
-        firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    List<users> usersList=task.getResult().toObjects(users.class);
-                    for (int i=0;i<usersList.size();i++){
-                        String id= task.getResult().getDocuments().get(i).getId();
-                        if (id.equals(firebaseAuth.getUid())){
-                            isuser=true;
-                            Toast.makeText(getActivity(), "user", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                }
+            public void onConfigureTab(TabLayout.@NonNull Tab tab, int position) {
+                tab.setText(tabs.get(position));
             }
-        });
-
-
-
-
-
-        return isuser==true? bindinguser.getRoot() : binding.getRoot();
+        }).attach();
+        return binding.getRoot();
     }
 
 
