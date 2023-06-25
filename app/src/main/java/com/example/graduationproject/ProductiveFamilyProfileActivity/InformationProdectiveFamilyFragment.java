@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
 import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
+
 import com.example.graduationproject.Model.ProductiveFamily;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -180,7 +181,7 @@ editor.apply();
                 productiveFamily.setProductCategory(Productcategory);
                 productiveFamily.setLocation(location);
                 productiveFamily.setId(firebaseAuth.getUid());
-               
+
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
                 int phone = sharedPreferences.getInt("phone",0);

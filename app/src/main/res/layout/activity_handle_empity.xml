@@ -22,7 +22,7 @@
         android:layout_height="54dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="لا يوجد نتائج"
+        android:text="No Results"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
