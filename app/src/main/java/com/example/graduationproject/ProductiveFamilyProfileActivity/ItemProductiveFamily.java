@@ -14,11 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.graduationproject.Adapters.ProductAdapter;
 import com.example.graduationproject.Interface.OnDelete;
 import com.example.graduationproject.Interface.ProductsAction;
 
-import com.example.graduationproject.databinding.FragmentItemProductiveFamilyBinding;
 import com.example.graduationproject.Model.Product;
+import com.example.graduationproject.databinding.FragmentItemProductiveFamilyBinding;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,25 +88,31 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
         FragmentItemProductiveFamilyBinding binding = FragmentItemProductiveFamilyBinding.inflate(inflater, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-binding.add.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent=new Intent(getActivity(), AddProducts.class);
-        startActivity(intent);
-    }
-});
+        binding.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), AddProducts.class);
+                startActivity(intent);
+            }
+        });
         firebaseFirestore.collection("Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-firebaseAuth=FirebaseAuth.getInstance();
+                    firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
                     for (int i=0 ;i<productsallArrayList.size();i++){
                       String id= task.getResult().getDocuments().get(i).getId();
                       Product product=productsallArrayList.get(i);
                       product.setId(id);
-                        
+
+
+                        firebaseFirestore.collection("Products").document(id).update("id",id);
+
+
+
+
                      String user= product.getUser();
                     String userid= firebaseAuth.getUid();
                     if (user.equals(userid)){
@@ -124,9 +131,9 @@ firebaseAuth=FirebaseAuth.getInstance();
 //                     DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(productsArrayList.get(pos).getName(), pos);
 //
 //                     deleteDialogFragment.show(getParentFragmentManager(), "alertdialog");
-                     Product product=productsArrayList.get(pos);
-                     firebaseFirestore.collection("Products").document(product.getId()).delete();
-                     Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
+                            Product product=productsArrayList.get(pos);
+                            firebaseFirestore.collection("Products").document(product.getId()).delete();
+                            Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
 
                      productsArrayList.remove(product);
 

@@ -3,12 +3,19 @@ package com.example.graduationproject.Model;
 import java.util.List;
 
 public class ProductiveFamily {
+
+
+
+
+
+
+
     String name;
     String details;
     String latlong;
     String location;
     String productCategory;
-String rating;
+    String rating;
     List<String> evaluation;
     int phone;
     String category;
@@ -177,3 +184,4 @@ String rating;
 
 
 }
+

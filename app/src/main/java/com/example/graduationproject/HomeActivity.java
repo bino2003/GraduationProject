@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.graduationproject.Category.CategoryFragment;
@@ -23,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
     users user;
     String nam;
-    boolean isuser;
+    boolean isuser=false;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     FirebaseFirestore firestore=FirebaseFirestore.getInstance();
     @Override
@@ -43,41 +46,23 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        firestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
-                    boolean isFound=false;
-                    for (int i = 0; i < productiveFamilyList.size(); i++) {
-                        String id = task.getResult().getDocuments().get(i).getId();
-//                        if(isFound)
-//                            continue;
-                        if (id.equals(auth.getUid())) {
-                            isuser = false;
-                            // isFound=true;
-                            break;
-                        }
-                    }
-                }
-            }
-        });
         firestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<users> usersList = task.getResult().toObjects(users.class);
-                    for (int i = 0; i < usersList.size(); i++) {
-                        String id = task.getResult().getDocuments().get(i).getId();
-                        if (id.equals(auth.getUid())) {
-                            isuser = true;
-                            Toast.makeText(getBaseContext(), "user", Toast.LENGTH_SHORT).show();
-                            break;
+                if (task.isSuccessful()){
+                    List<users> usersList=task.getResult().toObjects(users.class);
+                    for (int i=0;i<usersList.size();i++){
+                        String id= task.getResult().getDocuments().get(i).getId();
+                        if (id.equals(auth.getUid())){
+                            isuser=true;
+                            Toast.makeText(HomeActivity.this, "user", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 }
             }
         });
+
 //        binding.logout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -108,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.profile:
+
                         if (isuser==true){
                             replacefragmint(new UserProfileFragment());
                             break;

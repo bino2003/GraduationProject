@@ -18,13 +18,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
-import com.example.graduationproject.Model.ProductiveFamily;
 
+import com.example.graduationproject.Model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -36,6 +41,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
     FirebaseFirestore firebaseFirestore;
+    StorageReference storageRef= FirebaseStorage.getInstance().getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,35 +122,75 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                 productiveFamily.setId(firebaseAuth.getUid());
                 productiveFamily.setLatlong(latlong);
                 productiveFamily.setCategory(category);
-
+                productiveFamily.setLocation(location);
 
                 productiveFamily.setPhone(phone);
                 productiveFamily.setDetails(descrption);
                 if (imageuri==null){
                     String oldimage=sharedPreferences.getString("image","");
                     productiveFamily.setImage(oldimage);
+                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("data ", productiveFamily.toString());
+
+                                Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+
                 }else {
-                    productiveFamily.setImage(image);
-                }
-
-                productiveFamily.setLocation(location);
+                    StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
+                    UploadTask uploadTask = riversRef.putFile(imageuri);
 
 
-                firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("data ", productiveFamily.toString());
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@androidx.annotation.NonNull Exception e) {
+                            Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "upload success", Toast.LENGTH_SHORT).show();
+                            riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                                    if (task.isSuccessful()){
+                                        productiveFamily.setImage(task.getResult().toString());
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("data ", productiveFamily.toString());
 
-                            Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-                            //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
+                                                    Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+
+
+                                    }
+                                }
+                            });
 
                         }
-                    }
-                });
+                    });
+                }
+
+
+
+
 
             }
         });
