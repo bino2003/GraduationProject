@@ -4,22 +4,24 @@
 
     <group
         android:checkableBehavior="single">
-    <item android:title="New"
-         android:icon="@drawable/fresh"
-        android:id="@+id/newss"/>
+    <item android:title="Home"
+         android:icon="@drawable/homes"
+        android:id="@+id/hom"/>
 
     <item android:title="categories"
         android:icon="@drawable/categorys"
         android:id="@+id/categories"
         />
 
+        <item android:title="Favorite"
+            android:icon="@drawable/heart"
+            android:id="@+id/favorite"/>
+    </group>
+
     <item android:title="profile"
         android:icon="@drawable/users"
         android:id="@+id/profile"/>
 
-    <item android:title="Favorite"
-        android:icon="@drawable/heart"
-        android:id="@+id/favorite"/>
-    </group>
+
 
 </menu>

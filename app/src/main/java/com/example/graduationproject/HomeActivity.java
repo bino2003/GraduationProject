@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                         replacefragmint(new FavouriteFragment());
                         break;
 
-                    case R.id.newss:
+                    case R.id.hom:
                         replacefragmint(new DistinguishedFamilyFragment());
                         break;
 

@@ -113,7 +113,7 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <Button
-      android:id="@+id/btn_create"
+      android:id="@+id/btn_changepassword"
       android:layout_width="336dp"
       android:layout_height="56dp"
       android:layout_gravity="center"
@@ -122,8 +122,23 @@
       android:layout_marginEnd="28dp"
       android:backgroundTint="#0E8388"
       android:clickable="false"
-      android:text="Edite"
+      android:text="change password"
       android:textAllCaps="false"
       android:textSize="14sp"></Button>
+
+  <LinearLayout
+      android:id="@+id/btn_create"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:background="@drawable/circle"
+      android:layout_marginStart="300dp"
+      android:layout_marginTop="20dp">
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_baseline_check_24"/>
+  </LinearLayout>
 
 </LinearLayout>
