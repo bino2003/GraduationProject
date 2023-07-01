@@ -31,6 +31,26 @@
             android:layout_height="161dp"
             android:layout_marginTop="0dp">
 
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/whitecircle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_baseline_camera_alt_24" />
+            </LinearLayout>
+
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardimag"
                 android:layout_width="150dp"
@@ -61,15 +81,12 @@
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_image_24"
-                app:layout_constraintBottom_toBottomOf="@+id/cardimag"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -142,6 +159,8 @@
             android:textSize="14sp">
 
         </Button>
+
+
     </LinearLayout>
 </ScrollView>
 

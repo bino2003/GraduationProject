@@ -55,7 +55,6 @@ public class AddProducts extends AppCompatActivity {
         binding = ActivityAddProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         firebaseAuth = FirebaseAuth.getInstance();
 
 
@@ -92,7 +91,7 @@ public class AddProducts extends AppCompatActivity {
                     }
                 }
         );
-        binding.uplodeimg.setOnClickListener(new View.OnClickListener() {
+        binding.btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent photoPicker = new Intent();

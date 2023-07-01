@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint=" User Name:">
+        android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_UserName"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint=" Location:">
+        android:hint="Location">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_location"
@@ -65,7 +65,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
 
-        android:hint=" Phone Number:">
+        android:hint=" Phone Number">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_PhoneNumber"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint=" Email Address:">
+        android:hint=" Email Address">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_EmailAddress"
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="Old Password:">
+        android:hint="Old Password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_old_Password"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="New Password:">
+        android:hint="New Password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_new_Password"
@@ -139,26 +139,35 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tv_changePass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="change passwod"
-        android:textColor="#000000"
-        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btn_create"
+        android:id="@+id/tv_changePass"
         android:layout_width="336dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"
-        android:text="Save"
+        android:text="Change Password"
         android:textAllCaps="false"
         android:textSize="14sp"></Button>
+
+
+    <LinearLayout
+        android:id="@+id/btn_create"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/circle"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_baseline_check_24"/>
+    </LinearLayout>
 
 </LinearLayout>

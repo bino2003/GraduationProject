@@ -13,6 +13,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/shapeimage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,8 +68,9 @@
 
     <ImageView
         android:id="@+id/delete"
-        android:layout_width="27dp"
+        android:layout_width="25dp"
         android:layout_height="24dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="4dp"
         android:src="@drawable/ic_baseline_delete_outline_24"
         app:layout_constraintBottom_toBottomOf="@+id/ProductPrice"
