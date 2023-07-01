@@ -52,7 +52,7 @@ public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int positi
         int pos=position;
         holder.productprice.setText(productArrayList.get(position).getPrice());
         holder.productname.setText(productArrayList.get(position).getName());
-        Glide.with(context).load(productArrayList.get(position).getImage()).circleCrop().into(holder.imageViewProduct);
+        Glide.with(context).load(productArrayList.get(position).getImage()).into(holder.imageViewProduct);
 
    holder.fav.setOnClickListener(new View.OnClickListener() {
        @Override

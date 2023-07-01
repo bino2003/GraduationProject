@@ -16,11 +16,18 @@
         <item android:title="Favorite"
             android:icon="@drawable/heart"
             android:id="@+id/favorite"/>
+
+        <item android:title="profile"
+            android:icon="@drawable/users"
+            android:id="@+id/profile"/>
+
+        <item android:title="settings"
+            android:icon="@drawable/settings"
+            android:id="@+id/Settings"/>
+
+
     </group>
 
-    <item android:title="profile"
-        android:icon="@drawable/users"
-        android:id="@+id/profile"/>
 
 
 

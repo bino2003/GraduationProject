@@ -2,6 +2,7 @@ package com.example.graduationproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -105,6 +106,14 @@ public class UserProfileActivity extends AppCompatActivity {
                                 Toast.makeText(UserProfileActivity.this, "Successfuly", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                    }
+                });
+
+                binding.btnChangepassword.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getApplicationContext(), ChangePassword.class));
 
                     }
                 });

@@ -20,6 +20,7 @@
 
         <ImageView
             android:id="@+id/delete"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -38,6 +39,7 @@
         <ImageView
             android:id="@+id/imageViewproduct"
             android:layout_width="97dp"
+            android:scaleType="centerCrop"
             android:layout_height="78dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
