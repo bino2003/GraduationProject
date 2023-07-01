@@ -10,6 +10,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 
 
+import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
+import com.example.graduationproject.Fragments.ProfileFragment;
 import com.example.graduationproject.databinding.ActivityViewProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,29 +32,68 @@ FirebaseFirestore firebaseFirestore;
       Intent intent= getIntent();
 
         String id=intent.getStringExtra("idview");
-        firebaseFirestore.collection("Products").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        if (document.getString("image")!=null){
-                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
+        if (intent.getStringExtra("idview")!=null){
+            firebaseFirestore.collection("Products").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            if (document.getString("image")!=null){
+                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
 
-                        }
-                        binding.etCategryViewproduct.setText(document.getString("category"));
-                        binding.etDescriptionViewproduct.setText(document.getString("description"));
-                        binding.etNameViewproduct.setText(document.getString("name"));
-                        binding.etPriceViewproduct.setText(document.getString("price"));
+                            }
+                            binding.etCategryViewproduct.setText(document.getString("category"));
+                            binding.etDescriptionViewproduct.setText(document.getString("description"));
+                            binding.etNameViewproduct.setText(document.getString("name"));
+                            binding.etPriceViewproduct.setText(document.getString("price"));
+                            binding.etNameProductiveFamily.setText(document.getString("productive_family"));
 
 //
+                        }
                     }
+
                 }
 
-            }
+            });
+        }
+        else if (getIntent().getStringExtra("id_product")!=null){
+            firebaseFirestore.collection("Products").document(getIntent().getStringExtra("id_product")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            if (document.getString("image")!=null){
+                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
-        });
+
+                            }
+                            binding.etCategryViewproduct.setText(document.getString("category"));
+                            binding.etDescriptionViewproduct.setText(document.getString("description"));
+                            binding.etNameViewproduct.setText(document.getString("name"));
+                            binding.etPriceViewproduct.setText(document.getString("price"));
+                            binding.etNameProductiveFamily.setText(document.getString("productive_family"));
+
+//
+                        }
+                    }
+
+                }
+
+            });
+            binding.etNameProductiveFamily.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+           Intent intent=new Intent(getBaseContext(), DetailsProductiveFamily.class);
+           intent.putExtra("id",getIntent().getStringExtra("id"));
+           intent.putExtra("id_product",getIntent().getStringExtra("id_product"));
+           startActivity(intent);
+                }
+            });
+        }
+
 
 //        Glide.with(getApplicationContext()).load(image).circleCrop().into(binding.uplodeimgview);
 //

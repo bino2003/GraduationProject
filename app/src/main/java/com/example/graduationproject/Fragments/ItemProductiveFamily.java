@@ -56,10 +56,12 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
     private static final String ARG_db_name = "dbName";
     private static final String ARG_db_id = "idFamily";
     private static final String ARG_db_id_product = "idProduct";
+    private static final String ARG_db_Name_product = "Name";
 
     private String dbname;
     private String family_id;
     private String product_id;
+    private String Name;
 
     public ItemProductiveFamily() {
         // Required empty public constructor
@@ -88,6 +90,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
             dbname = getArguments().getString(ARG_db_name);
             family_id = getArguments().getString(ARG_db_id);
             product_id = getArguments().getString(ARG_db_id_product);
+            Name = getArguments().getString(ARG_db_Name_product);
         }
     }
 
@@ -108,6 +111,7 @@ public class ItemProductiveFamily extends Fragment implements OnDelete {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(), AddProducts.class);
+                intent.putExtra("nameProductiveFamily", Name);
                 startActivity(intent);
             }
         });

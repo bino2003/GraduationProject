@@ -139,6 +139,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tv_changePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="change passwod"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
     <Button
         android:id="@+id/btn_create"
         android:layout_width="336dp"
@@ -149,7 +157,7 @@
         android:layout_marginEnd="28dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"
-        android:text="Edite"
+        android:text="Save"
         android:textAllCaps="false"
         android:textSize="14sp"></Button>
 

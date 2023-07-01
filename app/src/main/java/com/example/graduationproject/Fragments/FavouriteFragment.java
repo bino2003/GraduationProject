@@ -16,6 +16,7 @@ import com.example.graduationproject.Adapters.FavoriteAdpter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.UnFavoritve;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
 import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -143,10 +144,15 @@ public class FavouriteFragment extends Fragment {
 
                                                 @Override
                                                 public void OnClickItem(String id,String id_product) {
-                                                    Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
+
+                                                    Intent intent=new Intent(getActivity(), ViewProduct.class);
                                                     intent.putExtra("id",id);
                                                     intent.putExtra("id_product",id_product);
                                                     startActivity(intent);
+//                                                    Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
+//                                                    intent.putExtra("id",id);
+//                                                    intent.putExtra("id_product",id_product);
+//                                                    startActivity(intent);
                                                 }
 
                                                 @Override

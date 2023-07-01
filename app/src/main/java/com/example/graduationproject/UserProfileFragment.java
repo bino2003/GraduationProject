@@ -1,5 +1,6 @@
 package com.example.graduationproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -91,6 +92,13 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
 
         FragmentUserProfileBinding binding = FragmentUserProfileBinding.inflate(inflater, container, false);
+        binding.tvChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ChangePassword.class));
+            }
+        });
+        Log.d("current email",  firebaseAuth.getCurrentUser().getEmail());
      //   Toast.makeText(getActivity(), firebaseAuth.getUid(), Toast.LENGTH_SHORT).show();
         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -127,7 +135,6 @@ public class UserProfileFragment extends Fragment {
 //                binding.etPhoneNumber.setText("" + documentSnapshot.getLong("phone").intValue());
 
                 final String email = firebaseAuth.getCurrentUser().getEmail();
-
                 binding.btnCreate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -198,6 +205,7 @@ public class UserProfileFragment extends Fragment {
                                             }
                                         }
                                     });
+
 //                            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), "currentPassword");
 //                            // Prompt the user to re-provide their sign-in credentials
 //                            user.reauthenticate(credential)

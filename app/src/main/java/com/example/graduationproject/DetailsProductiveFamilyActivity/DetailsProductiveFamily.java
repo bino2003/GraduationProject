@@ -44,6 +44,7 @@ ActivityDetailsProductiveFamilyBinding binding;
         String id_product=getIntent().getStringExtra("id_product");
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
+//        Log.d("idProd", getIntent().getStringExtra("id"));
 
 
         PackageManager packageManager = getPackageManager();
@@ -63,16 +64,6 @@ ActivityDetailsProductiveFamilyBinding binding;
         }
         List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
 // Iterate through installedPackages to access information about each package
-
-
-
-
-
-
-
-
-
-
         ArrayList<String> tabs =new ArrayList<>();
         tabs.add("Products");
         tabs.add(" Profile");
@@ -94,8 +85,6 @@ ActivityDetailsProductiveFamilyBinding binding;
                         binding.name.setText(documentSnapshot.getString("name"));
                         Log.d("name prod", documentSnapshot.getString("name"));
                         // Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
-
-
                     }
                 }
             });
@@ -108,9 +97,30 @@ ActivityDetailsProductiveFamilyBinding binding;
                     DocumentSnapshot documentSnapshot=task.getResult();
                     if (task.isSuccessful()){
                         name=documentSnapshot.getString("name");
+                        Glide.with(getApplicationContext()).load(documentSnapshot.getString("image")).circleCrop().into(binding.imageView3);
 
                         binding.name.setText(documentSnapshot.getString("name"));
-                        Log.d("name prod", documentSnapshot.getString("name"));
+//                        Log.d("name prod", documentSnapshot.getString("name"));
+                        // Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
+
+
+                    }
+                }
+            });
+        }
+        else if (getIntent().getStringExtra("id")!=null){
+            detailsproductivefamilylist.add(ItemDetailsProduct.newInstance("Products",getIntent().getStringExtra("id"),getIntent().getStringExtra("id_product")));
+            detailsproductivefamilylist.add(DetailsProductiveFamilyProfile.newInstance("Productive family",getIntent().getStringExtra("id"),getIntent().getStringExtra("id_product")));
+            firebaseFirestore.collection("Productive family").document(getIntent().getStringExtra("id")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if (task.isSuccessful()){
+                        name=documentSnapshot.getString("name");
+                        Glide.with(getApplicationContext()).load(documentSnapshot.getString("image")).circleCrop().into(binding.imageView3);
+
+                        binding.name.setText(documentSnapshot.getString("name"));
+//                        Log.d("name prod", documentSnapshot.getString("name"));
                         // Glide.with(getApplicationContext()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
 
 
