@@ -2,21 +2,28 @@ package com.example.graduationproject.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
+
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.graduationproject.Interface.OnDelete;
+import com.example.graduationproject.Interface.OndeleteProduct;
+import com.example.graduationproject.Model.Product;
 import com.example.graduationproject.R;
 
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
@@ -26,22 +33,27 @@ public class DeleteDialogFragment extends DialogFragment {
 
     private static final String ARG_PRODUCT_NAME = "name";
     private static final String ARG_PRODUCT_POS = "position";
-    OnDelete onDelete;
+    private static final String ARRYProduct = "array";
+    OndeleteProduct onDelete;
     private String product_name;
     private int product_pos;
+    private ArrayList<Product> arrayList;
 
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        onDelete= (OnDelete) context;
-//    }
+
+    @Override
+    public void onAttach(@androidx.annotation.NonNull Context context) {
+        super.onAttach(context);
+        onDelete = (OndeleteProduct) context;
+    }
 
     public DeleteDialogFragment() {
+
     }
 
 
 
-    public static DeleteDialogFragment newInstance(String product_name ,int product_pos) {
+
+    public static DeleteDialogFragment newInstance(String product_name ,int product_pos ) {
         DeleteDialogFragment fragment = new DeleteDialogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PRODUCT_NAME, product_name);
@@ -58,6 +70,7 @@ public class DeleteDialogFragment extends DialogFragment {
             product_pos = getArguments().getInt(ARG_PRODUCT_POS);
 
         }
+
     }
 
     @NonNull
@@ -71,7 +84,8 @@ public class DeleteDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-onDelete.OnDelete(product_pos);
+                System.out.println("BIANBIAN");
+                onDeleteConfirmed();
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -82,6 +96,16 @@ onDelete.OnDelete(product_pos);
         });
         //super.onCreateDialog(savedInstanceState);
     return builder.create();
+    }
+    private void onDeleteConfirmed() {
+        Fragment parentFragment = getParentFragment();
+        if(parentFragment  instanceof OndeleteProduct){
+            System.out.println("bnandd");
+            OndeleteProduct listener = (OndeleteProduct) parentFragment;
+            listener.OnDelete(product_pos);
+        }
+
+
     }
 
     @Override

@@ -112,15 +112,18 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                 String descrption = binding.etDescriptionupdate.getText().toString();
                 String productCategory=sharedPreferences.getString("productcategory","");
                 Toast.makeText(UpdateInformationProductiveFamilyActivity.this, productCategory, Toast.LENGTH_SHORT).show();
-               String latlong = sharedPreferences.getString("latlong", null);
-              String  category =sharedPreferences.getString("category",null);
+               String longitude = sharedPreferences.getString("longitude", null);
+                String latitude = sharedPreferences.getString("latitude", null);
+
+                String  category =sharedPreferences.getString("category",null);
 
                 String image = String.valueOf(imageuri);
                 ProductiveFamily productiveFamily = new ProductiveFamily();
                 productiveFamily.setName(name);
                 productiveFamily.setProductCategory(productCategory);
                 productiveFamily.setId(firebaseAuth.getUid());
-                productiveFamily.setLatlong(latlong);
+                productiveFamily.setLongitude(longitude);
+                productiveFamily.setLatitude(latitude);
                 productiveFamily.setCategory(category);
                 productiveFamily.setLocation(location);
 

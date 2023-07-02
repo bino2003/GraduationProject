@@ -3,16 +3,27 @@ package com.example.graduationproject.DetailsProductiveFamilyActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.graduationproject.Adapters.CategoryProductFamilyAdapter;
 import com.example.graduationproject.Adapters.DetailsProductAdapter;
+import com.example.graduationproject.CategoryProductiveFamily;
+import com.example.graduationproject.HandleEmpityActivity;
+import com.example.graduationproject.Interface.OnClickProductiveFamily;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.example.graduationproject.databinding.ActivityDetailsProductiveFamilyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,17 +32,23 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsProductiveFamily extends AppCompatActivity {
-ActivityDetailsProductiveFamilyBinding binding;
-    FirebaseFirestore firebaseFirestore;
+    private static final String WHATSAPP_PACKAGE = "com.whatsapp";
 
-    FirebaseAuth auth;
+    ActivityDetailsProductiveFamilyBinding binding;
+    FirebaseFirestore firebaseFirestore;
+    String phoneNumber;
+
+
+    FirebaseAuth auth=FirebaseAuth.getInstance();
     public static String name;
 
     @Override
@@ -39,13 +56,29 @@ ActivityDetailsProductiveFamilyBinding binding;
         super.onCreate(savedInstanceState);
         binding=ActivityDetailsProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+// Inside your onCreate or onViewCreated method
+
         String id=getIntent().getStringExtra("idproductivefamily");
         String id2=getIntent().getStringExtra("id");
         String id_product=getIntent().getStringExtra("id_product");
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
-//        Log.d("idProd", getIntent().getStringExtra("id"));
+        binding.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace the phoneNumber and message with your desired values
+               firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                   @Override
+                   public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                       phoneNumber = "+972"+task.getResult().getLong("phone").toString();
 
+                       String message = "Hello, let's chat on WhatsApp!";
+                       openWhatsAppChat(phoneNumber, message);
+                   }
+               });
+            }
+        });
 
         PackageManager packageManager = getPackageManager();
         String packageName = "com.example.graduationproject";
@@ -140,4 +173,32 @@ ActivityDetailsProductiveFamilyBinding binding;
             }
         }).attach();
     }
+    private void openWhatsAppChat(String phoneNumber, String message) {
+        try {
+            // Format the phone number to include the country code and remove any special characters
+            phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+
+            // Open WhatsApp with the predefined message
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode(message, "UTF-8"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to open WhatsApp.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private boolean isWhatsAppInstalled(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed= true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed= false;
+        }
+        return app_installed;
+    }
+
+    // Open WhatsApp with the specified phone number and message
+
 }

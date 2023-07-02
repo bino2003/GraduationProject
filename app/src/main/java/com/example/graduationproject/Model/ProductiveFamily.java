@@ -12,15 +12,24 @@ public class ProductiveFamily {
 
     String name;
     String details;
-    String latlong;
-    String location;
+    String latitude;
+    String longitude;
     String productCategory;
     String rating;
+    String location;
     List<String> evaluation;
     int phone;
     String category;
     String image;
     String id;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
 
     public String getId() {
         return id;
@@ -46,31 +55,17 @@ public class ProductiveFamily {
         this.rating = rating;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, String productCategory, String rating, List<String> evaluation, int phone, String category, String image, String id) {
-        this.name = name;
-        this.details = details;
-        this.latlong = latlong;
-        this.location = location;
-        this.productCategory = productCategory;
-        this.rating = rating;
-        this.evaluation = evaluation;
-        this.phone = phone;
-        this.category = category;
-        this.image = image;
-        this.id = id;
+
+
+    public String getLongitude() {
+        return longitude;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, List<String> evaluation, int phone, String category, String image, String id) {
-        this.name = name;
-        this.details = details;
-        this.latlong = latlong;
-        this.location = location;
-        this.evaluation = evaluation;
-        this.phone = phone;
-        this.category = category;
-        this.image = image;
-        this.id = id;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
+
+
 
     public String getImage() {
         return image;
@@ -80,37 +75,13 @@ public class ProductiveFamily {
         this.image = image;
     }
 
-    public ProductiveFamily(String name, String details, String latlong, String location, int phone, String category, String image, String id) {
-        this.name = name;
-        this.details = details;
-        this.latlong = latlong;
-        this.location = location;
-        this.phone = phone;
-        this.category = category;
-        this.image = image;
-        this.id = id;
-    }
+
 
     public ProductiveFamily() {
 
     }
 
-    @Override
-    public String toString() {
-        return "ProductiveFamily{" +
-                "name='" + name + '\'' +
-                ", details='" + details + '\'' +
-                ", latlong='" + latlong + '\'' +
-                ", location='" + location + '\'' +
-                ", productCategory='" + productCategory + '\'' +
-                ", rating='" + rating + '\'' +
-                ", evaluation=" + evaluation +
-                ", phone=" + phone +
-                ", category='" + category + '\'' +
-                ", image='" + image + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
+
 
     public String getName() {
         return name;
@@ -128,12 +99,17 @@ public class ProductiveFamily {
         this.details = details;
     }
 
-    public String getLatlong() {
-        return latlong;
-    }
-
-    public void setLatlong(String latlong) {
-        this.latlong = latlong;
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, int phone, String category, String image) {
+        this.name = name;
+        this.details = details;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.productCategory = productCategory;
+        this.rating = rating;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.image = image;
     }
 
     public String getLocation() {
@@ -144,6 +120,51 @@ public class ProductiveFamily {
         this.location = location;
     }
 
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, int phone, String category, String image, String id) {
+        this.name = name;
+        this.details = details;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.productCategory = productCategory;
+        this.rating = rating;
+        this.location = location;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.image = image;
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductiveFamily{" +
+                "name='" + name + '\'' +
+                ", details='" + details + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", productCategory='" + productCategory + '\'' +
+                ", rating='" + rating + '\'' +
+                ", evaluation=" + evaluation +
+                ", phone=" + phone +
+                ", category='" + category + '\'' +
+                ", image='" + image + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, int phone, String category, String image, String id) {
+        this.name = name;
+        this.details = details;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.productCategory = productCategory;
+        this.rating = rating;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.image = image;
+        this.id = id;
+    }
 
     public List<String> getEvaluation() {
         return evaluation;
@@ -169,11 +190,6 @@ public class ProductiveFamily {
         this.category = category;
     }
 
-    public ProductiveFamily(String name, String details, String location) {
-        this.name = name;
-        this.details = details;
-        this.location = location;
-    }
 
     public ProductiveFamily(String name, String details, String category, String image) {
         this.name = name;

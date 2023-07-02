@@ -97,7 +97,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                     }
                                 });
                         users user = new users();
-                        user.setLatlong(binding.etLocation.getText().toString());
+                        user.setLocation(binding.etLocation.getText().toString());
                         user.setPhone(binding.etPhoneNumber.getText().toString());
                         user.setName(binding.etUserName.getText().toString());
                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {

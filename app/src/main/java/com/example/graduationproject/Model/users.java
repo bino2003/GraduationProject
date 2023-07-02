@@ -6,26 +6,38 @@ package com.example.graduationproject.Model;
     String password;
     String rePassword;
     String location;
-    String latlong;
+       String latitude;
+       String longitude;
     String categorize;
 
-       public String getLatlong() {
-           return latlong;
-       }
-
-       public void setLatlong(String latlong) {
-           this.latlong = latlong;
-       }
-
-       public users(String name, String phone, String password, String rePassword, String location, String latlong, String categorize) {
+       public users(String name, String phone, String password, String rePassword, String location, String latitude, String longitude, String categorize) {
            this.name = name;
            this.phone = phone;
            this.password = password;
            this.rePassword = rePassword;
            this.location = location;
-           this.latlong = latlong;
+           this.latitude = latitude;
+           this.longitude = longitude;
            this.categorize = categorize;
        }
+
+       public String getLatitude() {
+           return latitude;
+       }
+
+       public void setLatitude(String latitude) {
+           this.latitude = latitude;
+       }
+
+       public String getLongitude() {
+           return longitude;
+       }
+
+       public void setLongitude(String longitude) {
+           this.longitude = longitude;
+       }
+
+
 
        public users(String name, String phone, String password, String rePassword) {
         this.name = name;
@@ -74,6 +86,7 @@ package com.example.graduationproject.Model;
         return location;
     }
 
+
        @Override
        public String toString() {
            return "users{" +
@@ -82,7 +95,8 @@ package com.example.graduationproject.Model;
                    ", password='" + password + '\'' +
                    ", rePassword='" + rePassword + '\'' +
                    ", location='" + location + '\'' +
-                   ", latlong='" + latlong + '\'' +
+                   ", latitude='" + latitude + '\'' +
+                   ", longitude='" + longitude + '\'' +
                    ", categorize='" + categorize + '\'' +
                    '}';
        }
