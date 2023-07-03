@@ -80,6 +80,7 @@ public class AddProducts extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseStorage mStorage;
     String productive_family;
+    Product2 model;
 
     ProgressDialog progressDialog;
 
@@ -366,10 +367,12 @@ public class AddProducts extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.get("name") != null) {
                       productive_family=  documentSnapshot.getString("name");
+                      model.setProductive_family(documentSnapshot.getString("name"));
+
                     }
                 }
             });
-            Product2 model = new Product2(Name,Description,price1,category1,productive_family,auth.getUid(),UrlsList);
+             model = new Product2(Name,Description,price1,category1,auth.getUid(),UrlsList);
             firestore.collection("Products").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
