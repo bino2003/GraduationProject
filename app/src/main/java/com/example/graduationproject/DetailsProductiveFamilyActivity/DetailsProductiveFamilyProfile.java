@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String dbname;
     private String id;
+    String phoneNumbers;
     private String product_id;
 
     public DetailsProductiveFamilyProfile() {
@@ -161,10 +163,40 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                 }
             });
         }
+        binding.tvWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                        phoneNumbers = "+972"+task.getResult().getLong("phone").toString();
+
+                        String message = "Hello, let's chat on WhatsApp!";
+                        openWhatsAppChat(phoneNumber, message);
+                    }
+                });
+            }
+        });
+
 
 
 
         return binding.getRoot();
+    }
+
+    private void openWhatsAppChat(String phoneNumber, String message) {
+        try {
+            // Format the phone number to include the country code and remove any special characters
+            phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+
+            // Open WhatsApp with the predefined message
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode(message, "UTF-8"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Failed to open WhatsApp.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

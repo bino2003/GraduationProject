@@ -47,17 +47,17 @@ public  class HomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUser user=auth.getCurrentUser();
-
-                auth.signOut();
-                user.reload();
-                startActivity(new Intent(HomeActivity.this,LoginActivity.class));
-
-            }
-        });
+//        binding.logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FirebaseUser user=auth.getCurrentUser();
+//
+//                auth.signOut();
+//                user.reload();
+//                startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+//
+//            }
+//        });
         firestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -75,6 +75,24 @@ public  class HomeActivity extends AppCompatActivity  {
             }
         });
 
+//        binding.logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FirebaseUser user=auth.getCurrentUser();
+//
+//                auth.signOut();
+//                user.reload();
+//
+//                Toast.makeText(HomeActivity.this, "Logout successfully", Toast.LENGTH_SHORT).show();
+//            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+//            //innnnn
+//                //rrr
+//            startActivity(intent);
+//            finish();
+//
+//
+//            }
+//        });
 
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -104,6 +122,9 @@ public  class HomeActivity extends AppCompatActivity  {
                     case R.id.hom:
                         replacefragmint(new DistinguishedFamilyFragment());
                         break;
+
+                    case  R.id.Settings:
+                        replacefragmint(new Setting());
 
                 }
                 return true;

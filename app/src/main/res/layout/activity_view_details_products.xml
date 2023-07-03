@@ -7,7 +7,7 @@
     >
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,27 +46,40 @@
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
-       
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/slideViewPager"
+        android:layout_width="393dp"
+        android:layout_height="174dp"
+        android:layout_marginVertical="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_namefamilay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/et_namefamilay"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="268dp"
         android:background="@drawable/text"
         android:hint="productive family"
         android:inputType="textPersonName"
         android:paddingStart="10dp"
+        android:paddingTop="15dp"
         android:textColor="#000000"
         android:textColorHint="#000000"
-        android:paddingTop="15dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="NotSibling"></TextView>
-
 
     <ImageView
         android:id="@+id/imageviename_viewproduct"
