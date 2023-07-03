@@ -71,9 +71,6 @@ public class HomeFragmint extends Fragment {
         // Inflate the layout for this fragment
         FragmentHomeFragmintBinding binding=FragmentHomeFragmintBinding.inflate(inflater,container,false);
 //        binding.carNameTv.setText(CarName);
-
-
-
         return binding.getRoot();
     }
 }

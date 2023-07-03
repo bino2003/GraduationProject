@@ -26,6 +26,11 @@ public class DistinguishedFamilyAdapter extends RecyclerView.Adapter<Distinguish
     Context context;
     OnClickProductiveFamily onClickProductiveFamily;
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
+
+    public  void  setFilterList(ArrayList<ProductiveFamily> productiveFamilies){
+        this.productiveFamilyArrayList=productiveFamilies;
+        notifyDataSetChanged();
+    }
     public DistinguishedFamilyAdapter(Context context, OnClickProductiveFamily onClickProductiveFamily, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
         this.context = context;
         this.onClickProductiveFamily = onClickProductiveFamily;

@@ -7,109 +7,42 @@
     >
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <RelativeLayout
+            android:id="@+id/ChooseImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="20dp">
 
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_baseline_photo_camera_24" />
+        </RelativeLayout>
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="120dp"
-                android:layout_marginTop="18dp"
-                app:cardBackgroundColor="@color/black"
-                app:cardCornerRadius="75dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    app:cardCornerRadius="75dp">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.44"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/homes" />
-                </androidx.cardview.widget.CardView>
-            </androidx.cardview.widget.CardView>
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardimag"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="18dp"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="75dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                app:cardCornerRadius="75dp">
-
-                <ImageView
-                    android:id="@+id/uplodeimg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.44"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img" />
-
-
-            </androidx.cardview.widget.CardView>
-
-
-        </androidx.cardview.widget.CardView>
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+    </LinearLayout>
 
 
     <EditText
         android:id="@+id/et_nameadd"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/text"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -119,7 +52,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:ignore="NotSibling"></EditText>
 
     <ImageView
@@ -211,8 +144,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_priceadd"
         app:layout_constraintTop_toTopOf="@+id/et_priceadd" />
 
-    <Button
-        android:id="@+id/addbtn"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/UploadBtn"
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginTop="44dp"
@@ -223,28 +156,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_priceadd"></Button>
-
-    <LinearLayout
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="122dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/whitecircle"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/btnImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/ic_baseline_camera_alt_24" />
-    </LinearLayout>
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/et_priceadd"></androidx.appcompat.widget.AppCompatButton>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
