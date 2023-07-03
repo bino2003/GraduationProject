@@ -19,47 +19,115 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout"-->
+<!--        android:layout_width="241dp"-->
+<!--        android:layout_height="134dp"-->
+<!--        android:layout_marginStart="28dp"-->
+<!--        android:layout_marginTop="80dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/card"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_marginStart="120dp"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            app:cardBackgroundColor="@color/black"-->
+<!--            app:cardCornerRadius="75dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="3dp"-->
+<!--                app:cardCornerRadius="75dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/uplodeimgupdate"-->
+<!--                    android:layout_width="130dp"-->
+<!--                    android:layout_height="120dp"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_bias="0.44"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:srcCompat="@drawable/img" />-->
+<!--            </androidx.cardview.widget.CardView>-->
+<!--            -->
+<!--            -->
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="241dp"
-        android:layout_height="134dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
+        android:id="@+id/constraint"
+        android:layout_width="276dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/whitecircle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView">
+
+            <ImageView
+                android:id="@+id/uplodeimgupdate"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_baseline_camera_alt_24" />
+        </LinearLayout>
+
+
+
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="18dp"
-            app:cardBackgroundColor="@color/black"
+            android:id="@+id/cardView"
+            android:layout_width="140dp"
+            android:layout_height="131dp"
+            android:layout_margin="1dp"
+            android:layout_marginStart="135dp"
+            android:layout_marginEnd="50dp"
             app:cardCornerRadius="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                app:cardCornerRadius="75dp">
 
-                <ImageView
-                    android:id="@+id/uplodeimgupdate"
-                    android:layout_width="130dp"
-                    android:layout_height="120dp"
-                    android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.44"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img" />
-            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="142dp"
+                android:layout_height="131dp"
+                android:scaleType="fitXY"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.44"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                app:srcCompat="@drawable/img" />
+
         </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/et_name"
@@ -75,7 +143,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/constraint"></EditText>
 
     <EditText
         android:id="@+id/et_categryupdate"
