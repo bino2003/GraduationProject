@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DistinguishedFamily.DistinguishedFamilyFragment">
 
-
-
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/simpleSearchView"
         android:layout_width="343dp"
         android:layout_height="36dp"

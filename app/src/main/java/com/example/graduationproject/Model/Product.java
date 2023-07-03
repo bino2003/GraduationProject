@@ -1,5 +1,7 @@
 package com.example.graduationproject.Model;
 
+import java.util.ArrayList;
+
 public class Product {
     String name;
     String productive_family;
@@ -7,9 +9,18 @@ public class Product {
     String price;
     String category;
     String image;
+   ArrayList<String> ImageUrls;
     String user;
 String id;
 String favid;
+
+    public Product(String name, String description, String price, String category, ArrayList<String> imageUrls) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        ImageUrls = imageUrls;
+    }
 
     public String getProductive_family() {
         return productive_family;
