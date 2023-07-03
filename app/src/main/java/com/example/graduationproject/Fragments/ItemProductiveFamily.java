@@ -155,11 +155,11 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
 
                         String user= product.getUser();
                         String userid= firebaseAuth.getUid();
-                        if (user.equals(userid)){
-                            productsArrayList.add(product);
-                        }else {
-
-                        }
+//                        if (user.equals(userid)){
+//                            productsArrayList.add(product);
+//                        }else {
+//
+//                        }
                     }
 
                     //       Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
