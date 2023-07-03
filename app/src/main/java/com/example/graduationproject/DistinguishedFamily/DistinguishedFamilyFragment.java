@@ -1,9 +1,11 @@
 package com.example.graduationproject.DistinguishedFamily;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +17,14 @@ import android.widget.Toast;
 
 import com.example.graduationproject.Adapters.DistinguishedFamilyAdapter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
+import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.OnClickProductiveFamily;
 import com.example.graduationproject.databinding.FragmentDistinguishedFamilyBinding;
 import com.example.graduationproject.Model.ProductiveFamily;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -28,19 +32,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DistinguishedFamilyFragment extends Fragment {
 
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     DistinguishedFamilyAdapter distinguishedFamilyAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    ArrayList<ProductiveFamily> productiveFamilyList;
     public DistinguishedFamilyFragment() {
         // Required empty public constructor
     }
@@ -75,36 +79,90 @@ public class DistinguishedFamilyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        FragmentDistinguishedFamilyBinding binding=FragmentDistinguishedFamilyBinding.inflate(inflater,container,false);
-firebaseFirestore.collection("Productive family").orderBy("rating", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-    @Override
-    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        if (task.isSuccessful()){
-            binding.progressBar2.setVisibility(View.GONE);
-            ArrayList<ProductiveFamily>productiveFamilyList= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
-            distinguishedFamilyAdapter=new DistinguishedFamilyAdapter(getActivity(), new OnClickProductiveFamily() {
-                @Override
-                public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
-                    Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        FragmentDistinguishedFamilyBinding binding = FragmentDistinguishedFamilyBinding.inflate(inflater, container, false);
+        firebaseFirestore.collection("Productive family").orderBy("rating", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    binding.progressBar2.setVisibility(View.GONE);
+                     productiveFamilyList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                    distinguishedFamilyAdapter = new DistinguishedFamilyAdapter(getActivity(), new OnClickProductiveFamily() {
+                        @Override
+                        public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
+                            Intent intent = new Intent(getActivity(), DetailsProductiveFamily.class);
 
-                    intent.putExtra("idproductivefamily",productiveFamily.getId());
-                    startActivity(intent);
+                            intent.putExtra("idproductivefamily", productiveFamily.getId());
+                            startActivity(intent);
+                        }
+                    }, productiveFamilyList);
+                    binding.recyclerView.setAdapter(distinguishedFamilyAdapter);
+
+                    binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+                    distinguishedFamilyAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), task.getException().getMessage() + "", Toast.LENGTH_SHORT).show();
                 }
-            },productiveFamilyList);
-            binding.recyclerView.setAdapter(distinguishedFamilyAdapter);
 
-            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-            distinguishedFamilyAdapter.notifyDataSetChanged();
-        }else {
-            Toast.makeText(getActivity(), task.getException().getMessage()+"", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
+        binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
-    }
-});
+            @Override
+            public boolean onQueryTextChange(String s) {
+//                filterList(s);
+                ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
+                for (ProductiveFamily productiveFamily: productiveFamilyList ){
+                    if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
+                        productiveFamilies.add(productiveFamily);
+                    }
+                }
+                if (productiveFamilies.isEmpty()){
+                    Toast.makeText(getActivity(), "No Result", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+                }else {
+                    distinguishedFamilyAdapter.setFilterList(productiveFamilies);
+                }
+//                CollectionReference itemsRef = firebaseFirestore.collection("Productive family");
+//                Query query = itemsRef.whereEqualTo("name", s);
+                return false;
+            }
+        });
 
         return binding.getRoot();
+    }
+    /*
+              @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                CollectionReference itemsRef = firebaseFirestore.collection("Productive family");
+                Query query = itemsRef.whereEqualTo("name", s);
+                return false;
+            }
+     */
+
+    private void filterList(String s) {
+        ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
+        for (ProductiveFamily productiveFamily: productiveFamilyList ){
+            if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
+                productiveFamilies.add(productiveFamily);
+            }
+        }
+        if (productiveFamilies.isEmpty()){
+            Toast.makeText(getActivity(), "No Result", Toast.LENGTH_SHORT).show();
+        }else {
+distinguishedFamilyAdapter.setFilterList(productiveFamilies);
+        }
     }
 }
 
