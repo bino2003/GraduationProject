@@ -20,8 +20,43 @@ public class ProductiveFamily {
     List<String> evaluation;
     int phone;
     String category;
+    String instgram;
+    String Twitter;
     String image;
     String id;
+
+    public String getInstgram() {
+        return instgram;
+    }
+
+    public void setInstgram(String instgram) {
+        this.instgram = instgram;
+    }
+
+    public String getTwitter() {
+        return Twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        Twitter = twitter;
+    }
+
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, int phone, String category, String instgram, String twitter, String image, String id) {
+        this.name = name;
+        this.details = details;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.productCategory = productCategory;
+        this.rating = rating;
+        this.location = location;
+        this.evaluation = evaluation;
+        this.phone = phone;
+        this.category = category;
+        this.instgram = instgram;
+        Twitter = twitter;
+        this.image = image;
+        this.id = id;
+    }
 
     public String getLatitude() {
         return latitude;
@@ -144,9 +179,12 @@ public class ProductiveFamily {
                 ", longitude='" + longitude + '\'' +
                 ", productCategory='" + productCategory + '\'' +
                 ", rating='" + rating + '\'' +
+                ", location='" + location + '\'' +
                 ", evaluation=" + evaluation +
                 ", phone=" + phone +
                 ", category='" + category + '\'' +
+                ", instgram='" + instgram + '\'' +
+                ", Twitter='" + Twitter + '\'' +
                 ", image='" + image + '\'' +
                 ", id='" + id + '\'' +
                 '}';
