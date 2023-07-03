@@ -127,136 +127,6 @@ public class AddProducts extends AppCompatActivity {
     }
 
 
-    private void UploadIMages() {
-
-        // we need list that images urls
-        for (int i = 0; i < ChooseImageList.size(); i++) {
-            Uri IndividualImage = ChooseImageList.get(i);
-            if (IndividualImage != null) {
-                progressDialog.show();
-                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ItemImages");
-                final StorageReference ImageName = ImageFolder.child("Image" + i + ": " + IndividualImage.getLastPathSegment());
-                ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                UrlsList.add(String.valueOf(uri));
-                                if (UrlsList.size() == ChooseImageList.size()) {
-                                    StoreLinks(UrlsList);
-                                }
-                            }
-                        });
-
-                    }
-                });
-            } else {
-                Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-    }
-
-
-    private void StoreLinks(ArrayList<String> urlsList) {
-        // now we need get text from EditText
-        String Name = ItemName.getText().toString();
-        String Description = ItemDesc.getText().toString();
-        String category1 = category.getText().toString();
-        String price1 = price.getText().toString();
-        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Description) && ImageUri != null) {
-            // now we need a model class
-            firestore.collection("Productive family").document(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot.get("name") != null) {
-                      productive_family=  documentSnapshot.getString("name");
-
-                    }
-                }
-            });
-            Product2 model = new Product2(Name,Description,price1,category1,productive_family,auth.getUid(),UrlsList);
-            firestore.collection("Products").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    // now here we need Item id and set into model
-                    model.setId(documentReference.getId());
-                    firestore.collection("Products").document(model.getId())
-                            .set(model, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            progressDialog.dismiss();
-                            // if data uploaded successfully then show ntoast
-                            Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
-
-                }
-            });
-
-        } else {
-            progressDialog.dismiss();
-            Toast.makeText(this, "Please Fill All field", Toast.LENGTH_SHORT).show();
-        }
-        // if you want to clear viewpager after uploading Images
-        ChooseImageList.clear();
-
-
-    }
-
-    private void CheckPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(AddProducts.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(AddProducts.this, new
-                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
-            } else {
-                PickImageFromgallry();
-            }
-
-        } else {
-            PickImageFromgallry();
-        }
-    }
-    private void PickImageFromgallry() {
-        // here we go to gallery and select Image
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getClipData() != null) {
-            int count = data.getClipData().getItemCount();
-            for (int i = 0; i < count; i++) {
-                ImageUri = data.getClipData().getItemAt(i).getUri();
-                ChooseImageList.add(ImageUri);
-// now we need Adapter to show Images in viewpager
-
-            }
-            setAdapter();
-
-        }
-    }
-
-    private void setAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, ChooseImageList);
-        viewPager.setAdapter(adapter);
-    }
-
-
-
-
 
 
 
@@ -447,6 +317,137 @@ public class AddProducts extends AppCompatActivity {
 //                    // Handle any errors that occur during URL saving
 //                });
 //    }
+
+
+    private void UploadIMages() {
+
+        // we need list that images urls
+        for (int i = 0; i < ChooseImageList.size(); i++) {
+            Uri IndividualImage = ChooseImageList.get(i);
+            if (IndividualImage != null) {
+                progressDialog.show();
+                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ItemImages");
+                final StorageReference ImageName = ImageFolder.child("Image" + i + ": " + IndividualImage.getLastPathSegment());
+                ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                UrlsList.add(String.valueOf(uri));
+                                if (UrlsList.size() == ChooseImageList.size()) {
+                                    StoreLinks(UrlsList);
+                                }
+                            }
+                        });
+
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+
+
+    private void StoreLinks(ArrayList<String> urlsList) {
+        // now we need get text from EditText
+        String Name = ItemName.getText().toString();
+        String Description = ItemDesc.getText().toString();
+        String category1 = category.getText().toString();
+        String price1 = price.getText().toString();
+        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Description) && ImageUri != null) {
+            // now we need a model class
+            firestore.collection("Productive family").document(auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot.get("name") != null) {
+                      productive_family=  documentSnapshot.getString("name");
+
+                    }
+                }
+            });
+            Product2 model = new Product2(Name,Description,price1,category1,productive_family,auth.getUid(),UrlsList);
+            firestore.collection("Products").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    // now here we need Item id and set into model
+                    model.setId(documentReference.getId());
+                    firestore.collection("Products").document(model.getId())
+                            .set(model, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            progressDialog.dismiss();
+                            // if data uploaded successfully then show ntoast
+                            Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+                }
+            });
+
+        } else {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Please Fill All field", Toast.LENGTH_SHORT).show();
+        }
+        // if you want to clear viewpager after uploading Images
+        ChooseImageList.clear();
+
+
+    }
+
+    private void CheckPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(AddProducts.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(AddProducts.this, new
+                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+            } else {
+                PickImageFromgallry();
+            }
+
+        } else {
+            PickImageFromgallry();
+        }
+    }
+    private void PickImageFromgallry() {
+        // here we go to gallery and select Image
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getClipData() != null) {
+            int count = data.getClipData().getItemCount();
+            for (int i = 0; i < count; i++) {
+                ImageUri = data.getClipData().getItemAt(i).getUri();
+                ChooseImageList.add(ImageUri);
+// now we need Adapter to show Images in viewpager
+
+            }
+            setAdapter();
+
+        }
+    }
+
+    private void setAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, ChooseImageList);
+        viewPager.setAdapter(adapter);
+    }
+
+
+
 
 
 
