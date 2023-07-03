@@ -366,7 +366,6 @@ public class AddProducts extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.get("name") != null) {
                       productive_family=  documentSnapshot.getString("name");
-
                     }
                 }
             });
