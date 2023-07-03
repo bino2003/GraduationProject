@@ -17,7 +17,7 @@ public class Product2 {
     public Product2() {
     }
 
-    public Product2(String name,  String description,String price, String category, String productive_family,String user, ArrayList<String> imageUrls) {
+    public Product2(String name,  String description,String price, String category, String user, ArrayList<String> imageUrls) {
         this.name = name;
         this.productive_family = productive_family;
         this.description = description;
