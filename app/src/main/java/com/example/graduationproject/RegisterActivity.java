@@ -32,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
     String phone;
     String rePassword;
     String categorize;
-    String location;
+    String latitude;
+    String longitude;
     FirebaseAuth firebaseAuth;
     boolean isuser;
     SharedPreferences.Editor editor;
@@ -79,7 +80,8 @@ public class RegisterActivity extends AppCompatActivity {
         if (sharedphone!=null){
             binding.PhoneNumber.setText(sharedphone);
         }
-        getIntent().getStringExtra("latlong");
+        getIntent().getStringExtra("lat");
+        getIntent().getStringExtra("long");
         binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -173,27 +175,30 @@ public class RegisterActivity extends AppCompatActivity {
                 phone=binding.PhoneNumber.getText().toString();
                 rePassword=binding.ConfirmPassword.getText().toString();
                 email=binding.EmailAddress.getText().toString();
-                location= getIntent().getStringExtra("latlong");
-            //    if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||location==null||email==null){
+                latitude= getIntent().getStringExtra("lat");
+                longitude= getIntent().getStringExtra("long");
+               if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||longitude==null||email==null||latitude==null){
 
                     Toast.makeText(RegisterActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
-          //      }
-       //         else if (!password.equals(rePassword)){
+               }
+               else if (!password.equals(rePassword)){
                     Toast.makeText(RegisterActivity.this, "No password match", Toast.LENGTH_SHORT).show();
 
-           //     }
+              }
 
-          //      else {
+            else {
                     register();
                     editor.putString("name",binding.fullname.getText().toString());
                     editor.putInt("phone", Integer.parseInt(binding.PhoneNumber.getText().toString()));
-                    editor.putString("latlong",location);
-                    editor.putString("category",categorize);
+                    editor.putString("latitude",latitude);
+                   editor.putString("longitude",longitude);
+
+                   editor.putString("category",categorize);
                     editor.apply();
 
 
 
-            //    }
+             }
 
             }
         });
@@ -235,8 +240,9 @@ public class RegisterActivity extends AppCompatActivity {
             users.setCategorize(categorize);
 //        }
 //        if (!location.isEmpty()){
-            users.setLatlong(location);
-            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+            users.setLatitude(latitude);
+            users.setLongitude(longitude);
+            Toast.makeText(this, latitude+longitude, Toast.LENGTH_SHORT).show();
 //        }
         ProductiveFamily productiveFamily=new ProductiveFamily();
         productiveFamily.setId(user.getUid());
@@ -244,7 +250,8 @@ public class RegisterActivity extends AppCompatActivity {
             productiveFamily.setCategory(categorize);
        // }
     //    if (!location.isEmpty()){
-            productiveFamily.setLatlong(location);
+            productiveFamily.setLongitude(longitude);
+            productiveFamily.setLatitude(latitude);
      //   }
         productiveFamily.setName(name);
         productiveFamily.setPhone(Integer.parseInt(phone));

@@ -44,7 +44,8 @@ public class ItemDetailsProduct extends Fragment {
     private static final String ARG_ID_Product_Id = "product_id";
     static int allPrice = 0;
     static int i = 0;
-    boolean isfav = true;
+    boolean isfav;
+    boolean isexists;
     ArrayList<Product> productsArrayList = new ArrayList<>();
     ItemDetailsProductAdapter itemDetailsProductAdapter;
     FirebaseFirestore firebaseFirestore;
@@ -58,8 +59,10 @@ public class ItemDetailsProduct extends Fragment {
     private String mParam2;
     private String dbname;
     private String product_id;
+    boolean isexistsuser;
     private String id;
-
+    boolean notexistsuser;
+    boolean notexistproductivefamily;
     public ItemDetailsProduct() {
         // Required empty public constructor
     }
@@ -131,7 +134,7 @@ public class ItemDetailsProduct extends Fragment {
                                         favorites_.setProductiveFamilyId(task.getResult().getString("id"));
                                         Log.d("idProductivefamily", task.getResult().getString("id"));
 
-                                        if (isfav) {
+
                                             firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -140,22 +143,39 @@ public class ItemDetailsProduct extends Fragment {
                                                         List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
                                                         for (int i = 0; i < productiveFamilyList.size(); i++) {
                                                             String id = task.getResult().getDocuments().get(i).getId();
-
-                                                            if (id.equals(firebaseAuth.getUid())) {
-                                                                if (firebaseAuth.getUid() != null) {
-                                                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                Toast.makeText(getActivity(), "Product added to favorites", Toast.LENGTH_SHORT).show();
-
-                                                                            } else {
-                                                                                Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
-                                                                            }
+                                                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                                                    notexistproductivefamily=task.getResult().exists();
+                                                                    System.out.println("notbian"+notexistproductivefamily);
+                                                                    if (id.equals(firebaseAuth.getUid())) {
+                                                                        if (firebaseAuth.getUid() != null&&notexistproductivefamily==false) {
+                                                                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    if (task.isSuccessful()) {
+                                                                                        Toast.makeText(getActivity(), "Product added to favorites", Toast.LENGTH_SHORT).show();
+isfav=true;
+                                                                                    } else {
+                                                                                        Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        }else {
+                                                                            Toast.makeText(getActivity(), "This product is already in my favourites", Toast.LENGTH_SHORT).show();
+                                                                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                                    Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
+                                                                                    isfav=false;
+                                                                                }
+                                                                            });
                                                                         }
-                                                                    });
+                                                                    }
                                                                 }
-                                                            }
+                                                            });
+                                                            System.out.println("notbian"+notexistproductivefamily);
+
 
                                                         }
                                                     }
@@ -169,95 +189,48 @@ public class ItemDetailsProduct extends Fragment {
                                                         List<users> usersList = task.getResult().toObjects(users.class);
                                                         for (int i = 0; i < usersList.size(); i++) {
                                                             String id = task.getResult().getDocuments().get(i).getId();
-
-                                                            if (id.equals(firebaseAuth.getUid())) {
-                                                                if (firebaseAuth.getUid() != null) {
-                                                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                Toast.makeText(getActivity(), "Product added to favoritesusers", Toast.LENGTH_SHORT).show();
-
-                                                                            } else {
-                                                                                Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
-                                                                            }
+                                                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                                                    notexistsuser=task.getResult().exists();
+                                                                    if (id.equals(firebaseAuth.getUid())) {
+                                                                        if (firebaseAuth.getUid() != null&& notexistsuser==false) {
+                                                                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).set(favorites_).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    if (task.isSuccessful()) {
+                                                                                        Toast.makeText(getActivity(), "Product added to favoritesusers", Toast.LENGTH_SHORT).show();
+isfav=true;
+                                                                                    } else {
+                                                                                        Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        }else {
+                                                                            Toast.makeText(getActivity(), "This product is already in my favourites", Toast.LENGTH_SHORT).show();
+                                                                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                                    Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
+                                                                                    isfav=false;
+                                                                                }
+                                                                            });
                                                                         }
-                                                                    });
+                                                                    }
                                                                 }
-                                                            }
+                                                            });
+                                                            System.out.println("notbian"+notexistsuser);
+
 
                                                         }
                                                     }
                                                 }
                                             });
 
-                                            isfav = false;
 
 
-                                        } else if (!isfav) {
-                                            isfav = true;
-                                            firebaseAuth = FirebaseAuth.getInstance();
-                                            if (firebaseAuth.getUid() != null) {
-                                                firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            List<users> usersList = task.getResult().toObjects(users.class);
-                                                            for (int i = 0; i < usersList.size(); i++) {
-                                                                String id = task.getResult().getDocuments().get(i).getId();
-                                                                if (id.equals(firebaseAuth.getUid())) {
-                                                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                Toast.makeText(getActivity(), "The product has been removed from favorites successfully", Toast.LENGTH_SHORT).show();
-
-                                                                            } else {
-
-                                                                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                                                            }
-                                                                        }
-                                                                    });
-
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                });
-
-                                                firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
-                                                            for (int i = 0; i < productiveFamilyList.size(); i++) {
-                                                                String id = task.getResult().getDocuments().get(i).getId();
-                                                                if (id.equals(firebaseAuth.getUid())) {
-                                                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                Toast.makeText(getActivity(), "The product has been removed from favorites successfully", Toast.LENGTH_SHORT).show();
-
-                                                                            } else {
-
-                                                                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                                                            }
-                                                                        }
-                                                                    });
-
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                });
-
-                                            }
 
 
-                                        }
                                     }
 
                                 }
@@ -276,7 +249,7 @@ public class ItemDetailsProduct extends Fragment {
                             intent.putExtra("detailsproductid", product.getId());
                             startActivity(intent);
                         }
-                    });
+                    },isfav);
                     binding.rv.setAdapter(itemDetailsProductAdapter);
 
                     binding.rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));

@@ -140,7 +140,7 @@ public class UserProfileFragment extends Fragment {
                     public void onClick(View v) {
                         DocumentReference documentRef = firebaseFirestore.collection("users").document(firebaseAuth.getUid());
                         users user = new users();
-                        user.setLatlong(binding.etLocation.getText().toString());
+                        user.setLocation(binding.etLocation.getText().toString());
                         user.setPhone(binding.etPhoneNumber.getText().toString());
                         user.setName(binding.etUserName.getText().toString());
                         documentRef.set(user, SetOptions.merge())

@@ -75,7 +75,7 @@ firebaseFirestore.collection("Productive family").document(productiveFamilyArray
 //
 //        }
 
-
+holder.ratingBar.setIsIndicator(true);
 
         holder.name.setText(productiveFamilyArrayList.get(position).getName());
         if (productiveFamilyArrayList.get(pos).getDetails()!=null){

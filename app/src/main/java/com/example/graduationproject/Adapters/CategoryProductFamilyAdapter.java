@@ -47,6 +47,8 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
         float rating=0;
         int pos=position;
         holder.location.setText(productiveFamilyArrayList.get(position).getLocation());
+        holder.ratingBar.setIsIndicator(true);
+
         if (productiveFamilyArrayList.get(pos).getEvaluation()!=null){
             List<String> listreating=productiveFamilyArrayList.get(pos).getEvaluation();
             for (int i=0;i<listreating.size();i++) {
