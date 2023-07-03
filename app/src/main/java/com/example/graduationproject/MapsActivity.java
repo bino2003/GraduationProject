@@ -73,7 +73,10 @@ mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
         markerOptions.position(latLng);
 mMap.addMarker(markerOptions);
         Intent intent=new Intent(MapsActivity.this,RegisterActivity.class);
-        intent.putExtra("latlong",String.valueOf(latLng));
+        intent.putExtra("lat",String.valueOf(latLng.latitude));
+        intent.putExtra("long",String.valueOf(latLng.longitude));
+
+
         startActivity(intent);
 
 finish();

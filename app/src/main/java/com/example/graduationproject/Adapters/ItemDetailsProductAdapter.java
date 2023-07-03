@@ -33,9 +33,10 @@ public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProdu
 
 
 
-public ItemDetailsProductAdapter(ArrayList<Product> productArrayList, Context context, DetailsProductAction detailsProductAction) {
+public ItemDetailsProductAdapter(ArrayList<Product> productArrayList, Context context, DetailsProductAction detailsProductAction,boolean isfavarite) {
         this.productArrayList = productArrayList;
         this.context = context;
+        this.isfavarite=isfavarite;
         this.detailsProductAction = detailsProductAction;
         }
 
@@ -57,8 +58,16 @@ public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int positi
    holder.fav.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
-           detailsProductAction.onfav(productArrayList.get(pos));
+           if (isfavarite==true){
+               holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+               detailsProductAction.onfav(productArrayList.get(pos));
+               isfavarite=false;
+           }else if(isfavarite==false) {
+               holder.fav.setImageResource(R.drawable.heart);
+               detailsProductAction.onfav(productArrayList.get(pos));
+               isfavarite=true;
+           }
+
        }
    });
 holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -90,7 +90,103 @@ public class ProfileFragment extends Fragment  {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FragmentProfile2Binding binding = FragmentProfile2Binding.inflate(getLayoutInflater());
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    List<ProductiveFamily> productiveFamilyList=task.getResult().toObjects(ProductiveFamily.class);
+                    for (int i=0;i<productiveFamilyList.size();i++){
+                        String id= task.getResult().getDocuments().get(i).getId();
+                        if (id.equals(firebaseAuth.getUid())){
+                            isuser=false;
+                            Toast.makeText(getActivity(), "productivefamily", Toast.LENGTH_SHORT).show();
+                            tabs.add("Products");
 
+                            tabs.add("Profile");
+                            binding.ViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
+                                @Override
+                                public void transformPage(@androidx.annotation.NonNull View page, float position) {
+                                    Toast.makeText(getActivity(), "scroll", Toast.LENGTH_SHORT).show();
+                                    if (position==0){
+
+                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
+
+                                    }else {
+                                        binding.icon.setImageResource(R.drawable.edite);
+
+
+                                    }
+                                }
+                            });
+
+                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    if (documentSnapshot.get("name") != null) {
+                                        binding.name.setText(documentSnapshot.getString("name"));
+
+                                    }
+                                    if (documentSnapshot.get("image") != null) {
+                                        Glide.with(getActivity()).load(Uri.parse(documentSnapshot.getString("image"))).circleCrop().into(binding.imageView3);
+
+                                    }
+
+
+                                }
+                            });
+
+                            ArrayList<String> tabs =new ArrayList<>();
+                            tabs.add("Products");
+                            tabs.add("Profile");
+
+
+                            ArrayList<Fragment> item_productArrayList = new ArrayList<>();
+                            item_productArrayList.add(ItemProductiveFamily.newInstance("Products",id,getActivity().getIntent().getStringExtra("id_product")));
+                            item_productArrayList.add(InformationProdectiveFamilyFragment.newInstance(id,getActivity().getIntent().getStringExtra("id_product")));
+
+
+                            Log.d("productlist", item_productArrayList.toString());
+                            ItemProductAdapter itemProductAdapter = new ItemProductAdapter(getActivity(), item_productArrayList);
+                            binding.ViewPager.setAdapter(itemProductAdapter);
+                            binding.ViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                                @Override
+                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                    super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                                }
+
+                                @Override
+                                public void onPageSelected(int position) {
+                                    super.onPageSelected(position);
+
+                                }
+
+                                @Override
+                                public void onPageScrollStateChanged(int state) {
+                                    super.onPageScrollStateChanged(state);
+                                }
+                            });new TabLayoutMediator(binding.tab, binding.ViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+                                @Override
+                                public void onConfigureTab(TabLayout.@NonNull Tab tab, int position) {
+                                    tab.setText(tabs.get(position));
+                                }
+                            }).attach();
+
+
+                        }
+                    }
+                }
+            }
+        });
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,19 +206,17 @@ public class ProfileFragment extends Fragment  {
                         String id= task.getResult().getDocuments().get(i).getId();
                         if (id.equals(firebaseAuth.getUid())){
                             isuser=false;
-                            Toast.makeText(getActivity(), "productivefamily", Toast.LENGTH_SHORT).show();
                             tabs.add("Products");
 
                             tabs.add("Profile");
                             binding.ViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
                                 @Override
                                 public void transformPage(@NonNull View page, float position) {
-                                    Toast.makeText(getActivity(), "scroll", Toast.LENGTH_SHORT).show();
                                     if (position==0){
 
                                         binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
 
-                                    }else {
+                                    }else if (position==1){
                                         binding.icon.setImageResource(R.drawable.edite);
 
 

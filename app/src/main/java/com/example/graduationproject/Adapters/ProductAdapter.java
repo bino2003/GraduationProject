@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.graduationproject.Fragments.DeleteDialogFragment;
+import com.example.graduationproject.Interface.OnChangeScroll;
+import com.example.graduationproject.Interface.OndeleteProduct;
 import com.example.graduationproject.Interface.ProductsAction;
 
 import com.example.graduationproject.databinding.ItemproductBinding;
@@ -22,9 +25,10 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
-    ArrayList<Product> productArrayList=new ArrayList<>();
+     ArrayList<Product> productArrayList=new ArrayList<>();
     Context context;
     ProductsAction productsAction;
+
 
 
 
@@ -53,6 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 productsAction.OnDelete(productArrayList.get(pos).getName(),pos);
             }
         });

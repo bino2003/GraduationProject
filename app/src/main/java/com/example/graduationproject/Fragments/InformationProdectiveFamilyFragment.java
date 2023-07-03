@@ -13,6 +13,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +25,9 @@ import android.widget.Toast;
 
 
 import com.example.graduationproject.ProductiveFamilyProfileActivity.UpdateInformationProductiveFamilyActivity;
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.FragmentInformationProdectiveFamilyBinding;
-import com.example.graduationproject.databinding.Fragmentinformationproductivefamily2Binding;
+import com.example.graduationproject.databinding.FragmentInformationProductiveFamily2Binding;
 import com.example.graduationproject.Model.ProductiveFamily;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,14 +59,19 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     String sharedlocation;
     String sharedphone;
     String category;
-    String latlong;
+    String lat;
+    String longitude;
+    String Location;
     String location;
+    String details;
+    String phone;
     SharedPreferences.Editor editor;
     private String mParam1;
     private String mParam2;
     String Productcategory;
     String description;
     String image;
+    String sharedproductCategory;
 
     private static final String ARG_db_id = "idFamily";
     private static final String ARG_db_id_product = "idProduct";
@@ -106,12 +114,18 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         firebaseAuth=FirebaseAuth.getInstance();
 
         FragmentInformationProdectiveFamilyBinding binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
-        Fragmentinformationproductivefamily2Binding binding2 = Fragmentinformationproductivefamily2Binding.inflate(inflater, container, false);
+        FragmentInformationProductiveFamily2Binding binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -119,16 +133,25 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     DocumentSnapshot documentSnapshot=task.getResult();
                     shareddetails=documentSnapshot.getString("details");
                     sharedlocation=documentSnapshot.getString("location");
-// sharedphone= String.valueOf(documentSnapshot.getLong("phone").intValue());
+ sharedphone= String.valueOf(documentSnapshot.getLong("phone"));
+                    sharedproductCategory=documentSnapshot.getString("productCategory");
+                    editor.putString("sharedproductCategory",sharedproductCategory);
+
                     editor.putString("shareddetails",shareddetails);
                     editor.putString("sharedlocation",sharedlocation);
                     editor.putString("sharedphone",sharedphone);
                     editor.apply();
+                    details=documentSnapshot.getString("details");
+                    Location=documentSnapshot.getString("location");
+                    phone=""+documentSnapshot.getLong("phone").intValue();
 
+                    binding2.tvDesception.setText(details);
+                    binding2.tvSet.setText(Location);
+                    binding2.tvPhone.setText(phone);
 
-                    binding2.tvDesception.setText(documentSnapshot.getString("details"));
-                    binding2.tvSet.setText(documentSnapshot.getString("location"));
-//       binding2.tvPhone.setText(""+documentSnapshot.getLong("phone").intValue());
+                    binding2.tvDesception.setText(details);
+                    binding2.tvSet.setText(Location);
+    binding2.tvPhone.setText(phone);
                 }
             }
         });
@@ -191,14 +214,16 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
                 int phone = sharedPreferences.getInt("phone", 0);
-                latlong = sharedPreferences.getString("latlong", null);
+                lat = sharedPreferences.getString("latitude", null);
+                longitude = sharedPreferences.getString("longitude", null);
                 category =sharedPreferences.getString("category",null);
 
                 productiveFamily.setCategory(category);
                 productiveFamily.setPhone(phone);
                 productiveFamily.setName(name);
                 productiveFamily.setDetails(description);
-                productiveFamily.setLatlong(latlong);
+                productiveFamily.setLatitude(lat);
+                productiveFamily.setLongitude(longitude);
 //        Log.d("category_name", category);
                 StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
                 UploadTask uploadTask = riversRef.putFile(imageuri);
@@ -226,6 +251,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                                                     Log.d("data ", productiveFamily.toString());
 
                                                     Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+
                                                     //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
                                                     editor.putString("productcategory",Productcategory);
                                                     editor.apply();
@@ -261,12 +287,37 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
         String phone=sharedPreferences.getString("sharedphone","");
+        String productCategory =sharedPreferences.getString("sharedproductCategory","");
+
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
 
-        return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+        return  location.isEmpty()||productCategory.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
 
 
     }
+    public void refresh(){
+        firebaseAuth= FirebaseAuth.getInstance();
+        FragmentInformationProductiveFamily2Binding binding2 = FragmentInformationProductiveFamily2Binding.inflate(getLayoutInflater());
+
+        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+
+                    details=documentSnapshot.getString("details");
+                    Location=documentSnapshot.getString("location");
+                    phone=""+documentSnapshot.getLong("phone").intValue();
+
+                    binding2.tvDesception.setText(details);
+                    binding2.tvSet.setText(Location);
+                    binding2.tvPhone.setText(phone);
+
+                }
+            }
+        });
+    }
+
 }
