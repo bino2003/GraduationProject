@@ -90,8 +90,8 @@ public class AddProducts extends AppCompatActivity {
         setContentView(binding.getRoot());
         PickImagebutton = findViewById(R.id.ChooseImage);
         viewPager = findViewById(R.id.viewPager);
-        ItemDesc = findViewById(R.id.et_nameadd);
-        ItemName = findViewById(R.id.et_descriptionadd);
+        ItemDesc = findViewById(R.id.et_descriptionadd);
+        ItemName = findViewById(R.id.et_nameadd);
         price = findViewById(R.id.et_priceadd);
         auth=FirebaseAuth.getInstance();
         category = findViewById(R.id.et_categryadd);
@@ -406,6 +406,7 @@ public class AddProducts extends AppCompatActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(AddProducts.this, new
                         String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+                PickImageFromgallry();
             } else {
                 PickImageFromgallry();
             }
