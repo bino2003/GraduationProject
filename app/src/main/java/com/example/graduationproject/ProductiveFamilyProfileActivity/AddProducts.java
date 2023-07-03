@@ -128,14 +128,6 @@ public class AddProducts extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
 //        binding.addbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -366,7 +358,7 @@ public class AddProducts extends AppCompatActivity {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.get("name") != null) {
-                      productive_family=  documentSnapshot.getString("name");
+                        productive_family=  documentSnapshot.getString("name");
                       model.setProductive_family(documentSnapshot.getString("name"));
                         
                     }
@@ -380,14 +372,14 @@ public class AddProducts extends AppCompatActivity {
                     model.setId(documentReference.getId());
                     firestore.collection("Products").document(model.getId())
                             .set(model, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            progressDialog.dismiss();
-                            // if data uploaded successfully then show ntoast
-                            Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.dismiss();
+                                    // if data uploaded successfully then show ntoast
+                                    Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
+                                }
+                            });
 
 
                 }
@@ -410,6 +402,8 @@ public class AddProducts extends AppCompatActivity {
                 ActivityCompat.requestPermissions(AddProducts.this, new
                         String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
                 PickImageFromgallry();
+
+
             } else {
                 PickImageFromgallry();
             }

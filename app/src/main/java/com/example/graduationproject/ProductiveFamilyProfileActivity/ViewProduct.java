@@ -40,7 +40,7 @@ FirebaseFirestore firebaseFirestore;
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             if (document.getString("image")!=null){
-                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
+//                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
 
                             }
@@ -66,7 +66,7 @@ FirebaseFirestore firebaseFirestore;
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             if (document.getString("image")!=null){
-                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
+//                                Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
 
 
                             }

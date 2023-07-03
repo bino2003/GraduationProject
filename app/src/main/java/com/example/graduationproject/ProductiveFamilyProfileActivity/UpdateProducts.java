@@ -68,7 +68,7 @@ public class UpdateProducts extends AppCompatActivity {
 //                            } catch (FileNotFoundException e) {
 //                                throw new RuntimeException(e);
 //                            }
-                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
+//                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
                             imageupdate = document.getString("image");
 
                         }
@@ -116,7 +116,7 @@ public class UpdateProducts extends AppCompatActivity {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             imageuri = data.getData();
-                            binding.uplodeimgupdate.setImageURI(imageuri);
+//                            binding.uplodeimgupdate.setImageURI(imageuri);
 
                         } else {
                             Toast.makeText(UpdateProducts.this, "No Image Selected", Toast.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class UpdateProducts extends AppCompatActivity {
                     }
                 }
         );
-        binding.uplodeimgupdate.setOnClickListener(new View.OnClickListener() {
+        binding.ChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent photoPicker = new Intent();

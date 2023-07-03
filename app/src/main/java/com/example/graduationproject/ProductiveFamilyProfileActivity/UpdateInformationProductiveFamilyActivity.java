@@ -58,7 +58,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             imageuri = data.getData();
-                            binding.uplodeimgupdate.setImageURI(imageuri);
+                            binding.imageView.setImageURI(imageuri);
 
                         } else {
                             Toast.makeText(getBaseContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
@@ -78,7 +78,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                         Log.d("TAG 1", "DocumentSnapshot data: " + document.getData());
                         Log.d("name document", document.getString("name") + "category " + document.getString("category"));
 //                        binding.imageView2.setImageURI(Uri.parse(document.getString("image")));
-                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
+                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.imageView);
                         Log.d("image", document.getString("image"));
 //                        Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image")).into(binding.imageView2);
                         binding.etName.setText(document.getString("name"));
