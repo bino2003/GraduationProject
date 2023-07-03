@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -111,14 +111,14 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/ViewPager"
-        android:layout_width="403dp"
-        android:layout_height="414dp"
+        android:layout_width="409dp"
+        android:layout_height="460dp"
+        android:layout_marginBottom="3dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab"
-        app:layout_constraintVertical_bias="0.0"></androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toBottomOf="@+id/tab"></androidx.viewpager2.widget.ViewPager2>
 
 
 

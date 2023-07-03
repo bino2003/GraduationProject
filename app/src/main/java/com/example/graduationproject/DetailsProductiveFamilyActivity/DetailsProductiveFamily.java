@@ -98,8 +98,8 @@ public class DetailsProductiveFamily extends AppCompatActivity {
         List<PackageInfo> installedPackages = packageManager.getInstalledPackages(0);
 // Iterate through installedPackages to access information about each package
         ArrayList<String> tabs =new ArrayList<>();
-        tabs.add("Products");
-        tabs.add(" Profile");
+        tabs.add("products");
+        tabs.add(" profile");
 
         ArrayList<Fragment> detailsproductivefamilylist1=new ArrayList<>();
         ArrayList<Fragment> detailsproductivefamilylist=new ArrayList<>();

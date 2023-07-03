@@ -7,6 +7,17 @@
     android:background="#F5F4F4"
     tools:context=".CategoryProductiveFamily">
 
+    <SearchView
+        android:id="@+id/simpleSearchView"
+        android:layout_width="343dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar2"
         style="@style/Widget.App.CircularProgressIndicator"
@@ -22,28 +33,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rv"
         app:trackColor="@color/green"
-        app:trackCornerRadius="0dp" />/>
+        app:trackCornerRadius="0dp" /><![CDATA[/>
+
+
+
+
+
+    ]]>
 
     <TextView
         android:id="@+id/tv_categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Food"
-        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/simpleSearchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="414dp"
+        android:layout_height="625dp"
+        android:layout_marginTop="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_categoryName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_categoryName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
