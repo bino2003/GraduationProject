@@ -65,6 +65,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     String location;
     String details;
     String phone;
+    String instgram;
+    String Twitter;
     SharedPreferences.Editor editor;
     private String mParam1;
     private String mParam2;
@@ -207,9 +209,15 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 });
                 firebaseAuth=FirebaseAuth.getInstance();
                 location=binding.etLocation.getText().toString();
+                Twitter=binding.etAccount.getText().toString();
+                instgram=binding.etInstigram.getText().toString();
+
                 ProductiveFamily productiveFamily = new ProductiveFamily();
                 productiveFamily.setProductCategory(Productcategory);
                 productiveFamily.setLocation(location);
+                productiveFamily.setInstgram(instgram);
+                productiveFamily.setTwitter(Twitter);
+
                 productiveFamily.setId(firebaseAuth.getUid());
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
@@ -243,7 +251,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                             public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
                                     productiveFamily.setImage(task.getResult().toString());
-                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
+                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null&&instgram!=null&&Twitter!=null){
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {

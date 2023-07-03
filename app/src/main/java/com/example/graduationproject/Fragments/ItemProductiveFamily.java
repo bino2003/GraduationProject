@@ -65,12 +65,10 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
     private static final String ARG_db_name = "dbName";
     private static final String ARG_db_id = "idFamily";
     private static final String ARG_db_id_product = "idProduct";
-    private static final String ARG_db_Name_product = "Name";
 
     private String dbname;
     private String family_id;
     private String product_id;
-    private String Name;
 
     public ItemProductiveFamily() {
         // Required empty public constructor
@@ -126,8 +124,8 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
         firebaseFirestore=FirebaseFirestore.getInstance();
         if (family_id!=null){
             Log.d("id!null", family_id);
-       //     binding.add.setVisibility(View.GONE);
-           // firebaseFirestore.collection("Products").document(product_id).get().addOnCompleteListener(m)
+            //     binding.add.setVisibility(View.GONE);
+            // firebaseFirestore.collection("Products").document(product_id).get().addOnCompleteListener(m)
         }else{
 
         }
@@ -135,7 +133,6 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(), AddProducts.class);
-                intent.putExtra("nameProductiveFamily", Name);
                 startActivity(intent);
             }
         });
@@ -175,26 +172,26 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                             builder.setTitle("DELETE MESSAGE");
                             builder.setMessage("Are You Sure You Want To Delete Tis Product");
                             builder.setIcon(R.drawable.ic_baseline_delete_outline_24);
-                           builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                               @Override
-                               public void onClick(DialogInterface dialogInterface, int i) {
-                                   Product product=productsArrayList.get(pos);
-                                   firebaseFirestore.collection("Products").document(product.getId()).delete();
-                                   Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
+                            builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Product product=productsArrayList.get(pos);
+                                    firebaseFirestore.collection("Products").document(product.getId()).delete();
+                                    Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
 
-                                   productsArrayList.remove(product);
+                                    productsArrayList.remove(product);
 
-                                   productAdapter.notifyDataSetChanged();
-                                   productAdapter.notifyItemChanged(pos);
+                                    productAdapter.notifyDataSetChanged();
+                                    productAdapter.notifyItemChanged(pos);
 
-                               }
-                           });
-                           builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
-                               @Override
-                               public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                            builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                               }
-                           });
+                                }
+                            });
                             builder.show();
 
 
@@ -246,7 +243,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
             }
         });
 
-       // Log.d("id_productive",  intent.getStringExtra("id"));
+        // Log.d("id_productive",  intent.getStringExtra("id"));
 
 
 
@@ -256,7 +253,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
 
     @Override
     public void OnDelete(int pos) {
-System.out.println("DELETEBIAN2");
+        System.out.println("DELETEBIAN2");
         Product product=productsArrayList.get(pos);
         firebaseFirestore.collection("Products").document(product.getId()).delete();
         Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
@@ -300,7 +297,7 @@ System.out.println("DELETEBIAN2");
                     }
                     System.out.println("list="+productsArrayList);
                     //       Toast.makeText(getContext(), productsArrayList+"", Toast.LENGTH_SHORT).show();
-            productAdapter.notifyDataSetChanged();
+                    productAdapter.notifyDataSetChanged();
 
 
 

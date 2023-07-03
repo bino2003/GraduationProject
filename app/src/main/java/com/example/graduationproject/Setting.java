@@ -87,8 +87,14 @@ public class Setting extends Fragment {
 
             }
         });
+binding.watsapp.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
 
+    }
+});
         return binding.getRoot();
 
     }
+
 }

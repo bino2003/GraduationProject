@@ -36,6 +36,12 @@ import java.util.Map;
 public class DetailsProductiveFamilyProfile extends Fragment {
 
     final Map<String, Object> ratting = new HashMap<>();
+    private static final String INSTAGRAM_PACKAGE = "com.instagram.android";
+    private static final String INSTAGRAM_URL = "https://www.instagram.com/";
+
+    private static final String TWITTER_PACKAGE = "com.twitter.android";
+    private static final String TWITTER_URL = "https://twitter.com/";
+
 
     private static final String ARG_db_name = "dbName3";
     private static final String ARG_ID_ProductiveFamily = "id2";
@@ -46,6 +52,9 @@ public class DetailsProductiveFamilyProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String dbname;
     private String id;
+    String usernameinstgram;
+    String usernameTwitter;
+
     String phoneNumbers;
     private String product_id;
 
@@ -163,25 +172,107 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                 }
             });
         }
+        binding.tvTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                        usernameTwitter =task.getResult().getString("Twitter");
+
+                        if (isTwitterInstalled()) {
+                            openTwitterProfile(usernameTwitter);
+                        } else {
+                            openTwitterWebsite(usernameTwitter);
+                        }
+                    }
+                });
+            }
+        });
+        binding.tvInstgram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                        usernameinstgram =task.getResult().getString("instgram");
+
+                        if (isInstagramInstalled()) {
+                            openInstagramProfile(usernameinstgram);
+                        } else {
+                            openInstagramWebsite(usernameinstgram);
+                        }
+                    }
+                });
+            }
+        });
         binding.tvWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
                         phoneNumbers = "+972"+task.getResult().getLong("phone").toString();
 
                         String message = "Hello, let's chat on WhatsApp!";
-                        openWhatsAppChat(phoneNumber, message);
+                       openWhatsAppChat (phoneNumbers, message);
                     }
                 });
-            }
-        });
+                        // Replace the phoneNumber and message with your desired values
+
+                    }
+                });
+
 
 
 
 
         return binding.getRoot();
+    }
+    private boolean isTwitterInstalled() {
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            pm.getPackageInfo(TWITTER_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void openTwitterProfile(String username) {
+        String url = "twitter://user?screen_name=" + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage(TWITTER_PACKAGE);
+        startActivity(intent);
+    }
+
+    private void openTwitterWebsite(String username) {
+        String url = TWITTER_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+    private boolean isInstagramInstalled() {
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            pm.getPackageInfo(INSTAGRAM_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void openInstagramProfile(String username) {
+        String url = INSTAGRAM_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage(INSTAGRAM_PACKAGE);
+        startActivity(intent);
+    }
+
+    private void openInstagramWebsite(String username) {
+        String url = INSTAGRAM_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
     private void openWhatsAppChat(String phoneNumber, String message) {
@@ -195,7 +286,6 @@ public class DetailsProductiveFamilyProfile extends Fragment {
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "Failed to open WhatsApp.", Toast.LENGTH_SHORT).show();
         }
     }
 
