@@ -64,21 +64,6 @@ public class DetailsProductiveFamily extends AppCompatActivity {
         String id_product=getIntent().getStringExtra("id_product");
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
-        binding.button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Replace the phoneNumber and message with your desired values
-               firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                   @Override
-                   public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                       phoneNumber = "+972"+task.getResult().getLong("phone").toString();
-
-                       String message = "Hello, let's chat on WhatsApp!";
-                       openWhatsAppChat(phoneNumber, message);
-                   }
-               });
-            }
-        });
 
         PackageManager packageManager = getPackageManager();
         String packageName = "com.example.graduationproject";
