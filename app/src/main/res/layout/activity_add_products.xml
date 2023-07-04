@@ -9,8 +9,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="402dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="68dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -18,25 +19,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
-            android:id="@+id/ChooseImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="20dp">
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_baseline_photo_camera_24" />
-        </RelativeLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="120dp" />
-    </LinearLayout>
+            android:layout_width="311dp"
+            android:layout_height="163dp"
+            android:layout_marginStart="40dp"
+            android:background="@drawable/editetext" />
 
+
+        <RelativeLayout
+            android:id="@+id/ChooseImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="65dp"
+            android:background="@drawable/whitecircle">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_baseline_camera_alt_24" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/et_nameadd"
@@ -154,6 +159,7 @@
         android:text="ADD"
         android:textAllCaps="false"
         android:textSize="14sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_priceadd"></androidx.appcompat.widget.AppCompatButton>
