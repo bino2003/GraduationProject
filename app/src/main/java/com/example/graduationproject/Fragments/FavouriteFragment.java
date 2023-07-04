@@ -16,6 +16,7 @@ import com.example.graduationproject.Adapters.FavoriteAdpter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.UnFavoritve;
+import com.example.graduationproject.Model.Favorite2;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
 import com.example.graduationproject.Model.Favorites;
@@ -48,7 +49,7 @@ public class FavouriteFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     Favorites favorites1;
-    ArrayList<Favorites> favorites;
+    ArrayList<Favorite2> favorites;
     ArrayList<Favorites> favorites2;
     int i;
 
@@ -116,7 +117,7 @@ public class FavouriteFragment extends Fragment {
                                         if (task.isSuccessful()) {
 
                                             binding.progressBar.setVisibility(View.GONE);
-                                            favorites = (ArrayList<Favorites>) task.getResult().toObjects(Favorites.class);
+                                            favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
                                             if (favorites.size()==0){
                                                 startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 
@@ -124,7 +125,7 @@ public class FavouriteFragment extends Fragment {
                                             }
                                             adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites3, int post) {
+                                                public void OnDelete(Favorite2 favorites3, int post) {
                                                     DocumentReference snapshot = firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
                                                     snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -193,7 +194,7 @@ public class FavouriteFragment extends Fragment {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
-                                            favorites = (ArrayList<Favorites>) task.getResult().toObjects(Favorites.class);
+                                            favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
                                             binding.progressBar.setVisibility(View.GONE);
 
                                             if (favorites.size()==0){
@@ -203,7 +204,7 @@ public class FavouriteFragment extends Fragment {
                                             }
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites3, int post) {
+                                                public void OnDelete(Favorite2 favorites3, int post) {
                                                     DocumentReference snapshot = firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
                                                     snapshot.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override

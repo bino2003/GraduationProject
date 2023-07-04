@@ -2,32 +2,19 @@ package com.example.graduationproject.Model;
 
 import java.util.ArrayList;
 
-public class Product2 {
+public class Favorite2 {
     String name;
-    String productive_family;
     String description;
     String price;
     String category;
     String image;
+    String productiveFamilyId;
+    String productiveFamilyName;
     ArrayList<String> ImageUrls;
     String user;
     String id;
-    String favid;
 
-    public Product2() {
-    }
-
-    public Product2(String name, String description, String price1, String category1, String productive_family, String uid, ArrayList<String> urlsList) {
-    }
-
-    public Product2(String name,  String description,String price, String category,String user, ArrayList<String> imageUrls) {
-        this.name = name;
-        this.productive_family = productive_family;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        ImageUrls = imageUrls;
-        this.user = user;
+    public Favorite2() {
     }
 
     public String getName() {
@@ -36,14 +23,6 @@ public class Product2 {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getProductive_family() {
-        return productive_family;
-    }
-
-    public void setProductive_family(String productive_family) {
-        this.productive_family = productive_family;
     }
 
     public String getDescription() {
@@ -78,6 +57,22 @@ public class Product2 {
         this.image = image;
     }
 
+    public String getProductiveFamilyId() {
+        return productiveFamilyId;
+    }
+
+    public void setProductiveFamilyId(String productiveFamilyId) {
+        this.productiveFamilyId = productiveFamilyId;
+    }
+
+    public String getProductiveFamilyName() {
+        return productiveFamilyName;
+    }
+
+    public void setProductiveFamilyName(String productiveFamilyName) {
+        this.productiveFamilyName = productiveFamilyName;
+    }
+
     public ArrayList<String> getImageUrls() {
         return ImageUrls;
     }
@@ -100,13 +95,5 @@ public class Product2 {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFavid() {
-        return favid;
-    }
-
-    public void setFavid(String favid) {
-        this.favid = favid;
     }
 }

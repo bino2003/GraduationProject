@@ -17,6 +17,8 @@ import com.example.graduationproject.Adapters.ItemDetailsProductAdapter;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
+import com.example.graduationproject.Model.Favorite2;
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.databinding.FragmentItemDetailsProductBinding;
 import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.Product;
@@ -46,11 +48,11 @@ public class ItemDetailsProduct extends Fragment {
     static int i = 0;
     boolean isfav;
     boolean isexists;
-    ArrayList<Product> productsArrayList = new ArrayList<>();
+    ArrayList<Product2> productsArrayList = new ArrayList<>();
     ItemDetailsProductAdapter itemDetailsProductAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
-    Favorites favorites_ = new Favorites();
+    Favorite2 favorites_ = new Favorite2();
 
     FirebaseFirestore db;
     Product products;
@@ -106,17 +108,17 @@ public class ItemDetailsProduct extends Fragment {
 
                     firebaseFirestore = FirebaseFirestore.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
-                    productsArrayList = (ArrayList<Product>) task.getResult().toObjects(Product.class);
+                    productsArrayList = (ArrayList<Product2>) task.getResult().toObjects(Product2.class);
                     for (int i = 0; i < productsArrayList.size(); i++) {
                         String id = task.getResult().getDocuments().get(i).getId();
-                        Product product = productsArrayList.get(i);
+                        Product2 product = productsArrayList.get(i);
                         product.setId(id);
                     }
 
 
                     itemDetailsProductAdapter = new ItemDetailsProductAdapter(productsArrayList, getActivity(), new DetailsProductAction() {
                         @Override
-                        public void onfav(Product product) {
+                        public void onfav(Product2 product) {
                             firebaseAuth = FirebaseAuth.getInstance();
 
                             DocumentReference documentReference = firebaseFirestore.collection("Productive family").document(id);
@@ -128,6 +130,7 @@ public class ItemDetailsProduct extends Fragment {
                                         favorites_.setDescription(product.getDescription());
                                         favorites_.setName(product.getName());
                                         favorites_.setImage(product.getImage());
+                                        favorites_.setImageUrls(product.getImageUrls());
                                         favorites_.setPrice(product.getPrice());
                                         favorites_.setUser(firebaseAuth.getUid());
                                         favorites_.setId(product.getId());
@@ -146,7 +149,7 @@ public class ItemDetailsProduct extends Fragment {
                                                         String id = task.getResult().getDocuments().get(i).getId();
                                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                             @Override
-                                                            public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 notexistproductivefamily = task.getResult().exists();
                                                                 System.out.println("notbian" + notexistproductivefamily);
                                                                 if (id.equals(firebaseAuth.getUid())) {
@@ -166,7 +169,7 @@ public class ItemDetailsProduct extends Fragment {
                                                                         Toast.makeText(getActivity(), "This product is already in my favourites", Toast.LENGTH_SHORT).show();
                                                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
-                                                                            public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                            public void onComplete(@NonNull Task<Void> task) {
                                                                                 Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
                                                                                 isfav = false;
                                                                             }
@@ -192,7 +195,7 @@ public class ItemDetailsProduct extends Fragment {
                                                         String id = task.getResult().getDocuments().get(i).getId();
                                                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                             @Override
-                                                            public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 notexistsuser = task.getResult().exists();
                                                                 if (id.equals(firebaseAuth.getUid())) {
                                                                     if (firebaseAuth.getUid() != null && notexistsuser == false) {
@@ -211,7 +214,7 @@ public class ItemDetailsProduct extends Fragment {
                                                                         Toast.makeText(getActivity(), "This product is already in my favourites", Toast.LENGTH_SHORT).show();
                                                                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
-                                                                            public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                            public void onComplete(@NonNull Task<Void> task) {
                                                                                 Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
                                                                                 isfav = false;
                                                                             }
@@ -240,8 +243,11 @@ public class ItemDetailsProduct extends Fragment {
 
                         }
 
+
+
+
                         @Override
-                        public void onClickItem(Product product) {
+                        public void onClickItem(Product2 product) {
                             Intent intent = new Intent(getActivity(), ViewDetailsProducts.class);
 
                             intent.putExtra("detailsproductid", product.getId());

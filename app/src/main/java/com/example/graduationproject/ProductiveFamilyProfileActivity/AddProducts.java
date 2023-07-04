@@ -359,8 +359,8 @@ public class AddProducts extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.get("name") != null) {
                         productive_family=  documentSnapshot.getString("name");
-                      model.setProductive_family(documentSnapshot.getString("name"));
-                        
+                        model.setProductive_family(documentSnapshot.getString("name"));
+
                     }
                 }
             });
@@ -372,14 +372,14 @@ public class AddProducts extends AppCompatActivity {
                     model.setId(documentReference.getId());
                     firestore.collection("Products").document(model.getId())
                             .set(model, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressDialog.dismiss();
-                                    // if data uploaded successfully then show ntoast
-                                    Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onSuccess(Void unused) {
+                            progressDialog.dismiss();
+                            // if data uploaded successfully then show ntoast
+                            Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
+                        }
+                    });
 
 
                 }
@@ -390,7 +390,7 @@ public class AddProducts extends AppCompatActivity {
             Toast.makeText(this, "Please Fill All field", Toast.LENGTH_SHORT).show();
         }
         // if you want to clear viewpager after uploading Images
-        ChooseImageList.clear();
+//        ChooseImageList.clear();
 
 
     }
@@ -427,11 +427,17 @@ public class AddProducts extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getClipData() != null) {
             int count = data.getClipData().getItemCount();
+            if (count==1){
+                model.setImage(String.valueOf(data.getClipData().getItemAt(1)));
+                Log.d("imageee", String.valueOf(data.getClipData().getItemAt(1)));
+                ImageUri = data.getClipData().getItemAt(1).getUri();
+                ChooseImageList.add(ImageUri);
+                Log.d("countss", count+"");
+            }
+            Log.d("countss", count+"");
             for (int i = 0; i < count; i++) {
                 ImageUri = data.getClipData().getItemAt(i).getUri();
                 ChooseImageList.add(ImageUri);
-// now we need Adapter to show Images in viewpager
-
             }
             setAdapter();
 
@@ -439,7 +445,7 @@ public class AddProducts extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, ChooseImageList);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, ChooseImageList,true);
         viewPager.setAdapter(adapter);
     }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.graduationproject.Interface.UnFavoritve;
+import com.example.graduationproject.Model.Favorite2;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
 import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -42,7 +43,7 @@ public class FavouriteFragment extends Fragment {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     Favorites favorites1;
-    ArrayList<Favorites> favorites;
+    ArrayList<Favorite2> favorites;
     ArrayList<Favorites> favorites2;
     int i;
 
@@ -105,7 +106,6 @@ public class FavouriteFragment extends Fragment {
                     for (int i = 0; i < productiveFamilyList.size(); i++) {
                       //  favorites.get(i).setProductiveFamilyId(productiveFamilyList.get(i).getName());
                         String id = task.getResult().getDocuments().get(i).getId();
-
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user",firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -114,11 +114,13 @@ public class FavouriteFragment extends Fragment {
                                         if (task.isSuccessful()) {
 
                                             binding.progressBar.setVisibility(View.GONE);
-                                            favorites = (ArrayList<Favorites>) task.getResult().toObjects(Favorites.class);
+                                            favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
+                                            Log.d("favor", "favorites.toString()");
+//                                            Log.d("favorites", favorites.get(1).getImageUrls().toString());;
 
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites, int post) {
+                                                public void OnDelete(Favorite2 favorites, int post) {
 
                                                 }
 
@@ -134,7 +136,9 @@ public class FavouriteFragment extends Fragment {
                                                         public void onComplete(Task<Void> task) {
                                                             if (task.isSuccessful()){
                                                                 favorites.remove(pos);
+//                                                                Log.d("favor", favorites.toString());
                                                                 Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
+
 
                                                                 //    adpter.notifyDataSetChanged();
                                                               //  adpter.notifyItemRemoved(pos);
@@ -175,10 +179,10 @@ public class FavouriteFragment extends Fragment {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
-
+                                            favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
                                             FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
-                                                public void OnDelete(Favorites favorites, int post) {
+                                                public void OnDelete(Favorite2 favorites, int post) {
 
                                                 }
 
@@ -230,6 +234,7 @@ public class FavouriteFragment extends Fragment {
 //            }
 //        });
 //        binding.carNameTv.setText(CarName);
+
 
         return binding.getRoot();
     }

@@ -41,7 +41,7 @@ public class DeleteDialogFragment extends DialogFragment {
 
 
     @Override
-    public void onAttach(@androidx.annotation.NonNull Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         onDelete = (OndeleteProduct) context;
     }

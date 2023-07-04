@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.UnFavoritve;
+import com.example.graduationproject.Model.Favorite2;
 import com.example.graduationproject.databinding.FavouriteitemBinding;
 import com.example.graduationproject.Model.Favorites;
 
@@ -20,11 +21,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHolder> {
-    ArrayList<Favorites> favorites;
+    ArrayList<Favorite2> favorites;
     Context context;
     UnFavoritve unFavoritve;
 
-    public FavoriteAdpter(ArrayList<Favorites> favorites, Context context, UnFavoritve unFavoritve) {
+    public FavoriteAdpter(ArrayList<Favorite2> favorites, Context context, UnFavoritve unFavoritve) {
         this.favorites = favorites;
         this.context = context;
         this.unFavoritve = unFavoritve;
@@ -42,7 +43,7 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
         holder.price.setText(favorites.get(pos).getPrice());
         holder.productive_family_name.setText(favorites.get(pos).getProductiveFamilyName());
         holder.product_name.setText(favorites.get(pos).getName());
-        Glide.with(context).load(favorites.get(position).getImage()).into(holder.imageView);
+        Glide.with(context).load(favorites.get(position).getImageUrls().get(0)).into(holder.imageView);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

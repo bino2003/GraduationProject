@@ -177,7 +177,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
             public void onClick(View view) {
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         usernameTwitter =task.getResult().getString("Twitter");
 
                         if (isTwitterInstalled()) {
@@ -194,7 +194,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
             public void onClick(View view) {
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         usernameinstgram =task.getResult().getString("instgram");
 
                         if (isInstagramInstalled()) {
@@ -212,7 +212,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
 
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         phoneNumbers = "+972"+task.getResult().getLong("phone").toString();
 
                         String message = "Hello, let's chat on WhatsApp!";

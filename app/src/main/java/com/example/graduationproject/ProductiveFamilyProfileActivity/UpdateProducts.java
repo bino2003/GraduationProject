@@ -161,7 +161,7 @@ public class UpdateProducts extends AppCompatActivity {
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(@androidx.annotation.NonNull Exception e) {
+                public void onFailure(@NonNull Exception e) {
                     Toast.makeText(UpdateProducts.this, "upload failed", Toast.LENGTH_SHORT).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -170,7 +170,7 @@ public class UpdateProducts extends AppCompatActivity {
                     Toast.makeText(UpdateProducts.this, "upload success", Toast.LENGTH_SHORT).show();
                     riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
-                        public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                        public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()){
                                 product.setImage(task.getResult().toString());
                                 firebaseFirestore.collection("Products").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
