@@ -14,6 +14,7 @@ public class Product2 {
     String id;
     String favid;
 
+
     public Product2() {
     }
 
