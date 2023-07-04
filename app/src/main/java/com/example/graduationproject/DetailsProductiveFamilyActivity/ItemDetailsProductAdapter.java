@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
 import com.example.graduationproject.Model.Product;
 
@@ -23,7 +24,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProductAdapterVH> {
-        ArrayList<Product> productArrayList=new ArrayList<>();
+        ArrayList<Product2> productArrayList=new ArrayList<>();
         Context context;
         DetailsProductAction detailsProductAction;
 
@@ -31,7 +32,7 @@ public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProdu
 
 
 
-public ItemDetailsProductAdapter(ArrayList<Product> productArrayList, Context context, DetailsProductAction detailsProductAction) {
+public ItemDetailsProductAdapter(ArrayList<Product2> productArrayList, Context context, DetailsProductAction detailsProductAction) {
         this.productArrayList = productArrayList;
         this.context = context;
         this.detailsProductAction = detailsProductAction;

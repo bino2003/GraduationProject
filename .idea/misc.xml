@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/activity_add_new_item2.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/activity_add_new_items.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/activity_add_products.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_array_list.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_category_productive_family.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_details_productive_family.xml" value="0.28229166666666666" />
@@ -54,6 +55,7 @@
         <entry key="app/src/main/res/layout/itemproduct.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/productivefamilyitem.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/showimageslayout.xml" value="0.2953125" />
+        <entry key="app/src/main/res/layout/slider.xml" value="0.28229166666666666" />
       </map>
     </option>
   </component>

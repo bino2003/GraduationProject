@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.DetailsProductAction;
 
 
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
 import com.example.graduationproject.Model.Product;
@@ -24,7 +25,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProductAdapterVH> {
-        ArrayList<Product> productArrayList=new ArrayList<>();
+        ArrayList<Product2> productArrayList=new ArrayList<>();
         Context context;
         DetailsProductAction detailsProductAction;
     boolean isfavarite;
@@ -33,7 +34,7 @@ public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProdu
 
 
 
-public ItemDetailsProductAdapter(ArrayList<Product> productArrayList, Context context, DetailsProductAction detailsProductAction,boolean isfavarite) {
+public ItemDetailsProductAdapter(ArrayList<Product2> productArrayList, Context context, DetailsProductAction detailsProductAction, boolean isfavarite) {
         this.productArrayList = productArrayList;
         this.context = context;
         this.isfavarite=isfavarite;
@@ -53,8 +54,12 @@ public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int positi
         int pos=position;
         holder.productprice.setText(productArrayList.get(position).getPrice());
         holder.productname.setText(productArrayList.get(position).getName());
-        Glide.with(context).load(productArrayList.get(position).getImage()).into(holder.imageViewProduct);
-
+        if (productArrayList.get(pos).getImage()!=null){
+            Glide.with(context).load(productArrayList.get(position).getImage()).into(holder.imageViewProduct);
+        }
+        else {
+            Glide.with(context).load(productArrayList.get(position).getImageUrls().get(0)).into(holder.imageViewProduct);
+        }
    holder.fav.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {

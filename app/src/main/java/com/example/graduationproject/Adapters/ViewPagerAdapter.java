@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.example.graduationproject.R;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -20,11 +22,13 @@ import java.util.ArrayList;
 public class ViewPagerAdapter extends PagerAdapter {
     private Context context;
     ArrayList<Uri> ImageUrls;
+    boolean aBoolean1;
     LayoutInflater layoutInflater;
 
-    public ViewPagerAdapter(Context context, ArrayList<Uri> imageUrls) {
+    public ViewPagerAdapter(Context context, ArrayList<Uri> imageUrls,boolean aBoolean) {
         this.context = context;
         ImageUrls = imageUrls;
+        aBoolean1 = aBoolean;
         layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -38,7 +42,13 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view=layoutInflater.inflate(R.layout.showimageslayout,container,false);
         ImageView imageView=view.findViewById(R.id.UploadImage);
-        imageView.setImageURI(ImageUrls.get(position));
+        ProgressBar progressBar=view.findViewById(R.id.progressBar3);
+
+        if (aBoolean1==true){
+            progressBar.setVisibility(View.GONE);
+        }
+        Glide.with(context).load(ImageUrls.get(position)).into(imageView);
+//        imageView.setImageURI(ImageUrls.get(position));
         container.addView(view);
 
         return view ;

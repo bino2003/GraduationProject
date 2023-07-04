@@ -239,7 +239,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
 
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@androidx.annotation.NonNull Exception e) {
+                    public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getActivity(), "upload failed", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -248,7 +248,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                         Toast.makeText(getActivity(), "upload success", Toast.LENGTH_SHORT).show();
                         riversRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
-                            public void onComplete(@androidx.annotation.NonNull Task<Uri> task) {
+                            public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
                                     productiveFamily.setImage(task.getResult().toString());
                                     if (image!=null&&description!=null&&location!=null&&Productcategory!=null&&instgram!=null&&Twitter!=null){

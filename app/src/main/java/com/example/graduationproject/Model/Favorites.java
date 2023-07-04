@@ -1,5 +1,7 @@
 package com.example.graduationproject.Model;
 
+import java.util.ArrayList;
+
 public class Favorites {
     String name;
     String description;
@@ -8,9 +10,17 @@ public class Favorites {
     String image;
     String productiveFamilyId;
     String productiveFamilyName;
+    ArrayList<String> ImageUrls;
     String user;
     String id;
 
+    public ArrayList<String> getImageUrls() {
+        return ImageUrls;
+    }
+
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        ImageUrls = imageUrls;
+    }
 
     public String getProductiveFamilyName() {
         return productiveFamilyName;

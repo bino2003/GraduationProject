@@ -134,7 +134,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");
@@ -230,7 +230,7 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");

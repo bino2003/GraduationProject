@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment  {
                             tabs.add("Profile");
                             binding.ViewPager.setPageTransformer(new ViewPager2.PageTransformer() {
                                 @Override
-                                public void transformPage(@androidx.annotation.NonNull View page, float position) {
+                                public void transformPage(@NonNull View page, float position) {
                                     Toast.makeText(getActivity(), "scroll", Toast.LENGTH_SHORT).show();
                                     if (position==0){
 
