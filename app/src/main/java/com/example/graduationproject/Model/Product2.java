@@ -14,10 +14,11 @@ public class Product2 {
     String id;
     String favid;
 
+
     public Product2() {
     }
 
-    public Product2(String name,  String description,String price, String category, String user, ArrayList<String> imageUrls) {
+    public Product2(String name,  String description,String price, String category,String user, ArrayList<String> imageUrls) {
         this.name = name;
         this.productive_family = productive_family;
         this.description = description;
