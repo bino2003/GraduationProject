@@ -15,6 +15,7 @@ import com.example.graduationproject.Adapters.ViewPagerAdapter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.Fragments.ProfileFragment;
 import com.example.graduationproject.R;
+
 import com.example.graduationproject.databinding.ActivityViewProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
