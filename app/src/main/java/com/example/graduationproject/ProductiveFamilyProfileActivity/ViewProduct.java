@@ -45,6 +45,16 @@ FirebaseFirestore firebaseFirestore;
                 @Override
                 public void onComplete(Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
+                        DocumentSnapshot document1 = task.getResult();
+                        ChooseImageList  = (ArrayList<String>) document1.get("imageUrls");
+                        uriArrayList=new ArrayList<>();
+                        for (int i = 0; i < ChooseImageList.size(); i++) {
+                            uriArrayList.add(Uri.parse(ChooseImageList.get(i)));
+                        }
+                        if (document1.get("imageUrls")!=null){
+                            ViewPagerAdapter adapter=new ViewPagerAdapter(getBaseContext(), uriArrayList,true);
+                            binding.viewPager.setAdapter(adapter);
+                        }
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             if (document.getString("image")!=null){
