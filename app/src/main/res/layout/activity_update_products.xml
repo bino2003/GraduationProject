@@ -72,14 +72,14 @@
 
         <RelativeLayout
             android:id="@+id/ChooseImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="65dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="70dp"
             android:background="@drawable/whitecircle">
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/ic_baseline_camera_alt_24" />
         </RelativeLayout>
@@ -179,7 +179,6 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/text"
 
-        android:inputType="phone"
         android:paddingStart="10dp"
         android:textColor="#0C0A0A"
         android:textColorHint="#000000"
@@ -215,7 +214,7 @@
         android:layout_marginTop="44dp"
         android:background="@drawable/text"
 
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:paddingStart="10dp"
         android:textColor="#0C0A0A"
         android:textColorHint="#000000"

@@ -56,7 +56,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
 
 //        Glide.with(context).load(Uri.parse(productArrayList.get(position).getImage())).into(holder.imageViewProduct);
         if (productArrayList.get(pos).getImageUrls()==null){
-
             Glide.with(context).load(productArrayList.get(pos).getImage()).into(holder.imageViewProduct);
         }else {
             Glide.with(context).load(productArrayList.get(pos).getImageUrls().get(0)).into(holder.imageViewProduct);
