@@ -16,6 +16,7 @@ import com.example.graduationproject.Interface.OnChangeScroll;
 import com.example.graduationproject.Interface.OndeleteProduct;
 import com.example.graduationproject.Interface.ProductsAction;
 
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.databinding.ItemproductBinding;
 import com.example.graduationproject.Model.Product;
 
@@ -25,7 +26,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
-     ArrayList<Product> productArrayList=new ArrayList<>();
+     ArrayList<Product2> productArrayList=new ArrayList<>();
     Context context;
     ProductsAction productsAction;
 
@@ -33,7 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
 
 
 
-    public ProductAdapter(ArrayList<Product> productArrayList, Context context, ProductsAction productsAction) {
+    public ProductAdapter(ArrayList<Product2> productArrayList, Context context, ProductsAction productsAction) {
         this.productArrayList = productArrayList;
         this.context = context;
         this.productsAction = productsAction;
@@ -54,6 +55,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
         holder.productname.setText(productArrayList.get(position).getName());
 
 //        Glide.with(context).load(Uri.parse(productArrayList.get(position).getImage())).into(holder.imageViewProduct);
+        if (productArrayList.get(pos).getImageUrls()==null){
+            Glide.with(context).load(productArrayList.get(pos).getImage()).into(holder.imageViewProduct);
+        }else {
+            Glide.with(context).load(productArrayList.get(pos).getImageUrls().get(0)).into(holder.imageViewProduct);
+        }
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
