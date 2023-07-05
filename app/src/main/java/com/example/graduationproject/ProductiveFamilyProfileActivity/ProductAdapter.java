@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.graduationproject.Interface.ProductsAction;
 
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.databinding.ItemproductBinding;
 import com.example.graduationproject.Model.Product;
 
@@ -22,14 +23,14 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapterVH> {
-    ArrayList<Product> productArrayList=new ArrayList<>();
+    ArrayList<Product2> productArrayList=new ArrayList<>();
     Context context;
     ProductsAction productsAction;
 
 
 
 
-    public ProductAdapter(ArrayList<Product> productArrayList, Context context, ProductsAction productsAction) {
+    public ProductAdapter(ArrayList<Product2> productArrayList, Context context, ProductsAction productsAction) {
         this.productArrayList = productArrayList;
         this.context = context;
         this.productsAction = productsAction;
