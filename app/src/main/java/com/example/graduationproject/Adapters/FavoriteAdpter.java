@@ -43,7 +43,7 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
         holder.price.setText(favorites.get(pos).getPrice());
         holder.productive_family_name.setText(favorites.get(pos).getProductiveFamilyName());
         holder.product_name.setText(favorites.get(pos).getName());
-        Glide.with(context).load(favorites.get(position).getImageUrls().get(0)).into(holder.imageView);
+        Glide.with(context).load(favorites.get(pos).getImageUrls().get(0)).into(holder.imageView);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
