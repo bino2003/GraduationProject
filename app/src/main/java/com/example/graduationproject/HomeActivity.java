@@ -47,6 +47,7 @@ public  class HomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 //        binding.logout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

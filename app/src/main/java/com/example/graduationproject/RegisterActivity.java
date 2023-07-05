@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 //        binding.gotosignin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -212,6 +213,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    editor.remove("phoneaftermap");
+                    editor.remove("passwordaftermap");
+                    editor.remove("repasswordaftermap");
+                    editor.remove("nameaftermap");
+                    editor.remove("emailaftermap");
+                    editor.remove("cataftermap");
+
+editor.apply();
                     Toast.makeText(RegisterActivity.this, "Create User Success", Toast.LENGTH_SHORT).show();
                     Log.d("Register",task.getResult().getUser().toString());
                     setUsers();

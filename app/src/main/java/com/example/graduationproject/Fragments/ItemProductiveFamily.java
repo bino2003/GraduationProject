@@ -25,6 +25,9 @@ import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.OndeleteProduct;
 import com.example.graduationproject.Interface.ProductsAction;
 
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.AddProducts;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.UpdateProducts;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
@@ -35,12 +38,14 @@ import com.example.graduationproject.Model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
@@ -114,6 +119,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
     public void onResume() {
         super.onResume();
         getprouct();
+
     }
 
     @Override
@@ -182,6 +188,90 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
 
                                     productAdapter.notifyDataSetChanged();
                                     productAdapter.notifyItemChanged(pos);
+                                    firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                firebaseAuth = FirebaseAuth.getInstance();
+                                                List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                                                for (int i = 0; i < productiveFamilyList.size(); i++) {
+                                                    String id = task.getResult().getDocuments().get(i).getId();
+                                                    if (id.equals(firebaseAuth.getUid())) {
+                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()){
+
+                                                                List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                                    for (int j = 0; j < favoritesList.size(); j++) {
+                                                                     String favid=   task.getResult().getDocuments().get(j).getString("id");
+                                                                        if (favid.equals(product.getId())){
+                                                                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(product.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                                    Toast.makeText(getActivity(), "delete from fav", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            });
+                                                                        }
+
+
+                                                                    }
+
+
+
+                                                                }
+                                                            }
+                                                        });
+
+                                                    }
+
+
+                                                }
+                                            }
+                                        }
+                                    });
+                                    firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                firebaseAuth = FirebaseAuth.getInstance();
+                                                List<users> usersList = task.getResult().toObjects(users.class);
+                                                for (int i = 0; i < usersList.size(); i++) {
+                                                    String id = task.getResult().getDocuments().get(i).getId();
+                                                    if (id.equals(firebaseAuth.getUid())) {
+                                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                                if (task.isSuccessful()){
+
+                                                                    List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                                    for (int j = 0; j < favoritesList.size(); j++) {
+                                                                        String favid=   task.getResult().getDocuments().get(j).getString("id");
+                                                                        if (favid.equals(product.getId())){
+                                                                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(product.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@androidx.annotation.NonNull Task<Void> task) {
+                                                                                    Toast.makeText(getActivity(), "delete from fav", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            });
+                                                                        }
+
+
+                                                                    }
+
+
+
+                                                                }
+                                                            }
+                                                        });
+
+                                                    }
+
+
+                                                }
+                                            }
+                                        }
+                                    });
 
                                 }
                             });

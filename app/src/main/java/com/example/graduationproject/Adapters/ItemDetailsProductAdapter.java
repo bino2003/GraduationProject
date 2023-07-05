@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,19 +16,30 @@ import com.example.graduationproject.Interface.DetailsProductAction;
 
 
 import com.example.graduationproject.Model.Product2;
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.ProductiveFamily;
+import com.example.graduationproject.Model.users;
 import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ItemdetailsproductivefamileproductBinding;
 import com.example.graduationproject.Model.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProductAdapterVH> {
         ArrayList<Product2> productArrayList=new ArrayList<>();
         Context context;
         DetailsProductAction detailsProductAction;
+        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     boolean isfavarite;
 
 
@@ -60,17 +72,98 @@ public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int positi
         else {
             Glide.with(context).load(productArrayList.get(position).getImageUrls().get(0)).into(holder.imageViewProduct);
         }
-   holder.fav.setOnClickListener(new View.OnClickListener() {
+    firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if (task.isSuccessful()) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                for (int i = 0; i < productiveFamilyList.size(); i++) {
+                    String id = task.getResult().getDocuments().get(i).getId();
+                    if (id.equals(firebaseAuth.getUid())) {
+                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+
+                                    List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                        String favuserid=favoritesList.get(j).getId();
+                                        String productid=productArrayList.get(pos).getId();
+                                        if (favuserid.equals(productid)){
+                                            holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+
+                                        }
+
+                                    }
+
+
+
+                                }
+                            }
+                        });
+
+                    }
+
+
+                }
+            }
+        }
+    });
+    firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if (task.isSuccessful()) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                List<users> usersList = task.getResult().toObjects(users.class);
+                for (int i = 0; i < usersList.size(); i++) {
+                    String id = task.getResult().getDocuments().get(i).getId();
+                    if (id.equals(firebaseAuth.getUid())) {
+                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+
+                                    List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                        String favuserid=favoritesList.get(j).getId();
+                                        String productid=productArrayList.get(pos).getId();
+                                        if (favuserid.equals(productid)){
+                                            holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+isfavarite=false;
+                                        }else {
+                                            isfavarite=true;
+                                        }
+
+                                    }
+
+
+
+                                }
+                            }
+                        });
+
+                    }
+
+
+                }
+            }
+        }
+    });
+
+
+    holder.fav.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
-           if (isfavarite==true){
+           if (isfavarite==false){
+               holder.fav.setImageResource(R.drawable.heart);
+isfavarite=true;
+               detailsProductAction.onfav(productArrayList.get(pos));
+           }else if(isfavarite==true) {
                holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+
                detailsProductAction.onfav(productArrayList.get(pos));
                isfavarite=false;
-           }else if(isfavarite==false) {
-               holder.fav.setImageResource(R.drawable.heart);
-               detailsProductAction.onfav(productArrayList.get(pos));
-               isfavarite=true;
            }
 
        }
@@ -87,8 +180,12 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
 public int getItemCount() {
         return productArrayList.size();
         }
+
         }
+
+
 class DetailsProductAdapterVH extends RecyclerView.ViewHolder {
+
     ImageView imageViewProduct;
     TextView productname;
     TextView productprice;
@@ -102,4 +199,8 @@ class DetailsProductAdapterVH extends RecyclerView.ViewHolder {
         productprice = binding.tvDetailsproductPrice;
         fav = binding.fav;
     }
+
+
+
 }
+

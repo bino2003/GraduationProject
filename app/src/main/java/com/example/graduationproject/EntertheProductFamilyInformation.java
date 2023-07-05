@@ -18,5 +18,6 @@ ActivityEntertheProductFamilyInformationBinding binding;
         setContentView(binding.getRoot());
 
 
+
     }
 }

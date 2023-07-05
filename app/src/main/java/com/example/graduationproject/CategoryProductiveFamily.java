@@ -35,6 +35,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CategoryProductiveFamily extends AppCompatActivity {
@@ -48,16 +50,25 @@ String iduser=FirebaseAuth.getInstance().getUid();
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
     String cat;
     double userlat;
+    CategoryProductFamilyAdapter categoryProductFamilyAdapter;
     double  userlong;
    String   userlatString;
     String   userlongString;
     GeoPoint[] boundingCoordinates;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        productiveFamilyArrayList.clear();
+        refresh();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         cat = getIntent().getStringExtra("ctegoryname");
         firebaseAuth=FirebaseAuth.getInstance();
@@ -71,54 +82,9 @@ String iduser=FirebaseAuth.getInstance().getUid();
         // Step 4: Perform the quer
         binding.tvCategoryName.setText(cat);
 
-        getproductivefamily();
-
+        getproductivefamilydistance();
 
     }
-  void   getproductivefamily() {
-      firebaseFirestore.collection("Productive family").whereEqualTo("productCategory", cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-          @Override
-          public void onComplete(@NonNull Task<QuerySnapshot> task) {
-              if (task.isSuccessful()) {
-                  productiveFamilyArrayList= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);                                   // ...
-                  binding.progressBar2.setVisibility(View.GONE);
-
-
-
-                  // Extract the family's location from the document
-
-
-
-                  if (productiveFamilyArrayList.isEmpty()) {
-                      startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
-                      finish();
-                      binding.progressBar2.setVisibility(View.GONE);
-                  }
-                  CategoryProductFamilyAdapter categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
-                      @Override
-                      public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
-                          if (productiveFamily.getId() != null) {
-                              Intent intent = new Intent(getApplicationContext(), DetailsProductiveFamily.class);
-
-                              intent.putExtra("idproductivefamily", productiveFamily.getId());
-                              startActivity(intent);
-                          }
-
-
-                      }
-                  }, productiveFamilyArrayList);
-
-                  binding.rv.setAdapter(categoryProductFamilyAdapter);
-
-                  binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false));
-                  categoryProductFamilyAdapter.notifyDataSetChanged();
-              } else if (task.isCanceled()) {
-                  Toast.makeText(CategoryProductiveFamily.this, "faild", Toast.LENGTH_SHORT).show();
-              }
-          }
-      });
-
-  }
 
     void getproductivefamilydistance() {
         firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -134,7 +100,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");
@@ -146,29 +112,20 @@ String iduser=FirebaseAuth.getInstance().getUid();
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()) {
-                                                        productiveFamilyArrayListdistance= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);                                   // ...
+
+                                                        productiveFamilyArrayListdistance= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                                                        // ...
                                                         binding.progressBar2.setVisibility(View.GONE);
-                                                        for (int i = 0; i < task.getResult().size(); i++) {
-                                                            String    familyLongitudestring   =task.getResult().getDocuments().get(i).getString("longitude");
-                                                            String    familyLatitudestring   =task.getResult().getDocuments().get(i).getString("latitude");
-                                                            double familyLatitude = Double.parseDouble(familyLatitudestring);
-                                                            double familyLongitude = Double.parseDouble(familyLongitudestring);
 
 
-                                                            // Calculate the distance between the family's location and the user's location
-                                                            float distance =calculateDistance(userlat, userlong, familyLatitude, familyLongitude);
-                                                            System.out.println("BIAN"+distance);
 
-                                                            System.out.println("BIAN1"+userlat);
-                                                            System.out.println("BIAN1"+userlong);
+
+
 
                                                             // Filter families within a certain distance threshold (e.g., 10 km)
-                                                            if (distance <= 10) {
-                                                                ProductiveFamily productiveFamily=task.getResult().getDocuments().get(i).toObject(ProductiveFamily.class);
-productiveFamilyArrayListdistance.add(productiveFamily);                                    // ...
-                                                            }
 
-                                                        }
+
+
 
                                                         // Extract the family's location from the document
 
@@ -179,7 +136,7 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
                                                             finish();
                                                             binding.progressBar2.setVisibility(View.GONE);
                                                         }
-                                                        CategoryProductFamilyAdapter categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
+                                                         categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                                                             @Override
                                                             public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
                                                                 if (productiveFamily.getId() != null) {
@@ -191,7 +148,7 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
 
 
                                                             }
-                                                        }, productiveFamilyArrayListdistance);
+                                                        }, productiveFamilyArrayList);
 
                                                         binding.rv.setAdapter(categoryProductFamilyAdapter);
 
@@ -216,7 +173,6 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
                 }
             }
         });
-
         firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -235,37 +191,26 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");
                                             userlat=Double.parseDouble(userlatString);
-
                                             userlongString=       task.getResult().getString("longitude");
 
                                             userlong=Double.parseDouble(userlongString);
-                                            System.out.println("bnan"+userlat);
                                             firebaseFirestore.collection("Productive family").whereEqualTo("productCategory", cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if (task.isSuccessful()) {
+
+                                                        productiveFamilyArrayListdistance= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                                                        // ...
                                                         binding.progressBar2.setVisibility(View.GONE);
-                                                        for (int i = 0; i < task.getResult().size(); i++) {
-                                                            String    familyLongitudestring   =task.getResult().getDocuments().get(i).getString("longitude");
-                                                            String    familyLatitudestring   =task.getResult().getDocuments().get(i).getString("latitude");
-                                                            double familyLatitude = Double.parseDouble(familyLatitudestring);
-                                                            double familyLongitude = Double.parseDouble(familyLongitudestring);
 
 
-                                                            // Calculate the distance between the family's location and the user's location
-                                                            float distance =calculateDistance(userlat, userlong, familyLatitude, familyLongitude);
-                                                            System.out.println("BIAN"+distance);
 
-                                                            System.out.println("BIAN1"+userlat);
-                                                            System.out.println("BIAN1"+userlong);
+
 
                                                             // Filter families within a certain distance threshold (e.g., 10 km)
-                                                            if (distance <= 10) {
-                                                                ProductiveFamily productiveFamily=task.getResult().getDocuments().get(i).toObject(ProductiveFamily.class);
-productiveFamilyArrayListdistance.add(productiveFamily);                                    // ...
-                                                            }
 
-                                                        }
+
+
 
                                                         // Extract the family's location from the document
 
@@ -276,7 +221,7 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
                                                             finish();
                                                             binding.progressBar2.setVisibility(View.GONE);
                                                         }
-                                                        CategoryProductFamilyAdapter categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
+                                                        categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                                                             @Override
                                                             public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
                                                                 if (productiveFamily.getId() != null) {
@@ -288,7 +233,7 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
 
 
                                                             }
-                                                        }, productiveFamilyArrayListdistance);
+                                                        }, productiveFamilyArrayList);
 
                                                         binding.rv.setAdapter(categoryProductFamilyAdapter);
 
@@ -316,50 +261,210 @@ productiveFamilyArrayListdistance.add(productiveFamily);                        
 
 
 
+
+    }
+    void refresh(){
+        firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    List<users> usersList = task.getResult().toObjects(users.class);
+                    for (int i = 0; i < usersList.size(); i++) {
+                        String id = task.getResult().getDocuments().get(i).getId();
+
+                        if (id.equals(firebaseAuth.getUid())) {
+                            if (firebaseAuth.getUid() != null) {
+                                firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            DocumentSnapshot documentSnapshot=task.getResult();
+                                            userlatString=       task.getResult().getString("latitude");
+                                            userlat=Double.parseDouble(userlatString);
+                                            userlongString=       task.getResult().getString("longitude");
+
+                                            userlong=Double.parseDouble(userlongString);
+                                            firebaseFirestore.collection("Productive family").whereEqualTo("productCategory", cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+
+                                                        productiveFamilyArrayListdistance= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                                                        // ...
+                                                        binding.progressBar2.setVisibility(View.GONE);
+
+
+
+
+                                                        for (ProductiveFamily family : productiveFamilyArrayListdistance) {
+                                                            float distance = calculateDistance(userlat, userlong, Double.parseDouble(family.getLatitude()), Double.parseDouble(family.getLongitude()));
+                                                            if (distance<=10){
+                                                                productiveFamilyArrayList.add(family);
+                                                            }
+
+                                                        }
+                                                        for (ProductiveFamily family : productiveFamilyArrayListdistance) {
+                                                            float distance = calculateDistance(userlat, userlong, Double.parseDouble(family.getLatitude()), Double.parseDouble(family.getLongitude()));
+                                                            if (distance>10){
+                                                                productiveFamilyArrayList.add(family);
+                                                            }
+
+                                                        }
+                                                        // Filter families within a certain distance threshold (e.g., 10 km)
+
+
+
+
+                                                        // Extract the family's location from the document
+
+
+
+                                                        if (productiveFamilyArrayListdistance.isEmpty()) {
+                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+                                                            finish();
+                                                            binding.progressBar2.setVisibility(View.GONE);
+                                                        }
+
+
+                                                        categoryProductFamilyAdapter.notifyDataSetChanged();
+                                                    } else if (task.isCanceled()) {
+                                                        Toast.makeText(CategoryProductiveFamily.this, "faild", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+
+
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        });
+        firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                    for (int i = 0; i < productiveFamilyList.size(); i++) {
+                        String id = task.getResult().getDocuments().get(i).getId();
+
+                        if (id.equals(firebaseAuth.getUid())) {
+                            if (firebaseAuth.getUid() != null) {
+                                firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            DocumentSnapshot documentSnapshot=task.getResult();
+                                            userlatString=       task.getResult().getString("latitude");
+                                            userlat=Double.parseDouble(userlatString);
+                                            userlongString=       task.getResult().getString("longitude");
+
+                                            userlong=Double.parseDouble(userlongString);
+                                            firebaseFirestore.collection("Productive family").whereEqualTo("productCategory", cat).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+
+                                                        productiveFamilyArrayListdistance= (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+                                                        // ...
+                                                        binding.progressBar2.setVisibility(View.GONE);
+
+
+
+                                                        for (ProductiveFamily family : productiveFamilyArrayListdistance) {
+                                                            float distance = calculateDistance(userlat, userlong, Double.parseDouble(family.getLatitude()), Double.parseDouble(family.getLongitude()));
+
+                                                            if (distance<=10){
+                                                                if (!productiveFamilyList.contains(family)){
+
+                                                                    System.out.println(distance+family.getName()+family.getLatitude());
+                                                                    productiveFamilyArrayList.add(family);
+                                                                }
+
+                                                            }
+
+                                                        }
+
+                                                        for (ProductiveFamily family : productiveFamilyArrayListdistance) {
+                                                            float distance = calculateDistance(userlat, userlong, Double.parseDouble(family.getLatitude()), Double.parseDouble(family.getLongitude()));
+
+                                                            if (distance>10){
+                                                                if (!productiveFamilyList.contains(family)){
+                                                                    System.out.println(distance+family.getName()+family.getLatitude());
+                                                                    productiveFamilyArrayList.add(family);
+                                                                }
+
+                                                            }
+
+                                                        }
+                                                        // Filter families within a certain distance threshold (e.g., 10 km)
+
+
+
+
+                                                        // Extract the family's location from the document
+
+
+
+                                                        if (productiveFamilyArrayListdistance.isEmpty()) {
+                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+                                                            finish();
+                                                            binding.progressBar2.setVisibility(View.GONE);
+                                                        }
+
+
+                                                        categoryProductFamilyAdapter.notifyDataSetChanged();
+                                                    } else if (task.isCanceled()) {
+                                                        Toast.makeText(CategoryProductiveFamily.this, "faild", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+
+
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        });
+
+
     }
 
-    private GeoPoint[] calculateBoundingCoordinates(double centerLat, double centerLng, double maxDistanceInKm) {
-        // Earth radius in kilometers
-        double earthRadiusInKm = 6371.0;
+    private float calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        int R = 6371; // Radius of the Earth in kilometers
 
-        // Convert center latitude and longitude to radians
-        double centerLatRad = Math.toRadians(centerLat);
-        double centerLngRad = Math.toRadians(centerLng);
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
 
-        // Calculate the angular distance
-        double angularDistance = maxDistanceInKm / earthRadiusInKm;
+        double dlat = lat2Rad - lat1Rad;
+        double dlon = lon2Rad - lon1Rad;
 
-        // Calculate the latitude difference
-        double latDifference = Math.toDegrees(angularDistance);
+        double a = Math.sin(dlat / 2) * Math.sin(dlat / 2) +
+                Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                        Math.sin(dlon / 2) * Math.sin(dlon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        float distance = (float) (R * c);
 
-        // Calculate the minimum and maximum latitude
-        double minLat = centerLat - latDifference;
-        double maxLat = centerLat + latDifference;
-
-        // Calculate the longitude difference based on the center latitude
-        double lngDifference = Math.toDegrees(angularDistance / Math.cos(centerLatRad));
-
-        // Calculate the minimum and maximum longitude
-        double minLng = centerLng - lngDifference;
-        double maxLng = centerLng + lngDifference;
-
-        // Create GeoPoint instances for the bounding coordinates
-        GeoPoint minPoint = new GeoPoint(minLat, minLng);
-        GeoPoint maxPoint = new GeoPoint(maxLat, maxLng);
-
-        // Return the bounding coordinates
-        return new GeoPoint[]{minPoint, maxPoint};
+        return distance;
     }
-    public static float calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        Location location1 = new Location("");
-        location1.setLatitude(lat1);
-        location1.setLongitude(lon1);
 
-        Location location2 = new Location("");
-        location2.setLatitude(lat2);
-        location2.setLongitude(lon2);
-
-        return location1.distanceTo(location2) / 1000; // Convert meters to kilometers
-    }
+    // Function to get the user's location (example implementation)
 
 }

@@ -1,6 +1,8 @@
 package com.example.graduationproject;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.net.URLEncoder;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Setting#newInstance} factory method to
@@ -26,6 +30,18 @@ public class Setting extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String INSTAGRAM_PACKAGE = "com.instagram.android";
+    private static final String INSTAGRAM_URL = "https://www.instagram.com/";
+
+    private static final String TWITTER_PACKAGE = "com.twitter.android";
+    private static final String TWITTER_URL = "https://twitter.com/";
+    private final String instgramusername="doaa_mufid";
+    private final String twitterusername="@BinoNassar";
+    private final String whatsapp="593260095";
+
+
+
+
     private static final String ARG_PARAM2 = "param2";
     FirebaseAuth auth=FirebaseAuth.getInstance();
     FirebaseFirestore firestore=FirebaseFirestore.getInstance();
@@ -68,6 +84,7 @@ public class Setting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         FragmentSettingBinding binding = FragmentSettingBinding.inflate(inflater, container, false);
         binding.logout.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +107,94 @@ public class Setting extends Fragment {
 binding.watsapp.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
+       String phoneNumbers = "+972"+whatsapp;
 
+        String message = "Hello, let's chat on WhatsApp!";
+        openWhatsAppChat (phoneNumbers, message);
+    }
+});
+binding.instgram.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        if (isTwitterInstalled()) {
+            openInstagramProfile(instgramusername);
+        } else {
+            openInstagramWebsite(instgramusername);
+        }
+    }
+});
+binding.twitter.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+
+        if (isTwitterInstalled()) {
+            openTwitterProfile(twitterusername);
+        } else {
+            openTwitterWebsite(twitterusername);
+        }
     }
 });
         return binding.getRoot();
 
+    }
+    private boolean isTwitterInstalled() {
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            pm.getPackageInfo(TWITTER_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void openTwitterProfile(String username) {
+        String url = "twitter://user?screen_name=" + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage(TWITTER_PACKAGE);
+        startActivity(intent);
+    }
+
+    private void openTwitterWebsite(String username) {
+        String url = TWITTER_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+    private boolean isInstagramInstalled() {
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            pm.getPackageInfo(INSTAGRAM_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void openInstagramProfile(String username) {
+        String url = INSTAGRAM_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setPackage(INSTAGRAM_PACKAGE);
+        startActivity(intent);
+    }
+
+    private void openInstagramWebsite(String username) {
+        String url = INSTAGRAM_URL + username;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+
+    private void openWhatsAppChat(String phoneNumber, String message) {
+        try {
+            // Format the phone number to include the country code and remove any special characters
+            phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+
+            // Open WhatsApp with the predefined message
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + URLEncoder.encode(message, "UTF-8"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
