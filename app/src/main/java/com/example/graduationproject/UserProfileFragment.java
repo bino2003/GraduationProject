@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -148,6 +149,11 @@ public class UserProfileFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         // Update successful
+                                        Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
+                                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+                                        // Remove the current fragment from the back stack
+                                        fragmentManager.popBackStack();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -172,39 +178,55 @@ public class UserProfileFragment extends Fragment {
 //                        });
                         FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
                         if (user1 != null) {
-                            firebaseUser.updateEmail(binding.etEmailAddress.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        firebaseUser.reload();
-                                       // Toast.makeText(getActivity(), "Email Successfully", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                            AuthCredential credential = EmailAuthProvider.getCredential(binding.etEmailAddress.getText().toString(), binding.etOldPassword.getText().toString());
-                            firebaseUser.reauthenticate(credential)
+                            AuthCredential credential = EmailAuthProvider.getCredential(user1.getEmail(), binding.etOldPassword.getText().toString());
+
+                            user1.reauthenticate(credential)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                firebaseUser.updatePassword(binding.etNewPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                           Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                        else {
-                                                            Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                                                // تمت مصادقة المستخدم بنجاح، يمكنك الآن تحديث البريد الإلكتروني
+                                                user1.updateEmail(binding.etEmailAddress.getText().toString())
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> updateTask) {
+                                                                if (updateTask.isSuccessful()) {
+                                                                    Toast.makeText(getActivity(), "Email Successfully updated", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(getActivity(), "Failed to update email: " + updateTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
                                             } else {
-                                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
+                        } else {
+                            // المستخدم غير مسجَّل الدخول
+                        }
+//                            AuthCredential credential = EmailAuthProvider.getCredential(binding.etEmailAddress.getText().toString(), binding.etOldPassword.getText().toString());
+//                            firebaseUser.reauthenticate(credential)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            if (task.isSuccessful()) {
+//                                                firebaseUser.updatePassword(binding.etNewPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<Void> task) {
+//                                                        if (task.isSuccessful()) {
+//                                                           Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                        else {
+//                                                            Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    }
+//                                                });
+//                                            } else {
+//                                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//                                    });
 
 //                            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), "currentPassword");
 //                            // Prompt the user to re-provide their sign-in credentials
@@ -269,7 +291,7 @@ public class UserProfileFragment extends Fragment {
 
 
 
-                    }
+
                 });
 
 
@@ -278,4 +300,5 @@ public class UserProfileFragment extends Fragment {
 
         return binding.getRoot();
     }
+
 }
