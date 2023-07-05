@@ -1,5 +1,6 @@
 package com.example.graduationproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.graduationproject.Interface.UnFavoritve;
 import com.example.graduationproject.Model.Favorite2;
+import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
 import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -188,7 +190,8 @@ public class FavouriteFragment extends Fragment {
 
                                                 @Override
                                                 public void OnClickItem(String id, String id_product) {
-
+//                                                    Intent intent=new Intent(getActivity(), ViewProduct.class);
+//                                                    startActivity(intent);
                                                 }
 
                                                 @Override

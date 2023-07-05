@@ -219,10 +219,10 @@ public class FavouriteFragment extends Fragment {
 
                                                 @Override
                                                 public void OnClickItem(String id,String id_product) {
-                                                   Intent intent=new Intent(getActivity(), DetailsProductiveFamily.class);
-                                                   intent.putExtra("id",id);
+                                                    Intent intent=new Intent(getActivity(), ViewProduct.class);
+                                                    intent.putExtra("id",id);
                                                     intent.putExtra("id_product",id_product);
-                                                   startActivity(intent);
+                                                    startActivity(intent);
                                                     Log.d("id_productive_family", id);
                                                     Log.d("id_product", id_product);
                                                 }
