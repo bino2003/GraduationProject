@@ -377,6 +377,7 @@ public class AddProducts extends AppCompatActivity {
                             progressDialog.dismiss();
                             // if data uploaded successfully then show ntoast
                             Toast.makeText(AddProducts.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         }
                     });

@@ -25,6 +25,7 @@ import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.OndeleteProduct;
 import com.example.graduationproject.Interface.ProductsAction;
 
+import com.example.graduationproject.Model.Product2;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.AddProducts;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.UpdateProducts;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
@@ -44,8 +45,8 @@ import java.util.ArrayList;
 
 
 public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
-    ArrayList<Product> productsallArrayList=new ArrayList<>();
-    ArrayList<Product> productsArrayList=new ArrayList<>();
+    ArrayList<Product2> productsallArrayList=new ArrayList<>();
+    ArrayList<Product2> productsArrayList=new ArrayList<>();
     ArrayList<Product> newproductsArrayList=new ArrayList<>();
     ProductAdapter productAdapter;
     static int allPrice = 0;
@@ -142,7 +143,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                 if (task.isSuccessful()){
                     firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
-                    productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
+                    productsallArrayList= (ArrayList<Product2>) task.getResult().toObjects(Product2.class);
                     if (productsallArrayList.isEmpty()){
                         startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 
@@ -150,7 +151,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                     }
                     for (int i=0 ;i<productsallArrayList.size();i++){
                         String id= task.getResult().getDocuments().get(i).getId();
-                        Product product=productsallArrayList.get(i);
+                        Product2 product=productsallArrayList.get(i);
                         product.setId(id);
 
                         String user= product.getUser();
@@ -174,7 +175,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                             builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Product product=productsArrayList.get(pos);
+                                    Product2 product=productsArrayList.get(pos);
                                     firebaseFirestore.collection("Products").document(product.getId()).delete();
                                     Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
 
@@ -198,7 +199,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                         }
 
                         @Override
-                        public void OnUpdate(Product product) {
+                        public void OnUpdate(Product2 product) {
 
                             Intent intent = new Intent(getActivity(), UpdateProducts.class);
                             intent.putExtra("nameupdate", product.getName());
@@ -214,7 +215,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
 
 
                         @Override
-                        public void OnClickItem(Product product) {
+                        public void OnClickItem(Product2 product) {
                             Intent intent = new Intent(getActivity(), ViewProduct.class);
                             intent.putExtra("name", product.getName());
                             intent.putExtra("category", product.getCategory());
@@ -253,7 +254,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
     @Override
     public void OnDelete(int pos) {
         System.out.println("DELETEBIAN2");
-        Product product=productsArrayList.get(pos);
+        Product2 product=productsArrayList.get(pos);
         firebaseFirestore.collection("Products").document(product.getId()).delete();
         Toast.makeText(getActivity(), "Product deleted", Toast.LENGTH_SHORT).show();
 
@@ -273,7 +274,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                 if (task.isSuccessful()){
                     firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
-                    productsallArrayList= (ArrayList<Product>) task.getResult().toObjects(Product.class);
+                    productsallArrayList= (ArrayList<Product2>) task.getResult().toObjects(Product2.class);
                     if (productsallArrayList.isEmpty()){
                         startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 
@@ -282,7 +283,7 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                     productsArrayList.clear();
                     for (int i=0 ;i<productsallArrayList.size();i++){
                         String id= task.getResult().getDocuments().get(i).getId();
-                        Product product=productsallArrayList.get(i);
+                        Product2 product=productsallArrayList.get(i);
                         product.setId(id);
 
                         String user= product.getUser();
