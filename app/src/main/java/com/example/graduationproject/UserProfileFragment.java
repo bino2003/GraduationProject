@@ -92,6 +92,7 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
         FragmentUserProfileBinding binding = FragmentUserProfileBinding.inflate(inflater, container, false);
         binding.tvChangePass.setOnClickListener(new View.OnClickListener() {
             @Override

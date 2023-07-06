@@ -178,7 +178,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        usernameTwitter =task.getResult().getString("Twitter");
+                        usernameTwitter =task.getResult().getString("twitter");
 
                         if (isTwitterInstalled()) {
                             openTwitterProfile(usernameTwitter);

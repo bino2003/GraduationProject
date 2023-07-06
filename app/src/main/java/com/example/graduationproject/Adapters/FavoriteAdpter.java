@@ -49,7 +49,6 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
         }else {
             Glide.with(context).load(favorites.get(pos).getImageUrls().get(0)).into(holder.imageView);
         }
-
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

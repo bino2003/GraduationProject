@@ -68,6 +68,7 @@ public class HomeFragmint extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         FragmentHomeFragmintBinding binding=FragmentHomeFragmintBinding.inflate(inflater,container,false);
 //        binding.carNameTv.setText(CarName);

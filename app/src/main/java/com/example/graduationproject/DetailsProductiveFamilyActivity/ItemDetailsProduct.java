@@ -159,7 +159,7 @@ public class ItemDetailsProduct extends Fragment {
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     Toast.makeText(getActivity(), "Product added to favorites", Toast.LENGTH_SHORT).show();
-                                                                                    isfav = true;
+
                                                                                 } else {
                                                                                     Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
                                                                                 }
@@ -171,7 +171,6 @@ public class ItemDetailsProduct extends Fragment {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
-                                                                                isfav = false;
                                                                             }
                                                                         });
                                                                     }
@@ -204,7 +203,7 @@ public class ItemDetailsProduct extends Fragment {
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 if (task.isSuccessful()) {
                                                                                     Toast.makeText(getActivity(), "Product added to favoritesusers", Toast.LENGTH_SHORT).show();
-                                                                                    isfav = true;
+
                                                                                 } else {
                                                                                     Toast.makeText(getActivity(), "Adding product to favorites failed", Toast.LENGTH_SHORT).show();
                                                                                 }
@@ -216,7 +215,7 @@ public class ItemDetailsProduct extends Fragment {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
-                                                                                isfav = false;
+
                                                                             }
                                                                         });
                                                                     }

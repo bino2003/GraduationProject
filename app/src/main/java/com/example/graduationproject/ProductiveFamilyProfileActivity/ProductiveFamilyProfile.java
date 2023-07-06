@@ -39,7 +39,6 @@ SharedPreferences.Editor editor;
         sharedPreferences = getApplicationContext().getSharedPreferences("sp", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         id=getIntent().getStringExtra("id");
-        Log.d("id_productive_family", id);
 
         binding.exit.setOnClickListener(new View.OnClickListener() {
             @Override

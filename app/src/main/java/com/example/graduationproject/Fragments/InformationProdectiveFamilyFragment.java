@@ -71,9 +71,12 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     String Productcategory;
+    FragmentInformationProdectiveFamilyBinding binding;
     String description;
     String image;
     String sharedproductCategory;
+    String productCategory;
+    FragmentInformationProductiveFamily2Binding binding2;
 
     private static final String ARG_db_id = "idFamily";
     private static final String ARG_db_id_product = "idProduct";
@@ -115,6 +118,15 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         }
     }
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -126,8 +138,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                              Bundle savedInstanceState) {
         firebaseAuth=FirebaseAuth.getInstance();
 
-        FragmentInformationProdectiveFamilyBinding binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
-        FragmentInformationProductiveFamily2Binding binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
+         binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
+         binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -151,9 +163,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     binding2.tvSet.setText(Location);
                     binding2.tvPhone.setText(phone);
 
-                    binding2.tvDesception.setText(details);
-                    binding2.tvSet.setText(Location);
-    binding2.tvPhone.setText(phone);
+
                 }
             }
         });
@@ -188,6 +198,19 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
             }
         });
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Productcategory=   adapterView.getItemAtPosition(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,18 +218,6 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 image = String.valueOf(binding.imageView.getDrawable());
                 description = binding.etDescription.getText().toString();
 
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        Productcategory=   adapterView.getItemAtPosition(i).toString();
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
                 firebaseAuth=FirebaseAuth.getInstance();
                 location=binding.etLocation.getText().toString();
                 Twitter=binding.etAccount.getText().toString();
@@ -251,12 +262,16 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
                                     productiveFamily.setImage(task.getResult().toString());
-                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null&&instgram!=null&&Twitter!=null){
+                                    if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Log.d("data ", productiveFamily.toString());
+
+                                                    Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    refresh();
+
 
                                                     Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
 
@@ -295,7 +310,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
         String phone=sharedPreferences.getString("sharedphone","");
-        String productCategory =sharedPreferences.getString("sharedproductCategory","");
+         productCategory =sharedPreferences.getString("sharedproductCategory","");
 
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
@@ -307,7 +322,6 @@ public class InformationProdectiveFamilyFragment extends Fragment {
     }
     public void refresh(){
         firebaseAuth= FirebaseAuth.getInstance();
-        FragmentInformationProductiveFamily2Binding binding2 = FragmentInformationProductiveFamily2Binding.inflate(getLayoutInflater());
 
         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -319,9 +333,11 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     Location=documentSnapshot.getString("location");
                     phone=""+documentSnapshot.getLong("phone").intValue();
 
+                     productCategory =sharedPreferences.getString("sharedproductCategory","");
                     binding2.tvDesception.setText(details);
                     binding2.tvSet.setText(Location);
                     binding2.tvPhone.setText(phone);
+
 
                 }
             }

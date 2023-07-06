@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.example.graduationproject.Fragments.InformationProdectiveFamilyFragment;
+import com.example.graduationproject.Fragments.ItemProductiveFamily;
+import com.example.graduationproject.Fragments.fragment_productive_family_profile;
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
 
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -139,8 +142,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                                 Log.d("data ", productiveFamily.toString());
 
                                 Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
+finish();                            } else {
                                 Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
 
                             }
@@ -173,7 +175,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                                                     Log.d("data ", productiveFamily.toString());
 
                                                     Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-                                                    finish();
+finish();
                                                 } else {
                                                     Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
 

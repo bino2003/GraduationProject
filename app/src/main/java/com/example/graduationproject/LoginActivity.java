@@ -30,6 +30,7 @@ FirebaseAuth firebaseAuth;
         super.onCreate(savedInstanceState);
         binding=ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         firebaseAuth=FirebaseAuth.getInstance();
 binding.forgite.setOnClickListener(new View.OnClickListener() {
     @Override
