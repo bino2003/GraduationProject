@@ -28,6 +28,11 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
     OnClickProductiveFamily onClickProductiveFamily;
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
 
+    public  void  setFilterList(ArrayList<ProductiveFamily> productiveFamilies){
+        this.productiveFamilyArrayList=productiveFamilies;
+        notifyDataSetChanged();
+    }
+
     public CategoryProductFamilyAdapter(Context context, OnClickProductiveFamily onClickProductiveFamily, ArrayList<ProductiveFamily> productiveFamilyArrayList) {
         this.context = context;
         this.onClickProductiveFamily = onClickProductiveFamily;

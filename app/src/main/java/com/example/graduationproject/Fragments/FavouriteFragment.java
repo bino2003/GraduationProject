@@ -57,6 +57,7 @@ public class FavouriteFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private FavoriteAdpter adpter;
+    FavoriteAdpter adpter2;
 
     public FavouriteFragment() {
         // Required empty public constructor
@@ -202,7 +203,7 @@ public class FavouriteFragment extends Fragment {
 
                                                 binding.progressBar.setVisibility(View.GONE);
                                             }
-                                            FavoriteAdpter adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
+                                             adpter2= new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
                                                 public void OnDelete(Favorite2 favorites3, int post) {
                                                     DocumentReference snapshot = firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(favorites3.getId());
@@ -212,6 +213,10 @@ public class FavouriteFragment extends Fragment {
                                                             if (task.isSuccessful()) {
                                                                 Toast.makeText(getActivity(), "Succesfully", Toast.LENGTH_SHORT).show();
                                                                 favorites.remove(post);
+                                                                adpter2.notifyItemRemoved(post);
+                                                                if (adpter2.getItemCount() == 0) {
+                                                                    //empty
+                                                                }
                                                             }
                                                         }
                                                     });
@@ -234,9 +239,9 @@ public class FavouriteFragment extends Fragment {
                                             });
                                             Log.d("favo", favorites.toString());
 
-                                            binding.rv.setAdapter(adpter);
+                                            binding.rv.setAdapter(adpter2);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                                            adpter.notifyDataSetChanged();
+                                            adpter2.notifyDataSetChanged();
 
                                         }
 
