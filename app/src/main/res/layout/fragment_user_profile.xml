@@ -104,30 +104,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:hint="Old Password">
+        android:hint="Current Password"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_old_Password"
-            android:layout_width="343dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:textColor="#131313"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="343dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:hint="New Password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_new_Password"
             android:layout_width="343dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

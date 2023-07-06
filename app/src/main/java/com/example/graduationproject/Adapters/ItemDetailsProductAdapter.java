@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDetailsProductAdapter extends RecyclerView.Adapter<DetailsProductAdapterVH> {
-    ArrayList<Product2> productArrayList=new ArrayList<>();
+    ArrayList<Product2> productArrayList = new ArrayList<>();
     Context context;
     DetailsProductAction detailsProductAction;
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
@@ -50,27 +50,26 @@ boolean isfavarite2=true;
     public ItemDetailsProductAdapter(ArrayList<Product2> productArrayList, Context context, DetailsProductAction detailsProductAction, boolean isfavarite) {
         this.productArrayList = productArrayList;
         this.context = context;
-        this.isfavarite=isfavarite;
+        this.isfavarite = isfavarite;
         this.detailsProductAction = detailsProductAction;
     }
 
     @NonNull
     @Override
     public DetailsProductAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        DetailsProductAdapterVH detailsProductAdapterVH= new DetailsProductAdapterVH(ItemdetailsproductivefamileproductBinding.inflate(LayoutInflater.from(parent.getContext())));
+        DetailsProductAdapterVH detailsProductAdapterVH = new DetailsProductAdapterVH(ItemdetailsproductivefamileproductBinding.inflate(LayoutInflater.from(parent.getContext())));
 
         return detailsProductAdapterVH;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DetailsProductAdapterVH holder, int position) {
-        int pos=position;
+        int pos = position;
         holder.productprice.setText(productArrayList.get(position).getPrice());
         holder.productname.setText(productArrayList.get(position).getName());
-        if (productArrayList.get(pos).getImage()!=null){
+        if (productArrayList.get(pos).getImage() != null) {
             Glide.with(context).load(productArrayList.get(position).getImage()).into(holder.imageViewProduct);
-        }
-        else {
+        } else {
             Glide.with(context).load(productArrayList.get(position).getImageUrls().get(0)).into(holder.imageViewProduct);
         }
         firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -174,7 +173,7 @@ boolean isfavarite2=true;
                                                 for (int j = 0; j <favoritesList.size() ; j++) {
                                                     String favuserid=favoritesList.get(j).getId();
                                                     String productid=productArrayList.get(pos).getId();
-                                                    if (!favuserid.equals(productid)){
+                                                    if (!favuserid.equals(productid) ){
                                                         holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
                                                         detailsProductAction.onfav(productArrayList.get(pos));
 
@@ -259,7 +258,7 @@ boolean isfavarite2=true;
                                                         holder.fav.setImageResource(R.drawable.heart);
                                                         detailsProductAction.onfav(productArrayList.get(pos));
                                                         if (favoritesList.size()==0){
-                                                            isfavarite2=false;
+                                                            isfavarite2 = false;
                                                         }
                                                     }
 
@@ -321,16 +320,16 @@ boolean isfavarite2=true;
                         }
                     }
                 });
-                if (favoritesList.size()==0&&isfavarite2==true){
+                if (favoritesList.size()==0&&isfavarite2 = =true){
                     holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     detailsProductAction.onfav(productArrayList.get(pos));
                 }
 
 
 
-
             }
-        });
+            });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -345,7 +344,6 @@ boolean isfavarite2=true;
     }
 
 }
-
 
 class DetailsProductAdapterVH extends RecyclerView.ViewHolder {
 

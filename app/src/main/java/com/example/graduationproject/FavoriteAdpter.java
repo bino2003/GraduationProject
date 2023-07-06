@@ -55,6 +55,12 @@ public class FavoriteAdpter extends RecyclerView.Adapter<FavoriteAdpter.MyViewHo
                 unFavoritve.OnDelete(pos,favorites.get(pos).getId());
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                unFavoritve.OnClickItem();
+            }
+        });
     }
 
     @Override

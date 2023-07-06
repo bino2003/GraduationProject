@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment  {
                                     }
                                 }
                             });
-
+                            
                             firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

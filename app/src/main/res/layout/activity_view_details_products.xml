@@ -19,34 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/et_namefamilay"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="268dp"
-        android:background="@drawable/text"
-        android:hint="productive family"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:paddingTop="15dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling"></TextView>
-
-    <ImageView
-        android:id="@+id/imageviename_viewproduct"
-        android:layout_width="21dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/plate"
-        app:layout_constraintEnd_toEndOf="@+id/et_namefamilay"
-        app:layout_constraintTop_toTopOf="@+id/et_namefamilay" />
-
 
     <TextView
         android:id="@+id/et_name_viewdetailsproduct"
@@ -63,7 +35,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_namefamilay"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
         tools:ignore="NotSibling"></TextView>
 
     <ImageView
