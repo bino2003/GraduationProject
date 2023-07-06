@@ -86,7 +86,7 @@ boolean isfavarite2=true;
                                 public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
 
-                                        List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                      favoritesList=    task.getResult().toObjects(Favorites.class);
                                         for (int j = 0; j <favoritesList.size() ; j++) {
                                             String favuserid=favoritesList.get(j).getId();
                                             String productid=productArrayList.get(pos).getId();
@@ -124,7 +124,7 @@ boolean isfavarite2=true;
                                 public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
 
-                                        List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+                                        favoritesList=    task.getResult().toObjects(Favorites.class);
                                         for (int j = 0; j <favoritesList.size() ; j++) {
                                             String favuserid=favoritesList.get(j).getId();
                                             String productid=productArrayList.get(pos).getId();
@@ -152,178 +152,240 @@ boolean isfavarite2=true;
         holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (favoritesList.size()==0){
 
-
-
-                firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
-                            for (int i = 0; i < productiveFamilyList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-
-                                                 favoritesList=    task.getResult().toObjects(Favorites.class);
-                                                for (int j = 0; j <favoritesList.size() ; j++) {
-                                                    String favuserid=favoritesList.get(j).getId();
-                                                    String productid=productArrayList.get(pos).getId();
-                                                    if (!favuserid.equals(productid) ){
-                                                        holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
-                                                        detailsProductAction.onfav(productArrayList.get(pos));
-
-                                                    }
-
-
-                                                }
-
-
-
-                                            }
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<users> usersList = task.getResult().toObjects(users.class);
-                            for (int i = 0; i < usersList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-
-                                                favoritesList=    task.getResult().toObjects(Favorites.class);
-                                                for (int j = 0; j <favoritesList.size() ; j++) {
-                                                    String favuserid=favoritesList.get(j).getId();
-                                                    String productid=productArrayList.get(pos).getId();
-                                                    if (!favuserid.equals(productid)){
-                                                        holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
-                                                        detailsProductAction.onfav(productArrayList.get(pos));
-
-
-                                                    }
-
-                                                }
-
-
-
-                                            }
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
-
-                firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
-                            for (int i = 0; i < productiveFamilyList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-
-                                                favoritesList=    task.getResult().toObjects(Favorites.class);
-                                                for (int j = 0; j <favoritesList.size() ; j++) {
-                                                    String favuserid=favoritesList.get(j).getId();
-                                                    String productid=productArrayList.get(pos).getId();
-                                                    if (favuserid.equals(productid)){
-                                                        holder.fav.setImageResource(R.drawable.heart);
-                                                        detailsProductAction.onfav(productArrayList.get(pos));
-                                                        if (favoritesList.size()==0){
-                                                            isfavarite2 = false;
-                                                        }
-                                                    }
-
-
-                                                }
-
-
-
-                                            }
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<users> usersList = task.getResult().toObjects(users.class);
-                            for (int i = 0; i < usersList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()){
-
-                                               favoritesList=    task.getResult().toObjects(Favorites.class);
-                                                for (int j = 0; j <favoritesList.size() ; j++) {
-                                                    String favuserid=favoritesList.get(j).getId();
-                                                    String productid=productArrayList.get(pos).getId();
-                                                    if (favuserid.equals(productid)){
-                                                        holder.fav.setImageResource(R.drawable.heart);
-                                                        detailsProductAction.onfav(productArrayList.get(pos));
-                                                        if (favoritesList.size()==0){
-                                                            isfavarite2=false;
-                                                        }
-
-                                                    }
-
-                                                }
-
-
-
-                                            }
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
-                if (favoritesList.size()==0&&isfavarite2 ==true){
                     holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
-                    detailsProductAction.onfav(productArrayList.get(pos));
+
+                        detailsProductAction.onfav(productArrayList.get(pos));
+                    firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                                for (int i = 0; i < productiveFamilyList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    favoritesList=    task.getResult().toObjects(Favorites.class);
+
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+                    firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<users> usersList = task.getResult().toObjects(users.class);
+                                for (int i = 0; i < usersList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    List<Favorites> favoritesList=    task.getResult().toObjects(Favorites.class);
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+
                 }
+
+                else {
+                    firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                                for (int i = 0; i < productiveFamilyList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                                        String favuserid=favoritesList.get(j).getId();
+                                                        String productid=productArrayList.get(pos).getId();
+                                                        if (!favuserid.equals(productid) ){
+                                                            holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+                                                            detailsProductAction.onfav(productArrayList.get(pos));
+
+                                                        }
+
+
+                                                    }
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+                    firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<users> usersList = task.getResult().toObjects(users.class);
+                                for (int i = 0; i < usersList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                                        String favuserid=favoritesList.get(j).getId();
+                                                        String productid=productArrayList.get(pos).getId();
+                                                        if (!favuserid.equals(productid)){
+                                                            holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
+                                                            detailsProductAction.onfav(productArrayList.get(pos));
+
+
+                                                        }
+
+                                                    }
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+
+                    firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                                for (int i = 0; i < productiveFamilyList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                                        String favuserid=favoritesList.get(j).getId();
+                                                        String productid=productArrayList.get(pos).getId();
+                                                        if (favuserid.equals(productid)){
+                                                            holder.fav.setImageResource(R.drawable.heart);
+                                                            detailsProductAction.onfav(productArrayList.get(pos));
+
+                                                        }
+
+
+                                                    }
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+                    firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                List<users> usersList = task.getResult().toObjects(users.class);
+                                for (int i = 0; i < usersList.size(); i++) {
+                                    String id = task.getResult().getDocuments().get(i).getId();
+                                    if (id.equals(firebaseAuth.getUid())) {
+                                        firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()){
+
+                                                    favoritesList=    task.getResult().toObjects(Favorites.class);
+                                                    for (int j = 0; j <favoritesList.size() ; j++) {
+                                                        String favuserid=favoritesList.get(j).getId();
+                                                        String productid=productArrayList.get(pos).getId();
+                                                        if (favuserid.equals(productid)){
+                                                            holder.fav.setImageResource(R.drawable.heart);
+                                                            detailsProductAction.onfav(productArrayList.get(pos));
+
+
+                                                        }
+
+                                                    }
+
+
+
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    });
+
+                }
+
+
+
 
 
 
