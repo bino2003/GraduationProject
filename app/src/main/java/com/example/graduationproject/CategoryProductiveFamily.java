@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.location.Location;
 
@@ -55,6 +56,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
    String   userlatString;
     String   userlongString;
     GeoPoint[] boundingCoordinates;
+//    CategoryProductFamilyAdapter categoryProductFamilyAdapter;
 
     @Override
     protected void onResume() {
@@ -90,6 +92,50 @@ String iduser=FirebaseAuth.getInstance().getUid();
         binding.tvCategoryName.setText(cat);
 
         getproductivefamilydistance();
+                binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+//                filterList(s);
+                ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
+                if (productiveFamilyArrayListdistance!=null){
+                    for (ProductiveFamily productiveFamily: productiveFamilyArrayListdistance ){
+                        if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
+                            productiveFamilies.add(productiveFamily);
+                        }
+                        if (productiveFamilies.isEmpty()){
+//                            Toast.makeText(getBaseContext(), "No Result", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(getBaseContext(), HandleEmpityActivity.class));
+                        }else {
+                            categoryProductFamilyAdapter.setFilterList(productiveFamilies);
+                        }
+                }
+
+                }
+                else {
+                    for (ProductiveFamily productiveFamily: productiveFamilyArrayList ){
+                        if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
+                            productiveFamilies.add(productiveFamily);
+                        }
+                        if (productiveFamilies.isEmpty()){
+//                            Toast.makeText(getBaseContext(), "No Result", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(getBaseContext(), HandleEmpityActivity.class));
+                        }else {
+                            categoryProductFamilyAdapter.setFilterList(productiveFamilies);
+                        }
+                    }
+
+                }
+
+//                CollectionReference itemsRef = firebaseFirestore.collection("Productive family");
+//                Query query = itemsRef.whereEqualTo("name", s);
+                return false;
+            }
+        });
 
     }
 
@@ -107,7 +153,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");
@@ -284,7 +330,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             if (firebaseAuth.getUid() != null) {
                                 firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.isSuccessful()){
                                             DocumentSnapshot documentSnapshot=task.getResult();
                                             userlatString=       task.getResult().getString("latitude");

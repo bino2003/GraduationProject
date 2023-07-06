@@ -83,7 +83,7 @@ boolean isfavarite2=true;
                         if (id.equals(firebaseAuth.getUid())) {
                             firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
 
                                       favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -121,7 +121,7 @@ boolean isfavarite2=true;
                         if (id.equals(firebaseAuth.getUid())) {
                             firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
 
                                         favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -196,7 +196,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                  favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -228,7 +228,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                     favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -307,7 +307,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                     favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -346,7 +346,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                     favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -388,7 +388,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                     favoritesList=    task.getResult().toObjects(Favorites.class);
@@ -428,7 +428,7 @@ boolean isfavarite2=true;
                                     if (id.equals(firebaseAuth.getUid())) {
                                         firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@androidx.annotation.NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 if (task.isSuccessful()){
 
                                                     favoritesList=    task.getResult().toObjects(Favorites.class);
