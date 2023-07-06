@@ -7,16 +7,49 @@
     android:background="#F5F4F4"
     tools:context=".CategoryProductiveFamily">
 
-    <SearchView
-        android:id="@+id/simpleSearchView"
-        android:layout_width="343dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/text"
+
+    <LinearLayout
+        android:id="@+id/btn_backe"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backebutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24">
+
+        </ImageView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_categoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Food"
+        android:textColor="@color/black"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <SearchView
+        android:id="@+id/simpleSearchView"
+        android:layout_width="343dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar2"
@@ -33,26 +66,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rv"
         app:trackColor="@color/green"
-        app:trackCornerRadius="0dp" /><![CDATA[/>
+        app:trackCornerRadius="0dp" />
 
 
 
-
-
-    ]]>
-
-    <TextView
-        android:id="@+id/tv_categoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Food"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/simpleSearchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"

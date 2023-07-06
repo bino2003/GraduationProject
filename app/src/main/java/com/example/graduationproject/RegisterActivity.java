@@ -47,6 +47,15 @@ public class RegisterActivity extends AppCompatActivity {
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.btnBacke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
+
+
 //        binding.gotosignin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -293,6 +302,8 @@ editor.apply();
 
 
 
+
     }
+
 
 }

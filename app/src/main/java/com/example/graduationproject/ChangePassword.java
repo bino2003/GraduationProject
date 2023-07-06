@@ -31,6 +31,12 @@ public class ChangePassword extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
       binding.btnChangepassword.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {

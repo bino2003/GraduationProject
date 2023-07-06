@@ -6,22 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#F8F8F8"
+    <LinearLayout
+        android:id="@+id/btn_backe"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backebutton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backe"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24">
+
+        </ImageView>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="160dp"
         android:text="Sign up"
         android:textColor="#0A1D37"
@@ -29,23 +40,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/fullname"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fulllname"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/text"
-        android:hint="Full name"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="52dp"
+        android:hint="Full Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullname"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:layout_width="21dp"
@@ -53,8 +72,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_baseline_perm_identity_24"
-        app:layout_constraintEnd_toEndOf="@+id/fullname"
-        app:layout_constraintTop_toTopOf="@+id/fullname" />
+        app:layout_constraintEnd_toEndOf="@+id/fulllname"
+        app:layout_constraintTop_toTopOf="@+id/fulllname" />
 
 
     <TextView
@@ -62,8 +81,9 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/text"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/editetext"
+
         android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:text="Click to select a location.."
@@ -72,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullname" />
+        app:layout_constraintTop_toBottomOf="@+id/fulllname" />
 
     <ImageView
         android:layout_width="21dp"
@@ -83,23 +103,32 @@
         app:layout_constraintEnd_toEndOf="@+id/location"
         app:layout_constraintTop_toTopOf="@+id/location" />
 
-    <EditText
-        android:id="@+id/PhoneNumber"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/PhoneeNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/text"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/location">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/PhoneNumber"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageView
         android:layout_width="21dp"
@@ -107,26 +136,35 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_baseline_phone_iphone_24"
-        app:layout_constraintEnd_toEndOf="@+id/PhoneNumber"
-        app:layout_constraintTop_toTopOf="@+id/PhoneNumber" />
+        app:layout_constraintEnd_toEndOf="@+id/PhoneeNumber"
+        app:layout_constraintTop_toTopOf="@+id/PhoneeNumber" />
 
-    <EditText
-        android:id="@+id/EmailAddress"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/EmaiLlAddress"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/text"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Email Adrres"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PhoneNumber"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/PhoneeNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EmailAddress"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PhoneeNumber" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ImageView
         android:layout_width="21dp"
@@ -134,62 +172,84 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_outline_email_24"
-        app:layout_constraintEnd_toEndOf="@+id/EmailAddress"
-        app:layout_constraintTop_toTopOf="@+id/EmailAddress" />
+        app:layout_constraintEnd_toEndOf="@+id/EmaiLlAddress"
+        app:layout_constraintTop_toTopOf="@+id/EmaiLlAddress" />
 
-    <EditText
-        android:id="@+id/Password"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Passsword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/text"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:hint="Password"
-        android:inputType="textPassword"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailAddress"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/EmaiLlAddress"
+        app:passwordToggleEnabled="true">
 
-    <ImageView
-        android:layout_width="21dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_baseline_visibility_24"
-        app:layout_constraintEnd_toEndOf="@+id/Password"
-        app:layout_constraintTop_toTopOf="@+id/Password" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Password"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:textColor="#131313"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EmaiLlAddress" />
 
-    <EditText
-        android:id="@+id/ConfirmPassword"
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--    <ImageView-->
+<!--        android:layout_width="21dp"-->
+<!--        android:layout_height="17dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:src="@drawable/ic_baseline_visibility_24"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/Passsword"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/Passsword" />-->
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ConfirmPasssword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/text"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:paddingStart="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        android:textSize="14sp"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/Passsword">
 
-    <ImageView
-        android:layout_width="21dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_baseline_visibility_24"
-        app:layout_constraintEnd_toEndOf="@+id/ConfirmPassword"
-        app:layout_constraintTop_toTopOf="@+id/ConfirmPassword" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ConfirmPassword"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:textColor="#131313"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Passsword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--    <ImageView-->
+<!--        android:layout_width="21dp"-->
+<!--        android:layout_height="17dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:src="@drawable/ic_baseline_visibility_24"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/ConfirmPasssword"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ConfirmPasssword" />-->
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -199,26 +259,28 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword">
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmPasssword">
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="اسرة منتجة" />
+            android:text="Productive family"
+            android:layout_marginEnd="30dp"/>
 
         <RadioButton
             android:id="@+id/radioButton_users"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="مستخدم" />
+            android:text="User" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btn_Signup"
         android:layout_width="343dp"
-        android:layout_height="61dp"
+        android:layout_height="50dp"
         android:layout_marginStart="37dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="#0E8388"
         android:clickable="false"

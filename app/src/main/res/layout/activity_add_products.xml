@@ -7,6 +7,29 @@
     >
 
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backebutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24">
+
+        </ImageView>
+    </LinearLayout>
+
+
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="402dp"
@@ -43,11 +66,26 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="305dp"
+        android:layout_height="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="64dp"
+        android:scaleX="1.5"
+
+        android:scaleY="1.5"
+        app:ci_drawable="@drawable/indecetore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
     <EditText
         android:id="@+id/et_nameadd"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/text"
         android:hint="Name"
         android:inputType="textPersonName"

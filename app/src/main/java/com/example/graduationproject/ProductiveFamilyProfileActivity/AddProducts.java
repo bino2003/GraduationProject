@@ -97,6 +97,13 @@ public class AddProducts extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         category = findViewById(R.id.et_categryadd);
 
+
+        binding.linearLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading Data");
         progressDialog.setMessage("Please Wait While Uploading Your data...");
@@ -448,6 +455,10 @@ public class AddProducts extends AppCompatActivity {
     private void setAdapter() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, ChooseImageList,true);
         viewPager.setAdapter(adapter);
+        binding.indicator.setViewPager(viewPager);
+        binding.indicator.createIndicators(5,0);
+        binding.indicator.animatePageSelected(0);
+
     }
 
 

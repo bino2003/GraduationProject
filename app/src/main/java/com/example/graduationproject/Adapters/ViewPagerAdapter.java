@@ -19,6 +19,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 
+import me.relex.circleindicator.CircleIndicator;
+
 public class ViewPagerAdapter extends PagerAdapter {
     private Context context;
     ArrayList<Uri> ImageUrls;
@@ -42,7 +44,8 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view=layoutInflater.inflate(R.layout.showimageslayout,container,false);
         ImageView imageView=view.findViewById(R.id.UploadImage);
-        ProgressBar progressBar=view.findViewById(R.id.progressBar3);
+
+ProgressBar progressBar=view.findViewById(R.id.progressBar3);
 
         if (aBoolean1==true){
             progressBar.setVisibility(View.GONE);
@@ -50,6 +53,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         Glide.with(context).load(ImageUrls.get(position)).into(imageView);
 //        imageView.setImageURI(ImageUrls.get(position));
         container.addView(view);
+
 
         return view ;
     }

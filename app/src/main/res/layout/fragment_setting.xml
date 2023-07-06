@@ -8,19 +8,34 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Setting"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="5dp">
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="25dp"
@@ -112,19 +127,34 @@
         </LinearLayout>
 
 
-
-
-
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#EFF3F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_logout_24"
+        app:layout_constraintEnd_toStartOf="@+id/logout"
+        app:layout_constraintTop_toBottomOf="@+id/linear" />
 
     <TextView
         android:id="@+id/logout"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="232dp"
-        android:background="@drawable/editetext"
-        android:drawableEnd="@drawable/ic_baseline_logout_24"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:hint="Logout"
         android:inputType="textPersonName"
         android:paddingStart="3dp"
@@ -133,8 +163,9 @@
         android:textColorHint="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear"
         tools:ignore="NotSibling"></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
