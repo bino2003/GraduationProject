@@ -57,6 +57,13 @@ public class DetailsProductiveFamily extends AppCompatActivity {
         binding=ActivityDetailsProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 // Inside your onCreate or onViewCreated method
 
         String id=getIntent().getStringExtra("idproductivefamily");

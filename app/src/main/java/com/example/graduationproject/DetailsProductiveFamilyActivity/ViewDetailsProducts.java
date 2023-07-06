@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +31,13 @@ ActivityViewDetailsProductsBinding binding;
         super.onCreate(savedInstanceState);
         binding=ActivityViewDetailsProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         firebaseFirestore=FirebaseFirestore.getInstance();
 
 
@@ -55,6 +63,9 @@ ActivityViewDetailsProductsBinding binding;
                     if (document1.get("imageUrls")!=null){
                         ViewPagerAdapter adapter=new ViewPagerAdapter(getBaseContext(), uriArrayList,true);
                         binding.viewPager.setAdapter(adapter);
+                        binding.indicator.setViewPager(binding.viewPager);
+                        binding.indicator.createIndicators(5,0);
+                        binding.indicator.animatePageSelected(0);
                     }
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {

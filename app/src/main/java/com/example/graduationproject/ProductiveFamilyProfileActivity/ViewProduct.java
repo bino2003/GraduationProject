@@ -36,6 +36,12 @@ FirebaseFirestore firebaseFirestore;
         binding=ActivityViewProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebaseFirestore=FirebaseFirestore.getInstance();
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
       Intent intent= getIntent();
@@ -55,6 +61,10 @@ FirebaseFirestore firebaseFirestore;
                         if (document1.get("imageUrls")!=null){
                             ViewPagerAdapter adapter=new ViewPagerAdapter(getBaseContext(), uriArrayList,true);
                             binding.viewPager.setAdapter(adapter);
+                            binding.indicator.setViewPager(binding.viewPager);
+                            binding.indicator.createIndicators(5,0);
+                            binding.indicator.animatePageSelected(0);
+
                         }
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
@@ -93,6 +103,9 @@ FirebaseFirestore firebaseFirestore;
                         if (document.get("imageUrls")!=null){
                             ViewPagerAdapter adapter=new ViewPagerAdapter(getBaseContext(), uriArrayList,true);
                             binding.viewPager.setAdapter(adapter);
+                            binding.indicator.setViewPager(binding.viewPager);
+                            binding.indicator.createIndicators(5,0);
+                            binding.indicator.animatePageSelected(0);
                         }
                         if (document.exists()) {
                             if (document.getString("image")!=null){
@@ -104,7 +117,7 @@ FirebaseFirestore firebaseFirestore;
                             binding.etDescriptionViewproduct.setText(document.getString("description"));
                             binding.etNameViewproduct.setText(document.getString("name"));
                             binding.etPriceViewproduct.setText(document.getString("price"));
-                            binding.etNameProductiveFamily.setText(document.getString("productive_family"));
+                            binding.etNameProductiveFamily.setText("Go to go Family "+document.getString("productive_family"));
 
 //
                         }

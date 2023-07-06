@@ -27,6 +27,13 @@ FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         binding= ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

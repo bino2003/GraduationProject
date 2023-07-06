@@ -69,6 +69,13 @@ String iduser=FirebaseAuth.getInstance().getUid();
         binding = ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.btnBacke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         cat = getIntent().getStringExtra("ctegoryname");
         firebaseAuth=FirebaseAuth.getInstance();

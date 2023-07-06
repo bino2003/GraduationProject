@@ -298,6 +298,11 @@ public class UserProfileFragment extends Fragment {
 
             }
         });
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         return binding.getRoot();
     }

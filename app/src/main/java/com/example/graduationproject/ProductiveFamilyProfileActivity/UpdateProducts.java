@@ -74,6 +74,12 @@ public class UpdateProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUpdateProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
 //        ItemDesc = findViewById(R.id.et_descriptionupdate);
 //        ItemName = findViewById(R.id.et_nameupdate);

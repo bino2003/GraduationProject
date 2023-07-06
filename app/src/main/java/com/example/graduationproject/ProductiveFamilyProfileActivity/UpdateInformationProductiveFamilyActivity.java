@@ -52,6 +52,12 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         binding = ActivityUpdateInformationProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.backe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         sharedPreferences = getApplicationContext().getSharedPreferences("sp", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

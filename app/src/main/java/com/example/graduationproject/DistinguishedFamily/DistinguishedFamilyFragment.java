@@ -107,33 +107,38 @@ public class DistinguishedFamilyFragment extends Fragment {
 
             }
         });
-        binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-//                filterList(s);
-                ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
-                for (ProductiveFamily productiveFamily: productiveFamilyList ){
-                    if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
-                        productiveFamilies.add(productiveFamily);
-                    }
-                }
-                if (productiveFamilies.isEmpty()){
-                    Toast.makeText(getActivity(), "No Result", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
-                }else {
-                    distinguishedFamilyAdapter.setFilterList(productiveFamilies);
-                }
-//                CollectionReference itemsRef = firebaseFirestore.collection("Productive family");
-//                Query query = itemsRef.whereEqualTo("name", s);
-                return false;
-            }
-        });
-
+//        binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+////                filterList(s);
+//                ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
+//                for (ProductiveFamily productiveFamily: productiveFamilyList ){
+//                    if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
+//                        productiveFamilies.add(productiveFamily);
+//                    }
+//                }
+//                if (productiveFamilies.isEmpty()){
+//                    Toast.makeText(getActivity(), "No Result", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//                }else {
+//                    distinguishedFamilyAdapter.setFilterList(productiveFamilies);
+//                }
+////                CollectionReference itemsRef = firebaseFirestore.collection("Productive family");
+////                Query query = itemsRef.whereEqualTo("name", s);
+//                return false;
+//            }
+//        });
+//binding.backe.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View v) {
+//        finalize();
+//    }
+//});
         return binding.getRoot();
     }
     /*
