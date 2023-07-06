@@ -320,7 +320,7 @@ boolean isfavarite2=true;
                         }
                     }
                 });
-                if (favoritesList.size()==0&&isfavarite2 = =true){
+                if (favoritesList.size()==0&&isfavarite2 ==true){
                     holder.fav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     detailsProductAction.onfav(productArrayList.get(pos));
                 }
