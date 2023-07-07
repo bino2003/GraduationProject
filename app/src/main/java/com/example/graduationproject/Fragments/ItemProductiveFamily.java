@@ -150,11 +150,11 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                     firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product2>) task.getResult().toObjects(Product2.class);
-                    if (productsallArrayList.isEmpty()){
-                        startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
-
-                        binding.progressBar.setVisibility(View.GONE);
-                    }
+//                    if (productsallArrayList.isEmpty()){
+//                        startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//
+//                        binding.progressBar.setVisibility(View.GONE);
+//                    }
                     for (int i=0 ;i<productsallArrayList.size();i++){
                         String id= task.getResult().getDocuments().get(i).getId();
                         Product2 product=productsallArrayList.get(i);
@@ -365,11 +365,11 @@ public class ItemProductiveFamily extends Fragment implements OndeleteProduct {
                     firebaseAuth=FirebaseAuth.getInstance();
                     binding.progressBar.setVisibility(View.GONE);
                     productsallArrayList= (ArrayList<Product2>) task.getResult().toObjects(Product2.class);
-                    if (productsallArrayList.isEmpty()){
-                        startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
-
-                        binding.progressBar.setVisibility(View.GONE);
-                    }
+//                    if (productsallArrayList.isEmpty()){
+//                        startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//
+//                        binding.progressBar.setVisibility(View.GONE);
+//                    }
                     productsArrayList.clear();
                     for (int i=0 ;i<productsallArrayList.size();i++){
                         String id= task.getResult().getDocuments().get(i).getId();

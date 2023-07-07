@@ -138,8 +138,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                              Bundle savedInstanceState) {
         firebaseAuth=FirebaseAuth.getInstance();
 
-         binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
-         binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
+        binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
+        binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
         firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -147,7 +147,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     DocumentSnapshot documentSnapshot=task.getResult();
                     shareddetails=documentSnapshot.getString("details");
                     sharedlocation=documentSnapshot.getString("location");
- sharedphone= String.valueOf(documentSnapshot.getLong("phone"));
+                    sharedphone= String.valueOf(documentSnapshot.getLong("phone"));
                     sharedproductCategory=documentSnapshot.getString("productCategory");
                     editor.putString("sharedproductCategory",sharedproductCategory);
 
@@ -310,7 +310,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         String location=sharedPreferences.getString("sharedlocation","");
         String details=sharedPreferences.getString("shareddetails","");
         String phone=sharedPreferences.getString("sharedphone","");
-         productCategory =sharedPreferences.getString("sharedproductCategory","");
+        productCategory =sharedPreferences.getString("sharedproductCategory","");
 
         Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
@@ -333,7 +333,7 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                     Location=documentSnapshot.getString("location");
                     phone=""+documentSnapshot.getLong("phone").intValue();
 
-                     productCategory =sharedPreferences.getString("sharedproductCategory","");
+                    productCategory =sharedPreferences.getString("sharedproductCategory","");
                     binding2.tvDesception.setText(details);
                     binding2.tvSet.setText(Location);
                     binding2.tvPhone.setText(phone);
