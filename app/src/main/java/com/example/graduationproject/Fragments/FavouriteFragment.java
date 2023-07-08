@@ -1,5 +1,7 @@
 package com.example.graduationproject.Fragments;
 
+import static com.example.graduationproject.R.layout.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,16 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.graduationproject.Adapters.CategoryAdapter;
 import com.example.graduationproject.Adapters.FavoriteAdpter;
 import com.example.graduationproject.DetailsProductiveFamilyActivity.DetailsProductiveFamily;
 import com.example.graduationproject.HandleEmpityActivity;
 import com.example.graduationproject.Interface.UnFavoritve;
 import com.example.graduationproject.Model.Favorite2;
 import com.example.graduationproject.ProductiveFamilyProfileActivity.ViewProduct;
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.FragmentFavouriteBinding;
 import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.ProductiveFamily;
 import com.example.graduationproject.Model.users;
+import com.example.graduationproject.databinding.ItemcategoryBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +38,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 
 /**
@@ -120,9 +126,12 @@ public class FavouriteFragment extends Fragment {
                                             binding.progressBar.setVisibility(View.GONE);
                                             favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
                                             if (favorites.size()==0){
-                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 
+                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//                                                inflater.inflate(handle_empity, container, true);
                                                 binding.progressBar.setVisibility(View.GONE);
+
+
                                             }
                                             adpter = new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override
@@ -199,9 +208,11 @@ public class FavouriteFragment extends Fragment {
                                             binding.progressBar.setVisibility(View.GONE);
 
                                             if (favorites.size()==0){
-                                                startActivity(new Intent(getActivity(),HandleEmpityActivity.class));
-
+                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//                                                inflater.inflate(handle_empity, container,true);
                                                 binding.progressBar.setVisibility(View.GONE);
+
+
                                             }
                                              adpter2= new FavoriteAdpter(favorites, getActivity(), new UnFavoritve() {
                                                 @Override

@@ -84,7 +84,7 @@ public class FavouriteFragment extends Fragment {
         }
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        favorites1=new Favorites();
+        favorites1 = new Favorites();
 
     }
 
@@ -107,11 +107,11 @@ public class FavouriteFragment extends Fragment {
                     firebaseAuth = FirebaseAuth.getInstance();
                     List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
                     for (int i = 0; i < productiveFamilyList.size(); i++) {
-                      //  favorites.get(i).setProductiveFamilyId(productiveFamilyList.get(i).getName());
+                        //  favorites.get(i).setProductiveFamilyId(productiveFamilyList.get(i).getName());
                         String id = task.getResult().getDocuments().get(i).getId();
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
-                                firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user",firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user", firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
@@ -137,21 +137,21 @@ public class FavouriteFragment extends Fragment {
                                                     firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").document(product_id).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(Task<Void> task) {
-                                                            if (task.isSuccessful()){
+                                                            if (task.isSuccessful()) {
                                                                 favorites.remove(pos);
 //                                                                Log.d("favor", favorites.toString());
                                                                 Toast.makeText(getActivity(), "Successfully", Toast.LENGTH_SHORT).show();
 
 
                                                                 //    adpter.notifyDataSetChanged();
-                                                              //  adpter.notifyItemRemoved(pos);
+                                                                //  adpter.notifyItemRemoved(pos);
                                                             }
                                                             Log.d("product id ", product_id);
                                                         }
                                                     });
                                                 }
                                             });
-                                   //         Log.d("favo", favorites.toString());
+                                            //         Log.d("favo", favorites.toString());
                                             binding.rv.setAdapter(adpter);
                                             binding.rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
@@ -178,7 +178,7 @@ public class FavouriteFragment extends Fragment {
 
                         if (id.equals(firebaseAuth.getUid())) {
                             if (firebaseAuth.getUid() != null) {
-                                firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user",firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                firebaseFirestore.collection("users").document(firebaseAuth.getUid()).collection("Favorites").whereEqualTo("user", firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
