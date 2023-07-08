@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -90,6 +92,8 @@ String iduser=FirebaseAuth.getInstance().getUid();
 
         // Step 4: Perform the quer
         binding.tvCategoryName.setText(cat);
+
+
 
         getproductivefamilydistance();
                 binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -520,4 +524,14 @@ String iduser=FirebaseAuth.getInstance().getUid();
 
     // Function to get the user's location (example implementation)
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        MenuItem menuItem=menu.findItem(R.id.action_serche);
+        SearchView searchView=(SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type her to search");
+
+        return super.onCreateOptionsMenu(menu);
+    }
 }

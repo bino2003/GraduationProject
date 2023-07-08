@@ -22,26 +22,26 @@ import com.google.firebase.auth.FirebaseUser;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class LoginActivity extends AppCompatActivity {
-ActivityLoginBinding binding;
-FirebaseAuth firebaseAuth;
+    ActivityLoginBinding binding;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        firebaseAuth=FirebaseAuth.getInstance();
-binding.forgite.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        startActivity(new Intent(getApplicationContext(),Reset_password.class));
-        finish();
-    }
-});
-        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        binding.forgite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Reset_password.class));
+                finish();
+            }
+        });
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user!=null){
+        if (user != null) {
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
 
@@ -50,23 +50,23 @@ binding.forgite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 
             }
         });
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password=binding.password.getText().toString();
-                String email=binding.editText.getText().toString();
+                String password = binding.password.getText().toString();
+                String email = binding.editText.getText().toString();
 
-if (password.isEmpty()&&email.isEmpty()){
-    Toast.makeText(LoginActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
+                if (password.isEmpty() && email.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();
 
 
-}else {
-    login();
-}
+                } else {
+                    login();
+                }
 
 
             }
@@ -74,21 +74,21 @@ if (password.isEmpty()&&email.isEmpty()){
 
     }
 
-    private void login(){
+    private void login() {
 
 
-        String password=binding.password.getText().toString();
-        String email=binding.editText.getText().toString();
+        String password = binding.password.getText().toString();
+        String email = binding.editText.getText().toString();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Log.d("Login",task.getResult().getUser().toString());
+                if (task.isSuccessful()) {
+                    Log.d("Login", task.getResult().getUser().toString());
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
-                }else {
-                    Log.d("Login",task.getException().getMessage());
+                } else {
+                    Log.d("Login", task.getException().getMessage());
 
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
