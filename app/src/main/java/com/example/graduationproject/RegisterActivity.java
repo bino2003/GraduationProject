@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.graduationproject.databinding.ActivityRegisterBinding;
 import com.example.graduationproject.Model.ProductiveFamily;
 import com.example.graduationproject.Model.users;
 
+import com.example.graduationproject.databinding.ActivityRegisterBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
