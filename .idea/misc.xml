@@ -6,8 +6,14 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.16354166666666667" />
         <entry key="app/src/main/res/drawable-mdpi/buttonbg.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable-mdpi/circle.xml" value="0.147" />
+        <entry key="app/src/main/res/drawable-mdpi/cornershape.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable-mdpi/cw_button_shadow.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable-mdpi/editetext.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable-mdpi/ic_baseline_image_24.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable-mdpi/ic_baseline_photo_camera_24.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/backebutton.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/edite.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/et_login.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_add_new_item.xml" value="0.2953125" />

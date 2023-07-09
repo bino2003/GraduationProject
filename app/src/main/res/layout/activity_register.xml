@@ -81,7 +81,7 @@
         android:layout_width="343dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/editetext"
 
         android:paddingStart="20dp"
@@ -123,6 +123,7 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location" />
@@ -159,6 +160,7 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneeNumber" />
@@ -197,6 +199,7 @@
             android:layout_marginTop="25dp"
             android:textColor="#131313"
             android:textSize="15sp"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EmaiLlAddress" />
@@ -235,6 +238,7 @@
             android:layout_marginTop="25dp"
             android:textColor="#131313"
             android:textSize="15sp"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Passsword"/>
