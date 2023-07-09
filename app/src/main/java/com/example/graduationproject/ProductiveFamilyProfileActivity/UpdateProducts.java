@@ -61,10 +61,12 @@ public class UpdateProducts extends AppCompatActivity {
     ArrayList<Uri> ChooseImageList2;
     ArrayList<Uri> uriArrayList;
     ArrayList<String> UrlsList;
+    ArrayList<String> NoChange;
     Uri ImageUri;
     String productive_family;
     private Uri imageuri;
     Product2 model;
+    private boolean isImageChanged = false;
     ProgressDialog progressDialog;
     StorageReference storageRef=FirebaseStorage.getInstance().getReference();
 
@@ -74,6 +76,7 @@ public class UpdateProducts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUpdateProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        NoChange=new ArrayList<>();
         binding.backe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,6 +303,7 @@ public class UpdateProducts extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getClipData() != null) {
+            isImageChanged = true;
             int count = data.getClipData().getItemCount();
             if (count==1){
                 model.setImage(String.valueOf(data.getClipData().getItemAt(1)));
@@ -326,33 +330,115 @@ public class UpdateProducts extends AppCompatActivity {
 
 
     private void UploadIMages() {
-
+        Log.d("UploadIMages", ChooseImageList2.toString());
         // we need list that images urls
-        for (int i = 0; i < ChooseImageList2.size(); i++) {
-            Uri IndividualImage = ChooseImageList2.get(i);
-            if (IndividualImage != null) {
-                progressDialog.show();
-                StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ItemImages");
-                final StorageReference ImageName = ImageFolder.child("Image" + i + ": " + IndividualImage.getLastPathSegment());
-                ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                UrlsList.add(String.valueOf(uri));
-                                if (UrlsList.size() == ChooseImageList2.size()) {
-                                    StoreLinks(UrlsList);
-                                }
-                            }
-                        });
+           if (ChooseImageList2.isEmpty()){
+               String id = getIntent().getStringExtra("id");
+               firebaseFirestore.collection("Products").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                   @Override
+                   public void onComplete(Task<DocumentSnapshot> task) {
+                       if (task.isSuccessful()) {
+                           DocumentSnapshot document1 = task.getResult();
+                           ChooseImageList  = (ArrayList<String>) document1.get("imageUrls");
+                           uriArrayList=new ArrayList<>();
+                           for (int i = 0; i < ChooseImageList.size(); i++) {
+                               uriArrayList.add(Uri.parse(ChooseImageList.get(i)));
+                           }
+                           if (document1.get("imageUrls")!=null){
+                               StoreLinks(ChooseImageList);
+//                               ViewPagerAdapter adapter=new ViewPagerAdapter(getBaseContext(), uriArrayList,true);
+//                               binding.viewPager.setAdapter(adapter);
+                           }
+                           DocumentSnapshot document = task.getResult();
+                           if (document.exists()) {
+                               if (document.getString("image") != null) {
+//                            try {
+//                                Uri imageUri = Uri.parse(document.getString("image"));
+//
+//
+//                               InputStream inputStream = getApplicationContext().getContentResolver().openInputStream(imageUri);
+//                                Drawable image=   Drawable.createFromStream(inputStream, imageUri.toString());
+//                                Glide.with(getApplicationContext()).load().circleCrop().into(binding.uplodeimgupdate);
+//
+//                            } catch (FileNotFoundException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            Glide.with(getApplicationContext()).load(Uri.parse(document.getString("image"))).circleCrop().into(binding.uplodeimgupdate);
 
-                    }
-                });
-            } else {
-                Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
+                               }
+
+
+//
+                           }
+                       }
+
+                   }
+
+               });
+//               NoChange=new ArrayList<>();
+//               for (int i = 0; i < uriArrayList.size(); i++) {
+//                   NoChange.add(String.valueOf(Uri.parse(ChooseImageList.get(i))));
+//                   StoreLinks(NoChange);
+//               }
+//               for (int i = 0; i < uriArrayList.size(); i++) {
+//
+//                   Uri IndividualImage = uriArrayList.get(i);
+//                   if (IndividualImage != null) {
+//                       progressDialog.show();
+//                       StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ItemImages");
+//                       final StorageReference ImageName = ImageFolder.child("Image" + i + ": " + IndividualImage.getLastPathSegment());
+//                       ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                           @Override
+//                           public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                               ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                   @Override
+//                                   public void onSuccess(Uri uri) {
+//                                       UrlsList.add(String.valueOf(uri));
+//                                       if (UrlsList.size() == uriArrayList.size()) {
+//                                           StoreLinks(UrlsList);
+//                                       }
+//                                   }
+//                               });
+//
+//                           }
+//                       });
+//                   } else {
+//                       Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
+//                   }
+//               }
+            Log.d("uriArrayList", uriArrayList.toString());
+
+        }
+        else if (ChooseImageList2!=null) {
+            for (int i = 0; i < ChooseImageList2.size(); i++) {
+
+                Uri IndividualImage = ChooseImageList2.get(i);
+                if (IndividualImage != null) {
+                    progressDialog.show();
+                    StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("ItemImages");
+                    final StorageReference ImageName = ImageFolder.child("Image" + i + ": " + IndividualImage.getLastPathSegment());
+                    ImageName.putFile(IndividualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    UrlsList.add(String.valueOf(uri));
+                                    if (UrlsList.size() == ChooseImageList2.size()) {
+                                        StoreLinks(UrlsList);
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
+                }
             }
         }
+
+
 
 
     }
@@ -365,9 +451,23 @@ public class UpdateProducts extends AppCompatActivity {
         String category1 = binding.etCategryupdate.getText().toString();
         String price1 = binding.etPriceupdate.getText().toString();
 
-        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Description) && ImageUri != null && !TextUtils.isEmpty(category1) && !TextUtils.isEmpty(price1)) {
+
+        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Description)  && !TextUtils.isEmpty(category1) && !TextUtils.isEmpty(price1)) {
             // now we need a model class
-            model = new Product2(Name,Description,price1,category1,firebaseAuth.getUid(),UrlsList);
+            if (isImageChanged) {
+                UploadIMages();
+            } else {
+                // لا يوجد تغيير في الصورة، لكن قم بتحديث البيانات
+                // ...
+            }
+            model = new Product2();
+            //Name,Description,price1,category1,firebaseAuth.getUid(),UrlsList
+            model.setName(Name);
+            model.setDescription(Description);
+            model.setPrice(price1);
+            model.setCategory(category1);
+            model.setUser(firebaseAuth.getUid());
+      model.setImageUrls(urlsList);
             firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
