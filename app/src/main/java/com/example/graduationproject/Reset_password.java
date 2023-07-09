@@ -37,7 +37,7 @@ FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-       String email=binding.emile.getText().toString();
+       String email=binding.emile.getText().toString().trim();
        if (TextUtils.isEmpty(email)&& Patterns.EMAIL_ADDRESS.matcher(email).matches()){
            Toast.makeText(Reset_password.this, "Enter your registered email id", Toast.LENGTH_SHORT).show();
            return;

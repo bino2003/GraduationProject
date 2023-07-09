@@ -85,7 +85,6 @@
                 android:focusable="true"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
-                android:stepSize="3"
                 android:theme="@style/CustomRatingBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/desception" />

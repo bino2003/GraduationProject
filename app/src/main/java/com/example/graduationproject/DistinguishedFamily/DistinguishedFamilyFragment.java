@@ -44,9 +44,16 @@ public class DistinguishedFamilyFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FragmentDistinguishedFamilyBinding binding;
     ArrayList<ProductiveFamily> productiveFamilyList;
     public DistinguishedFamilyFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     /**
@@ -81,7 +88,7 @@ public class DistinguishedFamilyFragment extends Fragment {
                              Bundle savedInstanceState) {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        FragmentDistinguishedFamilyBinding binding = FragmentDistinguishedFamilyBinding.inflate(inflater, container, false);
+         binding = FragmentDistinguishedFamilyBinding.inflate(inflater, container, false);
         firebaseFirestore.collection("Productive family").orderBy("rating", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -156,18 +163,22 @@ public class DistinguishedFamilyFragment extends Fragment {
             }
      */
 
-    private void filterList(String s) {
-        ArrayList<ProductiveFamily> productiveFamilies = new ArrayList<>();
-        for (ProductiveFamily productiveFamily: productiveFamilyList ){
-            if (productiveFamily.getName().toLowerCase().contains(s.toLowerCase())){
-                productiveFamilies.add(productiveFamily);
+    private void refresh() {
+        firebaseFirestore.collection("Productive family").orderBy("rating", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    binding.progressBar2.setVisibility(View.GONE);
+                    productiveFamilyList = (ArrayList<ProductiveFamily>) task.getResult().toObjects(ProductiveFamily.class);
+
+                    distinguishedFamilyAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), task.getException().getMessage() + "", Toast.LENGTH_SHORT).show();
+                }
+
             }
-        }
-        if (productiveFamilies.isEmpty()){
-            Toast.makeText(getActivity(), "No Result", Toast.LENGTH_SHORT).show();
-        }else {
-distinguishedFamilyAdapter.setFilterList(productiveFamilies);
-        }
+        });
+
     }
 }
 

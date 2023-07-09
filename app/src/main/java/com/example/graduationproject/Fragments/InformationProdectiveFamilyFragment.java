@@ -140,33 +140,53 @@ public class InformationProdectiveFamilyFragment extends Fragment {
 
         binding = FragmentInformationProdectiveFamilyBinding.inflate(inflater, container, false);
         binding2 = FragmentInformationProductiveFamily2Binding.inflate(inflater, container, false);
-        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+check();
+//        binding.imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent photoPicker = new Intent();
+//                photoPicker.setAction(Intent.ACTION_GET_CONTENT);
+//                photoPicker.setType("image/*");
+//                activityResultLauncher.launch(photoPicker);
+//            }
+//        });
+
+        location=sharedPreferences.getString("sharedlocation","");
+        details=sharedPreferences.getString("shareddetails","");
+        phone=sharedPreferences.getString("sharedphone","");
+        System.out.println(location);
+        System.out.println(details);
+        System.out.println(phone);
+if (location.isEmpty()||phone.isEmpty()||details.isEmpty()){
+    createprofile();
+}else {
+    viewprofile();
+}
+
+
+
+
+
+
+
+        return  location.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+
+
+    }
+    public void createprofile(){
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot=task.getResult();
-                    shareddetails=documentSnapshot.getString("details");
-                    sharedlocation=documentSnapshot.getString("location");
-                    sharedphone= String.valueOf(documentSnapshot.getLong("phone"));
-                    sharedproductCategory=documentSnapshot.getString("productCategory");
-                    editor.putString("sharedproductCategory",sharedproductCategory);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Productcategory=   adapterView.getItemAtPosition(i).toString();
 
-                    editor.putString("shareddetails",shareddetails);
-                    editor.putString("sharedlocation",sharedlocation);
-                    editor.putString("sharedphone",sharedphone);
-                    editor.apply();
-                    details=documentSnapshot.getString("details");
-                    Location=documentSnapshot.getString("location");
-                    phone=""+documentSnapshot.getLong("phone").intValue();
+            }
 
-                    binding2.tvDesception.setText(details);
-                    binding2.tvSet.setText(Location);
-                    binding2.tvPhone.setText(phone);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-
-                }
             }
         });
+
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -191,31 +211,9 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 activityResultLauncher.launch(photoPicker);
             }
         });
-        binding2.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
-            }
-        });
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Productcategory=   adapterView.getItemAtPosition(i).toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
         binding.btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image = String.valueOf(binding.imageView.getDrawable());
                 description = binding.etDescription.getText().toString();
 
                 firebaseAuth=FirebaseAuth.getInstance();
@@ -232,13 +230,14 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                 productiveFamily.setId(firebaseAuth.getUid());
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
-                int phone = sharedPreferences.getInt("phone", 0);
+                int phone1 = sharedPreferences.getInt("phone", 0);
+                phone=String.valueOf(phone1);
                 lat = sharedPreferences.getString("latitude", null);
                 longitude = sharedPreferences.getString("longitude", null);
                 category =sharedPreferences.getString("category",null);
 
                 productiveFamily.setCategory(category);
-                productiveFamily.setPhone(phone);
+                productiveFamily.setPhone(Integer.parseInt(phone));
                 productiveFamily.setName(name);
                 productiveFamily.setDetails(description);
                 productiveFamily.setLatitude(lat);
@@ -261,7 +260,8 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()){
-                                    productiveFamily.setImage(task.getResult().toString());
+                                    image=task.getResult().toString();
+                                    productiveFamily.setImage(image);
                                     if (image!=null&&description!=null&&location!=null&&Productcategory!=null){
                                         firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -270,14 +270,17 @@ public class InformationProdectiveFamilyFragment extends Fragment {
                                                     Log.d("data ", productiveFamily.toString());
 
                                                     Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
+                                                    editor.putString("sharedlocation",location);
+                                                    editor.putString("shareddetails",description);
+                                                    editor.putString("sharedphone",String.valueOf(phone));
+                                                    editor.apply();
                                                     refresh();
 
 
                                                     Toast.makeText(getActivity(), " successfully ", Toast.LENGTH_SHORT).show();
 
                                                     //    startActivity(new Intent(getActivity(), ViewInformationProtectiveFamilyActivity.class));
-                                                    editor.putString("productcategory",Productcategory);
-                                                    editor.apply();
+
 
 
                                                 } else {
@@ -307,17 +310,33 @@ public class InformationProdectiveFamilyFragment extends Fragment {
         });
 
 
-        String location=sharedPreferences.getString("sharedlocation","");
-        String details=sharedPreferences.getString("shareddetails","");
-        String phone=sharedPreferences.getString("sharedphone","");
-        productCategory =sharedPreferences.getString("sharedproductCategory","");
+    }
+    public void viewprofile(){
+        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
 
-        Toast.makeText(getActivity(), details, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), phone, Toast.LENGTH_SHORT).show();
+                   String detailsproducivefamile=documentSnapshot.getString("details");
+                  String  locationproducivefamile=documentSnapshot.getString("location");
+                 String   phoneproducivefamile=""+documentSnapshot.getLong("phone").intValue();
 
-        return  location.isEmpty()||productCategory.isEmpty()||phone.isEmpty()||details.isEmpty() ? binding.getRoot() : binding2.getRoot();
+                    binding2.tvDesception.setText(detailsproducivefamile);
+                    binding2.tvSet.setText(locationproducivefamile);
+                    binding2.tvPhone.setText(phoneproducivefamile);
 
+
+                }
+            }
+        });
+        binding2.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getActivity(), UpdateInformationProductiveFamilyActivity.class));
+            }
+        });
 
     }
     public void refresh(){
@@ -343,5 +362,32 @@ public class InformationProdectiveFamilyFragment extends Fragment {
             }
         });
     }
+    public void check(){
+        firebaseAuth= FirebaseAuth.getInstance();
+
+        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot=task.getResult();
+
+                    details=documentSnapshot.getString("details");
+                    Location=documentSnapshot.getString("location");
+                    phone=""+documentSnapshot.getLong("phone").intValue();
+
+                 if (details==null&&Location==null){
+                     editor.remove("sharedlocation");
+                     editor.remove("shareddetails");
+                     editor.remove("sharedphone");
+                     editor.apply();
+                 }
+
+
+
+                }
+            }
+        });
+    }
+
 
 }
