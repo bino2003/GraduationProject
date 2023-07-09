@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         String password = binding.password.getText().toString();
-        String email = binding.editText.getText().toString();
+        String email = binding.editText.getText().toString().trim();
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -98,4 +98,3 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
-

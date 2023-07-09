@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         String sharedpassword = sharedPreferences.getString("passwordaftermap", "");
         String sharedrepassword = sharedPreferences.getString("repasswordaftermap", "");
         String sharedname = sharedPreferences.getString("nameaftermap", "");
-        String sharedemail = sharedPreferences.getString("emailaftermap", "");
+        String sharedemail = sharedPreferences.getString("emailaftermap", "").trim();
         String sharedcat = sharedPreferences.getString("cataftermap", "");
         if (sharedcat != null) {
             binding.radioGroup.check(catid);
@@ -213,7 +213,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register() {
-        firebaseAuth.createUserWithEmailAndPassword(binding.EmailAddress.getText().toString(), binding.Password.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(binding.EmailAddress.getText().toString().trim(),
+                binding.Password.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -287,6 +288,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
                     } else {
+
                         Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
 
                     }

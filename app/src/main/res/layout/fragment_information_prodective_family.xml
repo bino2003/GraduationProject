@@ -91,6 +91,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
+                android:inputType="text"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -113,6 +114,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
+                android:inputType="text"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -147,6 +149,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
+                android:inputType="text"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -158,6 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
+
             android:hint="Twitter account">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -168,6 +172,7 @@
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
+                android:inputType="text"
                 android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>

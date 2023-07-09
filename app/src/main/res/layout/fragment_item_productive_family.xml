@@ -36,14 +36,28 @@
         app:trackColor="@color/green"
         app:trackCornerRadius="0dp" />/>
 
-    <Button
+<!--    <Button-->
+<!--        android:id="@+id/add"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="36dp"-->
+<!--        android:backgroundTint="@color/green"-->
+<!--        android:text="ADD"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
         android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="36dp"
-        android:backgroundTint="@color/green"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
         android:text="ADD"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
