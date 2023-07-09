@@ -115,10 +115,10 @@ public class ProfileFragment extends Fragment  {
                                     Toast.makeText(getActivity(), "scroll", Toast.LENGTH_SHORT).show();
                                     if (position==0){
 
-                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
+//                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
 
                                     }else {
-                                        binding.icon.setImageResource(R.drawable.edite);
+//                                        binding.icon.setImageResource(R.drawable.edite);
 
 
                                     }
@@ -214,10 +214,10 @@ public class ProfileFragment extends Fragment  {
                                 public void transformPage(@NonNull View page, float position) {
                                     if (position==0){
 
-                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
+//                                        binding.icon.setImageResource(R.drawable.ic_baseline_add_location_24);
 
                                     }else if (position==1){
-                                        binding.icon.setImageResource(R.drawable.edite);
+//                                        binding.icon.setImageResource(R.drawable.edite);
 
 
                                     }

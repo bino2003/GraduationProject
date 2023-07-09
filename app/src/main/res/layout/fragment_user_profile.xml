@@ -4,6 +4,19 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+
+    <!--    <TextView-->
+<!--        android:layout_width="123dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center"-->
+<!--        android:text="User Profile"-->
+<!--        android:textColor="@color/green"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
     <LinearLayout
         android:id="@+id/backe"
         android:layout_width="32dp"
@@ -23,18 +36,6 @@
 
         </ImageView>
     </LinearLayout>
-
-<!--    <TextView-->
-<!--        android:layout_width="123dp"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:gravity="center"-->
-<!--        android:text="User Profile"-->
-<!--        android:textColor="@color/green"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"

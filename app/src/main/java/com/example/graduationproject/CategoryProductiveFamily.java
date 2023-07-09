@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,14 +49,14 @@ public class CategoryProductiveFamily extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
 
-String iduser=FirebaseAuth.getInstance().getUid();
+    String iduser=FirebaseAuth.getInstance().getUid();
     ArrayList<ProductiveFamily> productiveFamilyArrayListdistance = new ArrayList<>();
     ArrayList<ProductiveFamily> productiveFamilyArrayList=new ArrayList<>();
     String cat;
     double userlat;
     CategoryProductFamilyAdapter categoryProductFamilyAdapter;
     double  userlong;
-   String   userlatString;
+    String   userlatString;
     String   userlongString;
     GeoPoint[] boundingCoordinates;
 //    CategoryProductFamilyAdapter categoryProductFamilyAdapter;
@@ -91,8 +94,10 @@ String iduser=FirebaseAuth.getInstance().getUid();
         // Step 4: Perform the quer
         binding.tvCategoryName.setText(cat);
 
+
+
         getproductivefamilydistance();
-                binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -108,12 +113,12 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             productiveFamilies.add(productiveFamily);
                         }
                         if (productiveFamilies.isEmpty()){
-//                            Toast.makeText(getBaseContext(), "No Result", Toast.LENGTH_SHORT).show();
+                            categoryProductFamilyAdapter.setFilterList(new ArrayList<>());
 //                            startActivity(new Intent(getBaseContext(), HandleEmpityActivity.class));
                         }else {
                             categoryProductFamilyAdapter.setFilterList(productiveFamilies);
                         }
-                }
+                    }
 
                 }
                 else {
@@ -122,7 +127,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                             productiveFamilies.add(productiveFamily);
                         }
                         if (productiveFamilies.isEmpty()){
-//                            Toast.makeText(getBaseContext(), "No Result", Toast.LENGTH_SHORT).show();
+                            categoryProductFamilyAdapter.setFilterList(new ArrayList<>());
 //                            startActivity(new Intent(getBaseContext(), HandleEmpityActivity.class));
                         }else {
                             categoryProductFamilyAdapter.setFilterList(productiveFamilies);
@@ -175,7 +180,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
 
 
 
-                                                            // Filter families within a certain distance threshold (e.g., 10 km)
+                                                        // Filter families within a certain distance threshold (e.g., 10 km)
 
 
 
@@ -189,7 +194,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
                                                             finish();
                                                             binding.progressBar2.setVisibility(View.GONE);
                                                         }
-                                                         categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
+                                                        categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                                                             @Override
                                                             public void onclickproductiveFamily(ProductiveFamily productiveFamily) {
                                                                 if (productiveFamily.getId() != null) {
@@ -260,7 +265,7 @@ String iduser=FirebaseAuth.getInstance().getUid();
 
 
 
-                                                            // Filter families within a certain distance threshold (e.g., 10 km)
+                                                        // Filter families within a certain distance threshold (e.g., 10 km)
 
 
 
@@ -520,4 +525,14 @@ String iduser=FirebaseAuth.getInstance().getUid();
 
     // Function to get the user's location (example implementation)
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        MenuItem menuItem=menu.findItem(R.id.action_serche);
+        SearchView searchView=(SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type her to search");
+
+        return super.onCreateOptionsMenu(menu);
+    }
 }

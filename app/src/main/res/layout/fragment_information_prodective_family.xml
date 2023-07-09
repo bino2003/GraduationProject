@@ -82,7 +82,7 @@
             android:layout_width="343dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:hint=" Desception">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -123,8 +123,8 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="343dp"
+            android:layout_height="50dp"
             android:layout_marginStart="35dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
@@ -181,7 +181,7 @@
             android:layout_height="56dp"
             android:layout_gravity="center"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="28dp"
             android:backgroundTint="#0E8388"
             android:clickable="false"
