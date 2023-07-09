@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         String sharedpassword = sharedPreferences.getString("passwordaftermap", "");
         String sharedrepassword = sharedPreferences.getString("repasswordaftermap", "");
         String sharedname = sharedPreferences.getString("nameaftermap", "");
-        String sharedemail = sharedPreferences.getString("emailaftermap", "");
+        String sharedemail = sharedPreferences.getString("emailaftermap", "").trim();
         String sharedcat = sharedPreferences.getString("cataftermap", "");
         if (sharedcat != null) {
             binding.radioGroup.check(catid);
