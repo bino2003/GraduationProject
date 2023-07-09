@@ -58,7 +58,7 @@ startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             @Override
             public void onClick(View view) {
                 String password=binding.password.getText().toString();
-                String email=binding.editText.getText().toString();
+                String email=binding.editText.getText().toString().trim();
 
 if (password.isEmpty()&&email.isEmpty()){
     Toast.makeText(LoginActivity.this, "All fields must be filled in", Toast.LENGTH_SHORT).show();

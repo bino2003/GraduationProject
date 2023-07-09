@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String passwordmaps= binding.Password.getText().toString();
                 String repasswordmaps=binding.ConfirmPassword.getText().toString();
                 String phonemaps=binding.PhoneNumber.getText().toString();
-                String emailmaps=binding.EmailAddress.getText().toString();
+                String emailmaps=binding.EmailAddress.getText().toString().trim();
                 String namemaps=binding.fullname.getText().toString();
                 binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
                 password=binding.Password.getText().toString();
                 phone=binding.PhoneNumber.getText().toString();
                 rePassword=binding.ConfirmPassword.getText().toString();
-                email=binding.EmailAddress.getText().toString();
+                email=binding.EmailAddress.getText().toString().trim();
                 latitude= getIntent().getStringExtra("lat");
                 longitude= getIntent().getStringExtra("long");
                if(name.isEmpty()||password.isEmpty()||rePassword.isEmpty()||phone.isEmpty()||categorize==null||longitude==null||email==null||latitude==null){
