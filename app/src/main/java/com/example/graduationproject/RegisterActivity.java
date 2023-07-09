@@ -213,10 +213,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register() {
-        firebaseAuth.createUserWithEmailAndPassword(binding.EmailAddress.getText().toString().trim(), binding.Password.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(binding.EmailAddress.getText().toString().trim(),
+                binding.Password.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     editor.remove("phoneaftermap");
                     editor.remove("passwordaftermap");
                     editor.remove("repasswordaftermap");
