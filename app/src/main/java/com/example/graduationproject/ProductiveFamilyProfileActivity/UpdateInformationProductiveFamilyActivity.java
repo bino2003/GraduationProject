@@ -123,64 +123,65 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
             }
 
         });
+        firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                    for (int i = 0; i < productiveFamilyList.size(); i++) {
+                        String id = task.getResult().getDocuments().get(i).getId();
+                        if (id.equals(firebaseAuth.getUid())) {
+                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot documentSnapshot=task.getResult();
+                                    instgram=   documentSnapshot.getString("instgram");
+                                    twitter=   documentSnapshot.getString("twitter");
+                                    rating=   documentSnapshot.getString("rating");
+
+
+                                }
+                            });
+
+                        }
+
+
+                    }
+                }
+            }
+        });
+        firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    List<users> usersList = task.getResult().toObjects(users.class);
+                    for (int i = 0; i < usersList.size(); i++) {
+                        String id = task.getResult().getDocuments().get(i).getId();
+                        if (id.equals(firebaseAuth.getUid())) {
+                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot documentSnapshot=task.getResult();
+                                    instgram=   documentSnapshot.getString("instgram");
+                                    twitter=   documentSnapshot.getString("twitter");
+                                    rating=   documentSnapshot.getString("rating");
+                                }
+                            });
+
+                        }
+
+
+                    }
+                }
+            }
+        });
         binding.updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 firebaseAuth=FirebaseAuth.getInstance();
-                firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
-                            for (int i = 0; i < productiveFamilyList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                                       DocumentSnapshot documentSnapshot=task.getResult();
-                                    instgram=   documentSnapshot.getString("instgram");
-                                            twitter=   documentSnapshot.getString("twitter");
-                                            rating=   documentSnapshot.getString("rating");
 
-
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            List<users> usersList = task.getResult().toObjects(users.class);
-                            for (int i = 0; i < usersList.size(); i++) {
-                                String id = task.getResult().getDocuments().get(i).getId();
-                                if (id.equals(firebaseAuth.getUid())) {
-                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                                            DocumentSnapshot documentSnapshot=task.getResult();
-                                            instgram=   documentSnapshot.getString("instgram");
-                                            twitter=   documentSnapshot.getString("twitter");
-                                            rating=   documentSnapshot.getString("rating");
-                                        }
-                                    });
-
-                                }
-
-
-                            }
-                        }
-                    }
-                });
 
                 String name = binding.etName.getText().toString();
                 int phone = Integer.parseInt(binding.etPhoneupdate.getText().toString());
