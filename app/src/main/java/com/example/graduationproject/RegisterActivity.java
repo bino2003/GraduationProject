@@ -287,6 +287,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(RegisterActivity.this, "Account creation process successful ", Toast.LENGTH_SHORT).show();
                     } else {
+
                         Toast.makeText(RegisterActivity.this, "Account creation failed  ", Toast.LENGTH_SHORT).show();
 
                     }
