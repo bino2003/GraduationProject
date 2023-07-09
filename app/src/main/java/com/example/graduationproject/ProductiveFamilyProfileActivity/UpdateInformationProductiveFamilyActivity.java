@@ -51,10 +51,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
-    String twitter;
-    String instgram;
 
-    String rating;
     FirebaseFirestore firebaseFirestore;
     StorageReference storageRef= FirebaseStorage.getInstance().getReference();
 
@@ -132,17 +129,6 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                     for (int i = 0; i < productiveFamilyList.size(); i++) {
                         String id = task.getResult().getDocuments().get(i).getId();
                         if (id.equals(firebaseAuth.getUid())) {
-                            firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot documentSnapshot=task.getResult();
-                                    instgram=   documentSnapshot.getString("instgram");
-                                    twitter=   documentSnapshot.getString("twitter");
-                                    rating=   documentSnapshot.getString("rating");
-
-
-                                }
-                            });
 
                         }
 
@@ -160,15 +146,6 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                     for (int i = 0; i < usersList.size(); i++) {
                         String id = task.getResult().getDocuments().get(i).getId();
                         if (id.equals(firebaseAuth.getUid())) {
-                            firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot documentSnapshot=task.getResult();
-                                    instgram=   documentSnapshot.getString("instgram");
-                                    twitter=   documentSnapshot.getString("twitter");
-                                    rating=   documentSnapshot.getString("rating");
-                                }
-                            });
 
                         }
 
@@ -204,28 +181,42 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                 productiveFamily.setLatitude(latitude);
                 productiveFamily.setCategory(category);
                 productiveFamily.setLocation(location);
-                productiveFamily.setTwitter(twitter);
-                productiveFamily.setInstgram(instgram);
-                productiveFamily.setRating(rating);
+
 
                 productiveFamily.setPhone(phone);
                 productiveFamily.setDetails(descrption);
                 if (imageuri==null){
                     String oldimage=sharedPreferences.getString("image","");
                     productiveFamily.setImage(oldimage);
-                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d("data ", productiveFamily.toString());
+                        public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                       DocumentSnapshot documentSnapshot=task.getResult();
+                       documentSnapshot.getReference().update("image",oldimage);
+                       documentSnapshot.getReference().update("name",name);
+                       documentSnapshot.getReference().update("productCategory",productCategory);
+                       documentSnapshot.getReference().update("id",firebaseAuth.getUid());
+                       documentSnapshot.getReference().update("longitude",longitude);
+                       documentSnapshot.getReference().update("latitude",latitude);
+                       documentSnapshot.getReference().update("category",category);
+                       documentSnapshot.getReference().update("location",location);
+                            Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
 
-                                Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-finish();                            } else {
-                                Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
-
-                            }
                         }
                     });
+//                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                Log.d("data ", productiveFamily.toString());
+//
+//                                Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
+//finish();                            } else {
+//                                Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }
+//                    });
 
                 }else {
                     StorageReference riversRef = storageRef.child("images/"+imageuri.getLastPathSegment());
@@ -246,21 +237,22 @@ finish();                            } else {
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     if (task.isSuccessful()){
                                         productiveFamily.setImage(task.getResult().toString());
-                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).set(productiveFamily).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        String image1=task.getResult().toString();
+                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d("data ", productiveFamily.toString());
-
-                                                    Toast.makeText(getBaseContext(), " successfully ", Toast.LENGTH_SHORT).show();
-finish();
-                                                } else {
-                                                    Toast.makeText(getBaseContext(), "not successfully  ", Toast.LENGTH_SHORT).show();
-
-                                                }
+                                            public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                                DocumentSnapshot documentSnapshot=task.getResult();
+                                                documentSnapshot.getReference().update("image",image1);
+                                                documentSnapshot.getReference().update("name",name);
+                                                documentSnapshot.getReference().update("productCategory",productCategory);
+                                                documentSnapshot.getReference().update("id",firebaseAuth.getUid());
+                                                documentSnapshot.getReference().update("longitude",longitude);
+                                                documentSnapshot.getReference().update("latitude",latitude);
+                                                documentSnapshot.getReference().update("category",category);
+                                                documentSnapshot.getReference().update("location",location);
+                                                Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
                                             }
                                         });
-
 
 
                                     }

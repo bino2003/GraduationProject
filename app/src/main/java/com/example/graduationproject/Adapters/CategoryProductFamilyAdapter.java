@@ -64,6 +64,7 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 
 
                     holder.ratingBar.setRating(avg);
+
                 }
 
             }
