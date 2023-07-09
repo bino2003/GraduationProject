@@ -20,6 +20,9 @@ import com.bumptech.glide.Glide;
 import com.example.graduationproject.Fragments.InformationProdectiveFamilyFragment;
 import com.example.graduationproject.Fragments.ItemProductiveFamily;
 import com.example.graduationproject.Fragments.fragment_productive_family_profile;
+import com.example.graduationproject.Model.Favorites;
+import com.example.graduationproject.Model.users;
+import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
 
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -29,12 +32,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity {
 
@@ -43,6 +51,10 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     FirebaseAuth firebaseAuth;
     private Uri imageuri;
+    String twitter;
+    String instgram;
+
+    String rating;
     FirebaseFirestore firebaseFirestore;
     StorageReference storageRef= FirebaseStorage.getInstance().getReference();
 
@@ -115,6 +127,61 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 firebaseAuth=FirebaseAuth.getInstance();
+                firebaseFirestore.collection("Productive family").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
+                            for (int i = 0; i < productiveFamilyList.size(); i++) {
+                                String id = task.getResult().getDocuments().get(i).getId();
+                                if (id.equals(firebaseAuth.getUid())) {
+                                    firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                       DocumentSnapshot documentSnapshot=task.getResult();
+                                    instgram=   documentSnapshot.getString("instgram");
+                                            twitter=   documentSnapshot.getString("twitter");
+                                            rating=   documentSnapshot.getString("rating");
+
+
+                                        }
+                                    });
+
+                                }
+
+
+                            }
+                        }
+                    }
+                });
+                firebaseFirestore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            List<users> usersList = task.getResult().toObjects(users.class);
+                            for (int i = 0; i < usersList.size(); i++) {
+                                String id = task.getResult().getDocuments().get(i).getId();
+                                if (id.equals(firebaseAuth.getUid())) {
+                                    firebaseFirestore.collection("users").document(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot documentSnapshot=task.getResult();
+                                            instgram=   documentSnapshot.getString("instgram");
+                                            twitter=   documentSnapshot.getString("twitter");
+                                            rating=   documentSnapshot.getString("rating");
+                                        }
+                                    });
+
+                                }
+
+
+                            }
+                        }
+                    }
+                });
+
                 String name = binding.etName.getText().toString();
                 int phone = Integer.parseInt(binding.etPhoneupdate.getText().toString());
                 String location = binding.etLocationupdate.getText().toString();
@@ -126,6 +193,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
 
                 String  category =sharedPreferences.getString("category",null);
 
+
                 String image = String.valueOf(imageuri);
                 ProductiveFamily productiveFamily = new ProductiveFamily();
                 productiveFamily.setName(name);
@@ -135,6 +203,9 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                 productiveFamily.setLatitude(latitude);
                 productiveFamily.setCategory(category);
                 productiveFamily.setLocation(location);
+                productiveFamily.setTwitter(twitter);
+                productiveFamily.setInstgram(instgram);
+                productiveFamily.setRating(rating);
 
                 productiveFamily.setPhone(phone);
                 productiveFamily.setDetails(descrption);
