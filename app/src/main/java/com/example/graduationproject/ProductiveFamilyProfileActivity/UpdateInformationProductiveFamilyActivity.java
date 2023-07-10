@@ -200,6 +200,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                        documentSnapshot.getReference().update("latitude",latitude);
                        documentSnapshot.getReference().update("category",category);
                        documentSnapshot.getReference().update("location",location);
+                       documentSnapshot.getReference().update("phone",phone);
+                       documentSnapshot.getReference().update("details",descrption);
                             Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
 
                         }
@@ -250,6 +252,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                                                 documentSnapshot.getReference().update("latitude",latitude);
                                                 documentSnapshot.getReference().update("category",category);
                                                 documentSnapshot.getReference().update("location",location);
+                                                documentSnapshot.getReference().update("phone",phone);
+                                                documentSnapshot.getReference().update("details",descrption);
                                                 Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
                                             }
                                         });
