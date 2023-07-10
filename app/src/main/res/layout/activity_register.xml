@@ -60,6 +60,7 @@
             android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

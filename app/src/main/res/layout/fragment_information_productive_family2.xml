@@ -100,13 +100,15 @@ Capitol Mall"
         android:id="@+id/tv_desception"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="16dp"
         android:text="Gaza-El Remal in front of
 Capitol Mall"
         android:textColor="#2C3333"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 

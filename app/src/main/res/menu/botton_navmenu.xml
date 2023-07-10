@@ -4,14 +4,16 @@
 
     <group
         android:checkableBehavior="single">
-    <item android:title="Home"
-         android:icon="@drawable/homes"
+        <item android:title="Home"
+            android:icon="@drawable/homes"
+            android:id="@+id/categories"
+            />
+    <item android:title="Rating"
+         android:icon="@drawable/ic_baseline_star_border_24"
+
         android:id="@+id/hom"/>
 
-    <item android:title="categories"
-        android:icon="@drawable/categorys"
-        android:id="@+id/categories"
-        />
+
 
         <item android:title="Favorite"
             android:icon="@drawable/heart"

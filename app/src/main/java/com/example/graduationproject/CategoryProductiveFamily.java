@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 import android.location.Location;
@@ -73,6 +74,9 @@ public class CategoryProductiveFamily extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoryProductiveFamilyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.imageView6.setVisibility(View.GONE);
+        binding.text.setVisibility(View.GONE);
 
         binding.btnBacke.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,9 +194,15 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
 
                                                         if (productiveFamilyArrayListdistance.isEmpty()) {
-                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
-                                                            finish();
+//                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+//                                                            finish();
+//                                                               inflater.inflate(handle_empity, container, true);
+
+
                                                             binding.progressBar2.setVisibility(View.GONE);
+                                                            binding.imageView6.setVisibility(View.VISIBLE);
+                                                            binding.text.setVisibility(View.VISIBLE);
+
                                                         }
                                                         categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                                                             @Override
@@ -275,9 +285,13 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
 
                                                         if (productiveFamilyArrayListdistance.isEmpty()) {
-                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
-                                                            finish();
+//                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+//                                                            finish();
+
                                                             binding.progressBar2.setVisibility(View.GONE);
+                                                            binding.imageView6.setVisibility(View.VISIBLE);
+                                                            binding.text.setVisibility(View.VISIBLE);
+
                                                         }
                                                         categoryProductFamilyAdapter = new CategoryProductFamilyAdapter(CategoryProductiveFamily.this, new OnClickProductiveFamily() {
                                                             @Override
@@ -379,9 +393,14 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
 
                                                         if (productiveFamilyArrayListdistance.isEmpty()) {
-                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
-                                                            finish();
+//                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+//                                                            finish();
+
                                                             binding.progressBar2.setVisibility(View.GONE);
+                                                            binding.imageView6.setVisibility(View.VISIBLE);
+                                                            binding.text.setVisibility(View.VISIBLE);
+//                                                            View.inflate(getBaseContext(),R.layout.handle_empity,null );
+
                                                         }
 
 
@@ -473,9 +492,16 @@ public class CategoryProductiveFamily extends AppCompatActivity {
 
 
                                                         if (productiveFamilyArrayListdistance.isEmpty()) {
-                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
-                                                            finish();
+
+//                                                            startActivity(new Intent(getApplicationContext(), HandleEmpityActivity.class));
+//                                                            finish();
+//                                                            inflate(R.layout.handle_empity, true);
+
+
                                                             binding.progressBar2.setVisibility(View.GONE);
+                                                            binding.imageView6.setVisibility(View.VISIBLE);
+                                                            binding.text.setVisibility(View.VISIBLE);
+
                                                         }
 
 
