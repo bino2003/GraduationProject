@@ -147,7 +147,9 @@ public class ItemDetailsProduct extends Fragment {
                                                     List<ProductiveFamily> productiveFamilyList = task.getResult().toObjects(ProductiveFamily.class);
                                                     for (int i = 0; i < productiveFamilyList.size(); i++) {
                                                         String id = task.getResult().getDocuments().get(i).getId();
-                                                        firebaseFirestore.collection("Productive family").document(firebaseAuth.getUid()).collection("Favorites").document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        firebaseFirestore.collection("Productive family")
+                                                                .document(firebaseAuth.getUid()).collection("Favorites")
+                                                                .document(favorites_.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 notexistproductivefamily = task.getResult().exists();

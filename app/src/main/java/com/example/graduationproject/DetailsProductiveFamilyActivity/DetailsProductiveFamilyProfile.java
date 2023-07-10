@@ -129,7 +129,9 @@ public class DetailsProductiveFamilyProfile extends Fragment {
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 if (b) {
                     if (id != null) {
-                        firebaseFirestore.collection("Productive family").document(id).update("evaluation", FieldValue.arrayUnion(String.valueOf(v))).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        firebaseFirestore.collection("Productive family")
+                                .document(id).update("evaluation", FieldValue.arrayUnion(String.valueOf(v)))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {

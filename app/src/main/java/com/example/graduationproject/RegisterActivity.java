@@ -218,6 +218,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     editor.remove("phoneaftermap");
                     editor.remove("passwordaftermap");
                     editor.remove("repasswordaftermap");
