@@ -73,7 +73,7 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 
 
 
- Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).into(holder.imageView);
+ Glide.with(context).load(productiveFamilyArrayList.get(pos).getImage()).into(holder.imageView);
 
 //if (!productiveFamilyArrayList.get(position).getImage().isEmpty()){
 //    Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
@@ -84,12 +84,12 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
 
 
 
-        holder.name.setText(productiveFamilyArrayList.get(position).getName());
+        holder.name.setText(productiveFamilyArrayList.get(pos).getName());
         if (productiveFamilyArrayList.get(pos).getDetails()!=null){
             holder.details.setText(productiveFamilyArrayList.get(pos).getDetails());
 
         }
-        holder.details.setText(productiveFamilyArrayList.get(position).getDetails());
+        holder.details.setText(productiveFamilyArrayList.get(pos).getDetails());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

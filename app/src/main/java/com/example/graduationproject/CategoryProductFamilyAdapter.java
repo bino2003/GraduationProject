@@ -65,10 +65,10 @@ public class CategoryProductFamilyAdapter extends RecyclerView.Adapter<CategoryP
         }
 
 
-        if (!productiveFamilyArrayList.get(position).getImage().isEmpty()) {
-            Glide.with(context).load(productiveFamilyArrayList.get(position).getImage()).circleCrop().into(holder.imageView);
+        if (!productiveFamilyArrayList.get(pos).getImage().isEmpty()) {
+            Glide.with(context).load(productiveFamilyArrayList.get(pos).getImage()).circleCrop().into(holder.imageView);
 
-        } else if (productiveFamilyArrayList.get(position).getImage().isEmpty()) {
+        } else if (productiveFamilyArrayList.get(pos).getImage().isEmpty()) {
             Glide.with(context).load(R.drawable.mcdonalds).circleCrop().into(holder.imageView);
 
         }

@@ -168,7 +168,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
 
                     binding.tvDesception.setText(documentSnapshot.getString("details"));
                     binding.tvSet.setText(documentSnapshot.getString("location"));
-                    binding.tvPhone.setText("" + documentSnapshot.getLong("phone").intValue());
+                    binding.tvPhone.setText(documentSnapshot.getString("phone"));
 
 
                 }
@@ -215,7 +215,7 @@ public class DetailsProductiveFamilyProfile extends Fragment {
                 firebaseFirestore.collection("Productive family").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@androidx.annotation.NonNull Task<DocumentSnapshot> task) {
-                        phoneNumbers = "+972"+task.getResult().getLong("phone").toString();
+                        phoneNumbers = "+972"+task.getResult().getString("phone").toString();
 
                         String message = "Hello, let's chat on WhatsApp!";
                         openWhatsAppChat (phoneNumbers, message);
