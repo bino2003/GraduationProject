@@ -18,7 +18,7 @@ public class ProductiveFamily {
     String rating;
     String location;
     List<String> evaluation;
-    int phone;
+    String phone;
     String category;
     String instgram;
     String Twitter;
@@ -41,7 +41,7 @@ public class ProductiveFamily {
         Twitter = twitter;
     }
 
-    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, int phone, String category, String instgram, String twitter, String image, String id) {
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, String phone, String category, String instgram, String twitter, String image, String id) {
         this.name = name;
         this.details = details;
         this.latitude = latitude;
@@ -134,7 +134,7 @@ public class ProductiveFamily {
         this.details = details;
     }
 
-    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, int phone, String category, String image) {
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, String phone, String category, String image) {
         this.name = name;
         this.details = details;
         this.latitude = latitude;
@@ -155,7 +155,7 @@ public class ProductiveFamily {
         this.location = location;
     }
 
-    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, int phone, String category, String image, String id) {
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, String location, List<String> evaluation, String phone, String category, String image, String id) {
         this.name = name;
         this.details = details;
         this.latitude = latitude;
@@ -190,7 +190,7 @@ public class ProductiveFamily {
                 '}';
     }
 
-    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, int phone, String category, String image, String id) {
+    public ProductiveFamily(String name, String details, String latitude, String longitude, String productCategory, String rating, List<String> evaluation, String phone, String category, String image, String id) {
         this.name = name;
         this.details = details;
         this.latitude = latitude;
@@ -212,11 +212,11 @@ public class ProductiveFamily {
         this.evaluation = evaluation;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

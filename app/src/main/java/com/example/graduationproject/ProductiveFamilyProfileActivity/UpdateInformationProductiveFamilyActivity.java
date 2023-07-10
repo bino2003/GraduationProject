@@ -17,12 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import com.example.graduationproject.Fragments.InformationProdectiveFamilyFragment;
-import com.example.graduationproject.Fragments.ItemProductiveFamily;
-import com.example.graduationproject.Fragments.fragment_productive_family_profile;
-import com.example.graduationproject.Model.Favorites;
 import com.example.graduationproject.Model.users;
-import com.example.graduationproject.R;
 import com.example.graduationproject.databinding.ActivityUpdateInformationProductiveFamilyBinding;
 
 import com.example.graduationproject.Model.ProductiveFamily;
@@ -32,7 +27,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,7 +35,6 @@ import com.google.firebase.storage.UploadTask;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity {
@@ -102,7 +95,7 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                         binding.etName.setText(document.getString("name"));
                         binding.etLocationupdate.setText(document.getString("location"));
                         binding.etDescriptionupdate.setText(document.getString("details"));
-                        binding.etPhoneupdate.setText("" + document.getLong("phone").intValue());
+                        binding.etPhoneupdate.setText(document.getString("phone"));
 //                        double phone=document.getDouble("phone");
 //                        int phone
 //                        binding.tvPhone.setText((Integer));
@@ -161,7 +154,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
 
 
                 String name = binding.etName.getText().toString();
-                int phone = Integer.parseInt(binding.etPhoneupdate.getText().toString());
+
+                String phone = binding.etPhoneupdate.getText().toString();
                 String location = binding.etLocationupdate.getText().toString();
                 String descrption = binding.etDescriptionupdate.getText().toString();
                 String productCategory=sharedPreferences.getString("productcategory","");
@@ -183,7 +177,6 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                 productiveFamily.setLocation(location);
 
 
-                productiveFamily.setPhone(phone);
                 productiveFamily.setDetails(descrption);
                 if (imageuri==null){
                     String oldimage=sharedPreferences.getString("image","");
@@ -200,6 +193,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                        documentSnapshot.getReference().update("latitude",latitude);
                        documentSnapshot.getReference().update("category",category);
                        documentSnapshot.getReference().update("location",location);
+                       documentSnapshot.getReference().update("phone",phone);
+                       documentSnapshot.getReference().update("details",descrption);
                             Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
 
                         }
@@ -250,6 +245,8 @@ public class UpdateInformationProductiveFamilyActivity extends AppCompatActivity
                                                 documentSnapshot.getReference().update("latitude",latitude);
                                                 documentSnapshot.getReference().update("category",category);
                                                 documentSnapshot.getReference().update("location",location);
+                                                documentSnapshot.getReference().update("phone",Integer.parseInt(phone));
+                                                documentSnapshot.getReference().update("details",descrption);
                                                 Toast.makeText(UpdateInformationProductiveFamilyActivity.this, "update successfully", Toast.LENGTH_SHORT).show();
                                             }
                                         });

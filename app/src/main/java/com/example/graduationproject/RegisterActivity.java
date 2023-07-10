@@ -196,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     register();
                     editor.putString("name", binding.fullname.getText().toString());
-                    editor.putInt("phone", Integer.parseInt(binding.PhoneNumber.getText().toString()));
+                    editor.putString("phone", binding.PhoneNumber.getText().toString());
                     editor.putString("latitude", latitude);
                     editor.putString("longitude", longitude);
 
@@ -269,7 +269,7 @@ public class RegisterActivity extends AppCompatActivity {
         productiveFamily.setLatitude(latitude);
         //   }
         productiveFamily.setName(name);
-        productiveFamily.setPhone(Integer.parseInt(phone));
+        productiveFamily.setPhone(phone);
         if (isuser) {
             firebaseFirestore.collection("users").document(user.getUid()).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
