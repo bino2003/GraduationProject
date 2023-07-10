@@ -230,14 +230,14 @@ if (location.isEmpty()||phone.isEmpty()||details.isEmpty()){
                 productiveFamily.setId(firebaseAuth.getUid());
                 Log.d("images gallary", "onClick: "+imageuri);
                 String name = sharedPreferences.getString("name", null);
-                int phone1 = sharedPreferences.getInt("phone", 0);
-                phone=String.valueOf(phone1);
+                String phone1 = sharedPreferences.getString("phone", "");
+                phone=phone1;
                 lat = sharedPreferences.getString("latitude", null);
                 longitude = sharedPreferences.getString("longitude", null);
                 category =sharedPreferences.getString("category",null);
 
                 productiveFamily.setCategory(category);
-                productiveFamily.setPhone(Integer.parseInt(phone));
+                productiveFamily.setPhone(phone);
                 productiveFamily.setName(name);
                 productiveFamily.setDetails(description);
                 productiveFamily.setLatitude(lat);
@@ -320,7 +320,7 @@ if (location.isEmpty()||phone.isEmpty()||details.isEmpty()){
 
                    String detailsproducivefamile=documentSnapshot.getString("details");
                   String  locationproducivefamile=documentSnapshot.getString("location");
-                 String   phoneproducivefamile=""+documentSnapshot.getLong("phone").intValue();
+                 String   phoneproducivefamile=documentSnapshot.getString("phone");
 
                     binding2.tvDesception.setText(detailsproducivefamile);
                     binding2.tvSet.setText(locationproducivefamile);
@@ -350,7 +350,7 @@ if (location.isEmpty()||phone.isEmpty()||details.isEmpty()){
 
                     details=documentSnapshot.getString("details");
                     Location=documentSnapshot.getString("location");
-                    phone=""+documentSnapshot.getLong("phone").intValue();
+                    phone=documentSnapshot.getString("phone");
 
                     productCategory =sharedPreferences.getString("sharedproductCategory","");
                     binding2.tvDesception.setText(details);
@@ -373,7 +373,7 @@ if (location.isEmpty()||phone.isEmpty()||details.isEmpty()){
 
                     details=documentSnapshot.getString("details");
                     Location=documentSnapshot.getString("location");
-                    phone=""+documentSnapshot.getLong("phone").intValue();
+                    phone=documentSnapshot.getString("phone");
 
                  if (details==null&&Location==null){
                      editor.remove("sharedlocation");
