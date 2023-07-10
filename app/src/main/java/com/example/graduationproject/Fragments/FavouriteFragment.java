@@ -127,9 +127,11 @@ public class FavouriteFragment extends Fragment {
                                             favorites = (ArrayList<Favorite2>) task.getResult().toObjects(Favorite2.class);
                                             if (favorites.size()==0){
 
-                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
+//                                                startActivity(new Intent(getActivity(), HandleEmpityActivity.class));
 //                                                inflater.inflate(handle_empity, container, true);
                                                 binding.progressBar.setVisibility(View.GONE);
+                                                binding.imageView6.setVisibility(View.VISIBLE);
+                                                binding.text.setVisibility(View.VISIBLE);
 
 
                                             }
@@ -283,6 +285,9 @@ public class FavouriteFragment extends Fragment {
 //            }
 //        });
 //        binding.carNameTv.setText(CarName);
+        binding.imageView6.setVisibility(View.GONE);
+        binding.text.setVisibility(View.GONE);
+
 
         return binding.getRoot();
     }
